@@ -1,0 +1,28 @@
+import wollok.game.*
+import Personajes.personaje.*
+
+program juego {
+
+  // Configuración del escenario
+  game.width(10)
+  game.height(10)
+  game.cellSize(48)
+
+  // Tick: mueve continuamente al personaje
+  game.onTick(100, "moverPersonaje", { personaje.move() })
+
+  // Controles de teclado WASD
+  keyboard.w().onPressDo   { personaje.upPressed = true }
+  keyboard.w().onReleaseDo { personaje.upPressed = false }
+
+  keyboard.s().onPressDo   { personajePrincipal.downPressed = true }
+  keyboard.s().onReleaseDo { personajePrincipal.downPressed = false }
+
+  keyboard.a().onPressDo   { personajePrincipal.leftPressed = true }
+  keyboard.a().onReleaseDo { personajePrincipal.leftPressed = false }
+
+  keyboard.d().onPressDo   { personajePrincipal.rightPressed = true }
+  keyboard.d().onReleaseDo { personajePrincipal.rightPressed = false }
+
+  game.start()
+}
