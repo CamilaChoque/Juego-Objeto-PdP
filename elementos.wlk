@@ -4,7 +4,7 @@ object caja{
 }
 
 object obstaculo{
-    var property position=game.at(2, 1)
+    var property position=game.at(6, 2)
     var property image = "obstaculo.png"
     //var serie=
 }
