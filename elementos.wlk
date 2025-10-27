@@ -3,8 +3,9 @@ object caja{
     var property image = "caja1.png"
 }
 
-object obstaculo{
+class Obstaculo{
     var property position=game.at(6, 2)
-    var property image = "obstaculo.png"
+    var property image = "obstaculo1.png"
     //var serie=
+    
 }
