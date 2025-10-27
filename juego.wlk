@@ -38,4 +38,6 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         game.allVisuals().image()=="obstaculo1.png"
         //todos los visuales con esa img vamos a evitarlas ó nos interesará su posición
     }
+
+    method estaAlLimite(posX,posY)=game.width()<posX || game.height()<posY || posX<0 || posY<0 //si se pasa del tablero tanto negativo o fuera del rango
 }
