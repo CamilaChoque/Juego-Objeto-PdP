@@ -2,7 +2,7 @@ import wollok.game.*
 import elementos.caja
 import personaje.personaje
 import enemigo.enemigo
-import juego.juego
+import iniciojuego.juego
 
 
 

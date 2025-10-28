@@ -2,7 +2,7 @@ import wollok.game.*
 import elementos.*
 import personaje.*
 import enemigo.*
-import juego.*
+import iniciojuego.*
 
 
 object mapainicial{
