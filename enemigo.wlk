@@ -4,9 +4,7 @@ import juego.*
 
 class enemigo{
     var property position=game.center() //peso-G: Total de pasos que hicimos para llegar al objetivo | 
-    var property obstaculos = game.allVisuals() //de cada obstaculos nos interesa su posicion
-    var property openSet = [] //celdas que no hemos revisado
-    var property closeSet =[] //celdas que hemos revisado
+    
     var property recorridoATomar=[]
     //heuristica=inicio
     //inicio: position().x() Y position().y() 
@@ -23,13 +21,9 @@ class enemigo{
     
     method perseguir(objetivo){
         //var posicion=objetivo.position()
+        //decidirCamino()
         
-        openSet.add([self.position().x(), self.position().y()]) //agregamos la posicion actual del enemigo
-         //agregamos a esta lista porque la estamos analizando
-        self.todosLosvecinos(openSet.remove(openSet.last()))
-        
-
-        if(objetivo.position().x()>position.x()){
+        /*if(objetivo.position().x()>position.x()){
             position=position.right(1)
         }
         if(objetivo.position().x()<position.x()){
@@ -40,20 +34,28 @@ class enemigo{
         }
         if(objetivo.position().x()==position.x() && objetivo.position().y()>position.y()){
             position=position.up(1)
-        }
+        }*/
         //position=position.right(4)
     }
 
-    method costoDesdeInicial(){
+    
+
+}
+
+class HitboxEnemigo inherits enemigo{ //recorrera todos los caminos posibles y luego le pasara el recorrido eficiente a ENEMIGO, recien ahi liberamos todo
+    //heredamos la posicion con el mismo valor pero podemos usarla a nuestra forma
+    var property obstaculos = game.allVisuals() //de cada obstaculos nos interesa su posicion
+    var property openSet = [] //celdas que no hemos revisado
+    var property closeSet =[] //celdas que hemos revisado
+    override method image()="hola.png" //no lleva la misma img que el otro por eso
+
+    method decidirCamino(){
+        const posicionAEvaluar=[self.position().x(), self.position().y()] //guardamos la posicion actual del enemigo
+        openSet.add(posicionAEvaluar)  //agregamos a esta lista porque la estamos analizando
+        self.todosLosvecinos(openSet.first())
+        self.costoDesdeInicial()
 
     }
-    method costoAlFinal(){
-
-    }
-    method armarRecorrido(){
-
-    }
-
     method obstaculoPresente(posicionVecinoX,posicionVecinoY){
      return obstaculos.any({obstaculo=>obstaculo.estaEnCelda(posicionVecinoX, posicionVecinoY)})
     }
@@ -88,5 +90,15 @@ class enemigo{
     
     }
     
+    method costoDesdeInicial(){ //obtenemos "g"
 
+    }
+    method costoAlFinal(){ //obtenemos "h"
+
+    }
+    method armarRecorrido(){ //obtener "F" y registrarlo recorridoATomar
+
+    }
+
+    
 }
