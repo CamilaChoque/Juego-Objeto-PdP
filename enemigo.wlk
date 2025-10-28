@@ -1,9 +1,9 @@
-
+import elementos.*
     
 
 
 class enemigo{
-    var property position=game.center()
+    var property position=game.at(4,4)
     //var position = game.at(30,30)
     //var posicion = game.at(0,0)
     method image()="enemigo1.png"
@@ -25,6 +25,8 @@ class enemigo{
             position=position.up(1)
         }
         //position=position.right(4)
+        //if(objetivo.position() == position){self.perseguir(puerta)
+        //}
     }
     
 
