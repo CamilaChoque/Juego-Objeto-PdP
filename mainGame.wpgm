@@ -1,5 +1,5 @@
 import wollok.game.*
-import Personajes.personaje.*
+//import Personajes.personaje.*
 
 program juego {
 
@@ -7,7 +7,7 @@ program juego {
   game.width(10)
   game.height(10)
   game.cellSize(48)
-
+/*
   // Tick: mueve continuamente al personaje
   game.onTick(100, "moverPersonaje", { personaje.move() })
 
@@ -23,6 +23,6 @@ program juego {
 
   keyboard.d().onPressDo   { personajePrincipal.rightPressed = true }
   keyboard.d().onReleaseDo { personajePrincipal.rightPressed = false }
-
+*/
   game.start()
 }
