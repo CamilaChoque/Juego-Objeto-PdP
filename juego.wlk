@@ -29,7 +29,8 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         game.addVisual(obstaculov_)})
         
         
-        game.onTick(1000, "seguimiento", {invisibleEnemigo.perseguir(caja)}) //esto actualizar recorrerATomar
+        game.onTick(1000, "seguimiento", {invisibleEnemigo.evaluarCamino()}) //esto actualizar recorrerATomar
+        //agregar ontick para el enemigo
         
         
         //game.onTick(1000, "seguimiento", {enemigo_.perseguir(caja)})
