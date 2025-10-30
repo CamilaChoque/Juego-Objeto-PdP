@@ -1,12 +1,20 @@
 import wollok.game.*
-//import Personajes.personaje.*
+import Personajes.*
+import elementos.caja
+import enemigo.enemigo
+import juego.juego
 
-program juego {
+program alienGame {
 
-  // Configuración del escenario
-  game.width(10)
-  game.height(10)
-  game.cellSize(48)
+	game.title("Alien-Protocol")
+	game.height(10)
+	game.width(18)
+  //game.boardGround("fondo2.jpg")
+
+	//
+	game.ground("celda.png")
+
+	//game.showAttributes(pepita) //Debug
 /*
   // Tick: mueve continuamente al personaje
   game.onTick(100, "moverPersonaje", { personaje.move() })
@@ -24,5 +32,8 @@ program juego {
   keyboard.d().onPressDo   { personajePrincipal.rightPressed = true }
   keyboard.d().onReleaseDo { personajePrincipal.rightPressed = false }
 */
+
+
+	juego.iniciar()
   game.start()
 }
