@@ -5,45 +5,80 @@ object personaje {
 
     var property position = game.center()
     const property velocidad = 1
-    var property orientacion = 1
-    var property estado = 1
+    var property orientacion = 1        // 1: Arriba, 2: Abajo, 3: Izq, 4:Der
+    var property estado = 1             // Para el cambio de sprite
 
     var property imagen = "astronauta_frente.png"
     method image() = imagen
+    
+    //Variables para movimiento
+    var property mueveArriba = false
+    var property mueveAbajo = false
+    var property mueveIzq = false
+    var property mueveDer = false
 
-    method movilidad(){
+    method configTeclas(){
 
         // Teclas WASD
+        //------- PRESIONO TECLA -------
         // Arriba (W)
+        
         keyboard.w().onPressDo({
-            self.position(self.position().up(velocidad))
+            mueveArriba = true
             imagen = "astronauta_detras.png"
             orientacion = 1
         })
 
         // Abajo (S)
         keyboard.s().onPressDo({
-            self.position(self.position().down(velocidad))
+            mueveAbajo = true
             imagen = "astronauta_frente.png"
             orientacion = 2
         })
 
         // Izquierda (A)
         keyboard.a().onPressDo({
-            self.position(self.position().left(velocidad))
+            mueveIzq = true
             imagen = "astronauta_izquierda.png"
             orientacion = 3
         })
 
         // Derecha (D)
         keyboard.d().onPressDo({
-            self.position(self.position().right(velocidad))
+            mueveDer = true
             imagen = "astronauta_derecha.png"
             orientacion = 4
         })
     }
+ 
+ 
+    method mover(){
+        if(mueveArriba) self.position(self.position().up(velocidad))
+        if(mueveAbajo) self.position(self.position().down(velocidad))
+        if(mueveIzq) self.position(self.position().left(velocidad))
+        if(mueveDer) self.position(self.position().right(velocidad))
+
+        mueveArriba = false
+        mueveAbajo = false
+        mueveDer = false
+        mueveIzq = false
+    }
+
+    method moverContinuo(){
+        
+        game.onTick(40, "movilidadPersonaje", { => 
+            self.mover()
+            self.configTeclas()
+        })
+            
+    }
+
     method animacion() {
-	  	game.onTick(400, "estados", { => self.estados() })
+	  	game.onTick(400, "animacion", { => 
+            if(!mueveArriba && !mueveAbajo && !mueveIzq && !mueveDer){
+                self.estados()
+            } 
+        })
 	}
 
 	method estados() {

@@ -2,17 +2,6 @@ import wollok.game.*
 
 object posiciones {
 
-  method mover(posicion, velocidad, arriba, abajo, izquierda, derecha) {
-    var nueva = posicion
-
-    if (arriba) nueva = nueva.up(velocidad)
-    if (abajo) nueva = nueva.down(velocidad)
-    if (izquierda) nueva = nueva.left(velocidad)
-    if (derecha) nueva = nueva.right(velocidad)
-
-    return nueva
-  }
-
   // Limita la posición dentro del tablero
   method limitarDentroDe(posicion) {
     var x = posicion.x()
