@@ -62,6 +62,8 @@ object personaje {
         mueveAbajo = false
         mueveDer = false
         mueveIzq = false
+
+        self.position(posiciones.limitarDentroDe(self.position()))
     }
 
     method moverContinuo(){
