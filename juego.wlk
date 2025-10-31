@@ -4,10 +4,10 @@ import enemigo.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
     const enemigo_ = new enemigo()
-    const invisibleEnemigo = new HitboxEnemigo()
+    //const invisibleEnemigo = new HitboxEnemigo()
     method iniciar(){
         game.addVisualCharacter(caja)
-        game.addVisual(invisibleEnemigo)
+        //game.addVisual(invisibleEnemigo)
         game.addVisual(enemigo_)
 
         
@@ -31,7 +31,7 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         game.addVisual(obstaculov_)})
         
         
-        game.onTick(800, "seguimiento", {invisibleEnemigo.perseguir()}) //esto actualizar recorrerATomar
+        game.onTick(500, "seguimiento", {enemigo_.perseguir()}) //esto actualizar recorrerATomar
         
         //game.schedule(100, {invisibleEnemigo.perseguir()}) //esto actualizar recorrerATomar
 

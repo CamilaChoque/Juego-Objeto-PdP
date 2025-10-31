@@ -8,37 +8,15 @@ class enemigo{
     var property recorridoATomar=[self.position()]
     method image()="enemigo1.png"
 
-     //const posiciones = [game.at(1, 2),game.at(1, 3),game.at(1, 4),game.at(1, 5),game.at(1, 6),game.at(2, 6)]
-    var indice=0
-    method perseguir(){
-        //recorre
-        
-        /*self.position(recorridoATomar.get(indice))
-            //self.position(posiciones[indice])
-            indice=indice+1*()*/
-
-        if (indice < recorridoATomar.size()) {
-            self.position(recorridoATomar.get(indice))
-            indice = indice + 1
-        } 
-    }
-
-    
-
-}
-
-class HitboxEnemigo inherits enemigo{ //recorrera todos los caminos posibles y luego le pasara el recorrido eficiente a ENEMIGO, recien ahi liberamos todo
-    //heredamos la posicion con el mismo valor pero podemos usarla a nuestra forma
-    var property obstaculos = game.allVisuals().filter({visual=>visual.image()==="obstaculo1.png"}) //de cada obstaculos nos interesa su posicion
     var property openSet = [] //celdas que no hemos revisado
     var property closeSet =[] //celdas que hemos revisado
-    override method image()="enemigo1.png" //no lleva la misma img que el otro por eso
     var posicionAnt=objetivo.position() //debe ser propio del personaje, cambiar despues
+     //const posiciones = [game.at(1, 2),game.at(1, 3),game.at(1, 4),game.at(1, 5),game.at(1, 6),game.at(2, 6)]
+    var indice=0
     
-
-    override method perseguir(){ //evaluar camino
+    method perseguir(){ //evaluar camino
         var posicionObjetivo=objetivo.position()
-        console.println("again")
+        //console.println("again")
        
         if(posicionAnt==posicionObjetivo){
             if(!recorridoATomar.contains(posicionObjetivo)){ //sacar ese indice xq marca loop
@@ -54,33 +32,47 @@ class HitboxEnemigo inherits enemigo{ //recorrera todos los caminos posibles y l
                 /*openSet.forEach({ posicion =>
                     console.println("va: "+posicion)
                 })*/
+                var elMenor=100
+                var posicionDelMenor=game.at(0,0)
+                
                 openSet.forEach({posicion=>
-                    console.println("Procesando posicion: " + posicion)
-                    const vecino_=new Vecino()
-                    vecino_.position(game.at(posicion.first(), posicion.last()))
-                    vecino_.costoTotalF(self.position(), posicionObjetivo)
+                    var f=0    
+                    
+                    //vecino_.position(game.at(posicion.first(), posicion.last()))
+                    
+                    f=self.costoTotalF(self.position(), posicionObjetivo,posicion)
+                    console.println("analizando: "+posicion)
+                    console.println("f: "+f)
                     //console.println("Mensaje a mostrar en consola: "+vecino_.f())
-                    estadisticaVecinal.add(vecino_)
+                    if(f<elMenor) {
+                        elMenor=f/*;posicionDelMenor=vecino.position()*/
+                        posicionDelMenor=posicion
+                    }else{
+                        console.println("ganador: "+posicionDelMenor)
+                        console.println("objetivo: "+posicionObjetivo)
+                    }
+                    
                 })
                 
-                //analizamos el que tiene el f menor de todo
-                var elMenor=estadisticaVecinal.first().f()
-                //var posicionDelMenor=game.at(0,0)
-                estadisticaVecinal.forEach({vecino=>
-                    if(vecino.f()<=elMenor) {elMenor=vecino.f()/*;posicionDelMenor=vecino.position()*/}
-                })
+                
 
                 
                 //nos interesa la posicion con el f menor de todos
-                recorridoATomar.add(estadisticaVecinal.find({vecino=>vecino.f()==elMenor}).position())
-                /*console.println("Ganador: "+recorridoATomar.last())
-                console.println("Objetivo: "+posicionObjetivo)*/
+                recorridoATomar.add(game.at(posicionDelMenor.first(),posicionDelMenor.last()))
                 closeSet.addAll(openSet)
                 openSet.clear()
                 estadisticaVecinal.clear()
 
             }else{
-                super()
+                //recorre
+                /*self.position(recorridoATomar.get(indice))
+                    //self.position(posiciones[indice])
+                    indice=indice+1*()*/
+
+                if (indice < recorridoATomar.size()) {
+                    self.position(recorridoATomar.get(indice))
+                    indice = indice + 1
+                } 
                  
             }
         }else{
@@ -97,8 +89,18 @@ class HitboxEnemigo inherits enemigo{ //recorrera todos los caminos posibles y l
 
     }
     
-    method obstaculoPresente(posicionVecinoX,posicionVecinoY){
+    /*method obstaculoPresente(posicionVecinoX,posicionVecinoY){
      return obstaculos.any({obstaculo=>obstaculo.estaEnCelda(posicionVecinoX, posicionVecinoY)})
+    }*/
+
+     
+    method obstaculoPresente(valorX,valorY){
+        const obstaculos = game.allVisuals().filter({visual=>visual.image()=="obstaculo1.png"})
+        //game.allVisuals().image()==self.image()
+         
+
+         return obstaculos.any({obstaculo=>obstaculo.position().x()==valorX && obstaculo.position().y()==valorY})
+
     }
 
     method agregarVecino(posVecinoX,posVecinoY){
@@ -133,13 +135,19 @@ class HitboxEnemigo inherits enemigo{ //recorrera todos los caminos posibles y l
         self.agregarVecino(eneX+1, eneY) //(5,6)
         
     }
-  
-   
 
+    method costoPor(posicion_,posActual)=(posActual.first()-posicion_.x()).abs()+(posActual.last()-posicion_.y()).abs()
+    //obtenemos "h"
     
+    method costoTotalF(posicionInicial,posicionObjetivo,posicionActual){
+            return (self.costoPor(posicionObjetivo,posicionActual)+self.costoPor(posicionInicial,posicionActual))
+        }
+    
+
 }
 
-class Vecino{ //xq tendre muchos vecinos desde mi posicion actual
+
+/*class Vecino{ //xq tendre muchos vecinos desde mi posicion actual
     var property position = enemigo.position() //primer paso se analizara ahi))
     var property f =0 
    
@@ -152,4 +160,4 @@ class Vecino{ //xq tendre muchos vecinos desde mi posicion actual
         }
     
 
-}
+}*/
