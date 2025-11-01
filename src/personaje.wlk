@@ -7,20 +7,25 @@ object personaje inherits Obstaculo {
 		
 		//Left
 		keyboard.a().onPressDo({
-			position=position.left(1)})
+			position=position.left(1)
+			}
+		)
 			
 		//right
 		keyboard.d().onPressDo({			
 			position=position.right(1)
-		})
+			}
+		)
 		//down
 		keyboard.s().onPressDo({ 
 			position=position.down(1)
-		})
+			}
+		)
 		//up
 		keyboard.w().onPressDo({
 			position=position.up(1)
-		})
+			}
+		)
 	}
 
 	//method cambiarDeHabitacion() {
