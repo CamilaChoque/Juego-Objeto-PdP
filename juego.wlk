@@ -31,7 +31,7 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         game.addVisual(obstaculov_)})
         
         
-        game.onTick(500, "seguimiento", {enemigo_.perseguir()}) //esto actualizar recorrerATomar
+        game.onTick(200, "seguimiento", {enemigo_.perseguir()}) //esto actualizar recorrerATomar
         
         //game.schedule(100, {invisibleEnemigo.perseguir()}) //esto actualizar recorrerATomar
 

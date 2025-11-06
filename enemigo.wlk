@@ -6,7 +6,8 @@ class enemigo{
     var property position=game.center() //peso-G: Total de pasos que hicimos para llegar al objetivo | 
     var property objetivo = caja
     var property recorridoATomar=[self.position()]
-    method image()="enemigo1.png"
+    method image()="invi.png"
+    //method image()="enemigo1.png"
 
     var property openSet = [] //celdas que no hemos revisado
     var property closeSet =[] //celdas que hemos revisado
@@ -20,8 +21,8 @@ class enemigo{
        
         if(posicionAnt==posicionObjetivo){
             if(!recorridoATomar.contains(posicionObjetivo)){ //sacar ese indice xq marca loop
-                
-                const estadisticaVecinal=[]
+                var posicionObjetivo=objetivo.position()
+                //const estadisticaVecinal=[]}
                 //primera instancia es crear los vecinos desde mi osicion inicial
             
                 //const posicionAEvaluar //guardamos la posicion actual del enemigo
@@ -48,20 +49,20 @@ class enemigo{
                         elMenor=f/*;posicionDelMenor=vecino.position()*/
                         posicionDelMenor=posicion
                     }else{
-                        console.println("ganador: "+posicionDelMenor)
-                        console.println("objetivo: "+posicionObjetivo)
+                        console.println("-ganador: "+posicionDelMenor)
+                        console.println("-objetivo: "+posicionObjetivo)
                     }
                     
                 })
                 
-                
+                self.position(game.at(posicionDelMenor.first(),posicionDelMenor.last()))
 
                 
                 //nos interesa la posicion con el f menor de todos
                 recorridoATomar.add(game.at(posicionDelMenor.first(),posicionDelMenor.last()))
                 closeSet.addAll(openSet)
                 openSet.clear()
-                estadisticaVecinal.clear()
+                //estadisticaVecinal.clear()
 
             }else{
                 //recorre
@@ -69,10 +70,11 @@ class enemigo{
                     //self.position(posiciones[indice])
                     indice=indice+1*()*/
 
-                if (indice < recorridoATomar.size()) {
+                console.println("llegate al objetivo")
+                /*if (indice < recorridoATomar.size()) {
                     self.position(recorridoATomar.get(indice))
                     indice = indice + 1
-                } 
+                } */
                  
             }
         }else{
