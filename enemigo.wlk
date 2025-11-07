@@ -10,10 +10,9 @@ class Enemigo{
     //method image()="enemigo1.png"
     var posicionDelMenor=[self.position().x(),self.position().y()]
     var property openSet = [] //celdas que no hemos revisado
-    var property closeSet =[] //celdas que hemos revisado
+    var property closeSet =[self.position().x(),self.position().y()] //celdas que hemos revisado
     var posicionAnt=objetivo.position() //debe ser propio del personaje, cambiar despues
      //const posiciones = [game.at(1, 2),game.at(1, 3),game.at(1, 4),game.at(1, 5),game.at(1, 6),game.at(2, 6)]
-    var indice=0
     
     method perseguir(){ //evaluar camino
         //var posicionObjetivo=objetivo.position()
@@ -27,7 +26,6 @@ class Enemigo{
                 //en este if no comparamos con posicionMenor x seguridad y hacer la evaluacion exacta ya que posicion actual del enemigo y posicionMenor puede ser diferente 
                 
                 self.todosLosvecinos(posicionDelMenor.first(),posicionDelMenor.last()) //recorridoATomar significa los que analice seran de la ruta y siempre partire del 1er elemento para saber sus vecinos y saber que camino tomar
-                
                 
 
                 openSet.forEach({posicion=>
@@ -59,21 +57,15 @@ class Enemigo{
 
             }else{
                 //recorre
-                /*self.position(recorridoATomar.get(indice))
-                    //self.position(posiciones[indice])
-                    indice=indice+1*()*/
+                
 
                 console.println("llegate al objetivo")
                 posicionAnt=objetivo.position()
                 closeSet.clear()
                 openSet.clear()
                 posicionDelMenor=[self.position().x(),self.position().y()]
-                indice=0
-                /*if (indice < recorridoATomar.size()) {
-                    self.position(recorridoATomar.get(indice))
-                    indice = indice + 1
-                } */
-                 
+                closeSet =[self.position().x(),self.position().y()]
+                
             }
         }else{
             console.println("se movio")
@@ -81,9 +73,8 @@ class Enemigo{
             closeSet.clear()
             openSet.clear()
             posicionDelMenor=[self.position().x(),self.position().y()]
-            //recorridoATomar.clear()
-            //recorridoATomar=[self.position()]
-            indice=0
+            closeSet =[self.position().x(),self.position().y()]
+            
         }
         
         
@@ -91,16 +82,9 @@ class Enemigo{
 
     }
     
-    /*method obstaculoPresente(posicionVecinoX,posicionVecinoY){
-     return obstaculos.any({obstaculo=>obstaculo.estaEnCelda(posicionVecinoX, posicionVecinoY)})
-    }*/
-
      
     method obstaculoPresente(valorX,valorY){
         const obstaculos = game.allVisuals().filter({visual=>visual.image()=="obstaculo1.png"})
-        //game.allVisuals().image()==self.image()
-         
-
          return obstaculos.any({obstaculo=>obstaculo.position().x()==valorX && obstaculo.position().y()==valorY})
 
     }
@@ -109,6 +93,8 @@ class Enemigo{
         
         if(!closeSet.contains([posVecinoX, posVecinoY]) && !self.obstaculoPresente(posVecinoX,posVecinoY) && !juego.estaAlLimite(posVecinoX, posVecinoY)) {
             openSet.add([posVecinoX, posVecinoY])
+        }else{
+            console.println("No elegido: "+[posVecinoX, posVecinoY])
         }
         
 
