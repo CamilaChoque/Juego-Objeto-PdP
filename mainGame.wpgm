@@ -9,9 +9,8 @@ program alienGame {
 	game.title("Alien-Protocol")
 	game.height(10)
 	game.width(18)
-  //game.boardGround("fondo2.jpg")
+  	//game.boardGround("fondo2.jpg")
 
-	//
 	//game.ground("celda.png")
   
 
@@ -20,5 +19,5 @@ program alienGame {
 
 
 	juego.iniciar()
-  game.start()
+  	game.start()
 }
