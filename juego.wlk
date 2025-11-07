@@ -3,17 +3,10 @@ import elementos.*
 import enemigo.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
-    const enemigo_ = new enemigo()
-    //const invisibleEnemigo = new HitboxEnemigo()
+    const enemigo_ = new Enemigo()
     method iniciar(){
         game.addVisualCharacter(caja)
-        //game.addVisual(invisibleEnemigo)
         game.addVisual(enemigo_)
-
-        
-        
-       
-
         [9,10,11,12,13,14,15].forEach({ elemento=>
         //const obstaculoA_ = new Obstaculo()
         const obstaculoB_ = new Obstaculo()

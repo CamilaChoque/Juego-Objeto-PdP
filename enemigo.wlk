@@ -2,13 +2,13 @@ import juego.*
 import elementos.*
 
 
-class enemigo{
-    var property position=game.center() //peso-G: Total de pasos que hicimos para llegar al objetivo | 
+class Enemigo{
+    var property position=game.center() //posicion inicial
     var property objetivo = caja
-    var property recorridoATomar=[self.position()]
+    //var property recorridoATomar=[self.position()] //posicion donde esta
     method image()="invi.png"
     //method image()="enemigo1.png"
-
+    var posicionDelMenor=[self.position().x(),self.position().y()]
     var property openSet = [] //celdas que no hemos revisado
     var property closeSet =[] //celdas que hemos revisado
     var posicionAnt=objetivo.position() //debe ser propio del personaje, cambiar despues
@@ -16,30 +16,22 @@ class enemigo{
     var indice=0
     
     method perseguir(){ //evaluar camino
-        var posicionObjetivo=objetivo.position()
+        //var posicionObjetivo=objetivo.position()
         //console.println("again")
-       
-        if(posicionAnt==posicionObjetivo){
-            if(!recorridoATomar.contains(posicionObjetivo)){ //sacar ese indice xq marca loop
-                var posicionObjetivo=objetivo.position()
-                //const estadisticaVecinal=[]}
-                //primera instancia es crear los vecinos desde mi osicion inicial
-            
-                //const posicionAEvaluar //guardamos la posicion actual del enemigo
-                self.todosLosvecinos(recorridoATomar.last()) //recorridoATomar significa los que analice seran de la ruta y siempre partire del 1er elemento para saber sus vecinos y saber que camino tomar
-                //console.println("desde: "+recorridoATomar.last())
-                //analisis
-                //openSet tendra all vecinos es hora de que cada vecino tenga su posicion y "f"
-                /*openSet.forEach({ posicion =>
-                    console.println("va: "+posicion)
-                })*/
-                var elMenor=100
-                var posicionDelMenor=game.at(0,0)
+        var elMenor=100 //por los valores dde la tabla nunca llegaremos a 100
+        
+        var posicionObjetivo=objetivo.position()
+
+        if(posicionAnt==posicionObjetivo){ //esto para tomar en cuenta q no se haya movido, si lo hizo refrescamos todo y volvemos a analizar: evaluar si realmente funciona
+            if(self.position().x()!=objetivo.position().x() || self.position().y()!=objetivo.position().y()){ 
+                //en este if no comparamos con posicionMenor x seguridad y hacer la evaluacion exacta ya que posicion actual del enemigo y posicionMenor puede ser diferente 
                 
+                self.todosLosvecinos(posicionDelMenor.first(),posicionDelMenor.last()) //recorridoATomar significa los que analice seran de la ruta y siempre partire del 1er elemento para saber sus vecinos y saber que camino tomar
+                
+                
+
                 openSet.forEach({posicion=>
                     var f=0    
-                    
-                    //vecino_.position(game.at(posicion.first(), posicion.last()))
                     
                     f=self.costoTotalF(self.position(), posicionObjetivo,posicion)
                     console.println("analizando: "+posicion)
@@ -51,15 +43,16 @@ class enemigo{
                     }else{
                         console.println("-ganador: "+posicionDelMenor)
                         console.println("-objetivo: "+posicionObjetivo)
+                        console.println("-enemigo: "+ self.position())
                     }
                     
                 })
                 
-                self.position(game.at(posicionDelMenor.first(),posicionDelMenor.last()))
+                self.position(game.at(posicionDelMenor.first(),posicionDelMenor.last())) //actualizamos su posicon para que se mueva
 
                 
                 //nos interesa la posicion con el f menor de todos
-                recorridoATomar.add(game.at(posicionDelMenor.first(),posicionDelMenor.last()))
+                //recorridoATomar.add(game.at(posicionDelMenor.first(),posicionDelMenor.last()))
                 closeSet.addAll(openSet)
                 openSet.clear()
                 //estadisticaVecinal.clear()
@@ -71,6 +64,11 @@ class enemigo{
                     indice=indice+1*()*/
 
                 console.println("llegate al objetivo")
+                posicionAnt=objetivo.position()
+                closeSet.clear()
+                openSet.clear()
+                posicionDelMenor=[self.position().x(),self.position().y()]
+                indice=0
                 /*if (indice < recorridoATomar.size()) {
                     self.position(recorridoATomar.get(indice))
                     indice = indice + 1
@@ -78,11 +76,13 @@ class enemigo{
                  
             }
         }else{
+            console.println("se movio")
             posicionAnt=objetivo.position()
             closeSet.clear()
             openSet.clear()
-            recorridoATomar.clear()
-            recorridoATomar=[self.position()]
+            posicionDelMenor=[self.position().x(),self.position().y()]
+            //recorridoATomar.clear()
+            //recorridoATomar=[self.position()]
             indice=0
         }
         
@@ -113,7 +113,7 @@ class enemigo{
         
 
     }
-    method todosLosvecinos(posicionActual){
+    method todosLosvecinos(eneX,eneY){
         /*digamos tengo la posicon (4,6)
         quiero las posiciones (analizando que no hayan sido analizados ó que no esté ahi obstaculos)*/
         /*
@@ -121,9 +121,7 @@ class enemigo{
         (4,5)     (4,7)
              (5,6)*/
        
-        
-        const eneX = posicionActual.x()
-        const eneY=posicionActual.y()
+    
         closeSet.add([eneX,eneY]) //la posicion actual está siendo analizada por eso lo ponemos en closeSet - sirve esto xq si esta en closeSet significa que ya lo analice
         
 

@@ -1,7 +1,7 @@
 import wollok.game.*
 
 import elementos.caja
-import enemigo.enemigo
+import enemigo.Enemigo
 import juego.juego
 
 
