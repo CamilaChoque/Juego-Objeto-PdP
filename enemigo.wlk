@@ -35,14 +35,23 @@ class Enemigo{
                     console.println("analizando: "+posicion)
                     console.println("f: "+f)
                     //console.println("Mensaje a mostrar en consola: "+vecino_.f())
+                    //si son iguales elegir el menor de la distancia euclides
                     if(f<elMenor) {
                         elMenor=f/*;posicionDelMenor=vecino.position()*/
                         posicionDelMenor=posicion
-                    }else{
+                    }else if(f==elMenor){ //si son iguales elegimos el que tenga distancia menor euclideana
+                        var dist_f=self.distanciaEuclidiana(posicion, [posicionObjetivo.x(),posicionObjetivo.y()])
+                        var dist_elMenor=self.distanciaEuclidiana(posicionDelMenor, [posicionObjetivo.x(),posicionObjetivo.y()])
+                        //var dist_f=self.distanciaEuclideana(posicion,[posicionObjetivo.x(),posicionObjetivo.y()])
+                        //var dist_elMenor=self.distanciaEuclideana(posicionDelMenor,[posicionObjetivo.x(),posicionObjetivo.y()])
+                        if(dist_f<dist_elMenor){
+                            elMenor=f/*;posicionDelMenor=vecino.position()*/
+                            posicionDelMenor=posicion
+                        }
                         console.println("-ganador: "+posicionDelMenor)
                         console.println("-objetivo: "+posicionObjetivo)
                         console.println("-enemigo: "+ self.position())
-                    }
+                    } 
                     
                 })
                 
@@ -82,16 +91,26 @@ class Enemigo{
 
     }
     
-     
+    method distanciaEuclidiana(destino,llegada){ //si ambos vecinos tienene f igual, elegimos la distancia euclidiana mas convenitne, xq no usar euclidiana en todas xq puede calcularse con el enemigo cerca y en si en poco practica porque puede haber un opbstaculo ahi y es mejor la distancia manhattan
+        //armado de los vectores ó hipotenunsas, cada uno es una coordenada
+        const abscisa=destino.first()-llegada.first()
+        const coordenada=destino.last()-llegada.last()
+        //calculo del modulo de ambos vector
+        console.println("De"+destino+" es : "+(abscisa**2+coordenada**2)**0.5)
+        return (abscisa**2+coordenada**2)**0.5
+        
+    }
     method obstaculoPresente(valorX,valorY){
         const obstaculos = game.allVisuals().filter({visual=>visual.image()=="obstaculo1.png"})
          return obstaculos.any({obstaculo=>obstaculo.position().x()==valorX && obstaculo.position().y()==valorY})
 
     }
 
+    method celdaLibre(posVecinoX,posVecinoY)=!closeSet.contains([posVecinoX, posVecinoY]) && !self.obstaculoPresente(posVecinoX,posVecinoY) && !juego.estaAlLimite(posVecinoX, posVecinoY) //celda libre significa que no fue revisado, que no esta al limite y que no tiene obstaculo
+    
     method agregarVecino(posVecinoX,posVecinoY){
         
-        if(!closeSet.contains([posVecinoX, posVecinoY]) && !self.obstaculoPresente(posVecinoX,posVecinoY) && !juego.estaAlLimite(posVecinoX, posVecinoY)) {
+        if(self.celdaLibre(posVecinoX,posVecinoY)) {
             openSet.add([posVecinoX, posVecinoY])
         }else{
             console.println("No elegido: "+[posVecinoX, posVecinoY])
