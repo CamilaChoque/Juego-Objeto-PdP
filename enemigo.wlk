@@ -3,6 +3,7 @@ import elementos.*
 
 
 class Enemigo{
+    const caminataAtras=["ene_caminaAtras1.png","ene_caminaAtras2.png"]
     var property position=game.center() //posicion inicial
     var property objetivo = caja
     //var property recorridoATomar=[self.position()] //posicion donde esta
@@ -13,10 +14,10 @@ class Enemigo{
     var property closeSet =[self.position().x(),self.position().y()] //celdas que hemos revisado
     var posicionAnt=objetivo.position() //debe ser propio del personaje, cambiar despues
      //const posiciones = [game.at(1, 2),game.at(1, 3),game.at(1, 4),game.at(1, 5),game.at(1, 6),game.at(2, 6)]
+     var property estado=true
     
     method perseguir(){ //evaluar camino
-        //var posicionObjetivo=objetivo.position()
-        //console.println("again")
+        
         var elMenor=100 //por los valores dde la tabla nunca llegaremos a 100
         
         var posicionObjetivo=objetivo.position()
@@ -40,8 +41,8 @@ class Enemigo{
                         elMenor=f/*;posicionDelMenor=vecino.position()*/
                         posicionDelMenor=posicion
                     }else if(f==elMenor){ //si son iguales elegimos el que tenga distancia menor euclideana
-                        var dist_f=self.distanciaEuclidiana(posicion, [posicionObjetivo.x(),posicionObjetivo.y()])
-                        var dist_elMenor=self.distanciaEuclidiana(posicionDelMenor, [posicionObjetivo.x(),posicionObjetivo.y()])
+                        const dist_f=self.distanciaEuclidiana(posicion, [posicionObjetivo.x(),posicionObjetivo.y()])
+                        const dist_elMenor=self.distanciaEuclidiana(posicionDelMenor, [posicionObjetivo.x(),posicionObjetivo.y()])
                         //var dist_f=self.distanciaEuclideana(posicion,[posicionObjetivo.x(),posicionObjetivo.y()])
                         //var dist_elMenor=self.distanciaEuclideana(posicionDelMenor,[posicionObjetivo.x(),posicionObjetivo.y()])
                         if(dist_f<dist_elMenor){
@@ -55,19 +56,17 @@ class Enemigo{
                     
                 })
                 
-                self.position(game.at(posicionDelMenor.first(),posicionDelMenor.last())) //actualizamos su posicon para que se mueva
+                self.cambiarDireccion(posicionDelMenor)
+                
 
                 
+                
                 //nos interesa la posicion con el f menor de todos
-                //recorridoATomar.add(game.at(posicionDelMenor.first(),posicionDelMenor.last()))
                 closeSet.addAll(openSet)
                 openSet.clear()
-                //estadisticaVecinal.clear()
 
             }else{
                 //recorre
-                
-
                 console.println("llegate al objetivo")
                 posicionAnt=objetivo.position()
                 closeSet.clear()
@@ -144,25 +143,64 @@ class Enemigo{
     method costoPor(posicion_,posActual)=(posActual.first()-posicion_.x()).abs()+(posActual.last()-posicion_.y()).abs()
     //obtenemos "h"
     
-    method costoTotalF(posicionInicial,posicionObjetivo,posicionActual){
-            return (self.costoPor(posicionObjetivo,posicionActual)+self.costoPor(posicionInicial,posicionActual))
-        }
+    method costoTotalF(posicionInicial,posicionObjetivo,posicionActual)=self.costoPor(posicionObjetivo,posicionActual)+self.costoPor(posicionInicial,posicionActual)
     
+    method cambiarDireccion(posicionNueva){ //aCTUALIZA POSICION y sprite
+    self.position(game.at(posicionNueva.first(),posicionNueva.last())) //actualizamos su posicon para que se mueva
+        var  mueveArriba = false
+        var  mueveAbajo = false
+        var  mueveIzq = false
+        var  mueveDer = false
+         /*digamos tengo la posicon (4,6)
+        quiero las posiciones (analizando que no hayan sido analizados ó que no esté ahi obstaculos)*/
+        /*
+            (3,6)
+        (4,5)  (4,6)   (4,7)
+             (5,6)*/
 
+        if(posicionNueva.first()>self.position().x()){
+            mueveAbajo=true
+            mueveArriba=false
+            mueveIzq = false
+            mueveDer = false
+            //mover abajo
+        }
+        if(posicionNueva.first()>self.position().x()){
+            mueveArriba=true
+            mueveAbajo = false
+            mueveIzq = false
+            mueveDer = false
+            //movbver arriba
+        }
+        if(posicionNueva.first()==self.position().x()){
+            if(posicionNueva.last()<self.position().y()){
+                mueveIzq=true
+                mueveArriba=false
+                mueveAbajo = false
+                mueveDer = false
+                self.cambiarSprite("ene_caminaAtras1.png", "ene_caminaAtras2.png")
+            }else{
+                mueveDer=true
+                mueveIzq=false
+                mueveArriba=false
+                mueveAbajo = false
+            }
+        }
+        /*if(mueveArriba) self.position(self.position().up(velocidad))
+        if(mueveAbajo) self.position(self.position().down(velocidad))
+        if(mueveIzq) self.position(self.position().left(velocidad))
+        if(mueveDer) self.position(self.position().right(velocidad))*/
+    }
+
+    method cambiarSprite(imagen1,imagen2){
+        if (estado) {
+			imagen = imagen1 //cambiar img
+			estado = !estado
+		} else {
+			imagen = imagen2
+			estado = !estado
+		}
+
+    }
 }
 
-
-/*class Vecino{ //xq tendre muchos vecinos desde mi posicion actual
-    var property position = enemigo.position() //primer paso se analizara ahi))
-    var property f =0 
-   
-    //obtenemos "g" ó g (depende del parametro)
-    method costoPor(posicion_)=(position.x()-posicion_.x()).abs()+(position.y()-posicion_.y()).abs()
-    //obtenemos "h"
-    
-    method costoTotalF(posicionInicial,posicionObjetivo){
-            self.f(self.costoPor(posicionObjetivo)+self.costoPor(posicionInicial))
-        }
-    
-
-}*/
