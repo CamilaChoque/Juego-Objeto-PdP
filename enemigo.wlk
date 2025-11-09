@@ -3,24 +3,26 @@ import elementos.*
 
 
 class Enemigo{
-    const caminataAtras=["ene_caminaAtras1.png","ene_caminaAtras2.png"]
+    //const caminataAtras=["ene_caminaAtras1.png","ene_caminaAtras2.png"]
     var property position=game.center() //posicion inicial
     var property objetivo = caja
     //var property recorridoATomar=[self.position()] //posicion donde esta
-    method image()="invi.png"
+    var property image = "ene_caminaDelante1.png" //pra modificarlo
     //method image()="enemigo1.png"
     var posicionDelMenor=[self.position().x(),self.position().y()]
     var property openSet = [] //celdas que no hemos revisado
     var property closeSet =[self.position().x(),self.position().y()] //celdas que hemos revisado
     var posicionAnt=objetivo.position() //debe ser propio del personaje, cambiar despues
      //const posiciones = [game.at(1, 2),game.at(1, 3),game.at(1, 4),game.at(1, 5),game.at(1, 6),game.at(2, 6)]
-     var property estado=true
+     var property estado=1
+
+     var property vida=5
     
     method perseguir(){ //evaluar camino
         
         var elMenor=100 //por los valores dde la tabla nunca llegaremos a 100
         
-        var posicionObjetivo=objetivo.position()
+        const posicionObjetivo=objetivo.position()
 
         if(posicionAnt==posicionObjetivo){ //esto para tomar en cuenta q no se haya movido, si lo hizo refrescamos todo y volvemos a analizar: evaluar si realmente funciona
             if(self.position().x()!=objetivo.position().x() || self.position().y()!=objetivo.position().y()){ 
@@ -146,7 +148,7 @@ class Enemigo{
     method costoTotalF(posicionInicial,posicionObjetivo,posicionActual)=self.costoPor(posicionObjetivo,posicionActual)+self.costoPor(posicionInicial,posicionActual)
     
     method cambiarDireccion(posicionNueva){ //aCTUALIZA POSICION y sprite
-    self.position(game.at(posicionNueva.first(),posicionNueva.last())) //actualizamos su posicon para que se mueva
+    
         var  mueveArriba = false
         var  mueveAbajo = false
         var  mueveIzq = false
@@ -158,49 +160,71 @@ class Enemigo{
         (4,5)  (4,6)   (4,7)
              (5,6)*/
 
-        if(posicionNueva.first()>self.position().x()){
-            mueveAbajo=true
-            mueveArriba=false
-            mueveIzq = false
-            mueveDer = false
-            //mover abajo
+        if(posicionNueva.last()==self.position().y()){
+            if(posicionNueva.first()>self.position().x()){
+                mueveAbajo=true
+                mueveArriba=false
+                mueveIzq = false
+                mueveDer = false
+                //mover abajo
+                
+                self.cambiarSprite("ene_caminaDer1.png", "ene_caminaDer2.png")
+            }
+            if(self.position().x()>posicionNueva.first()){
+                mueveArriba=true
+                mueveAbajo = false
+                mueveIzq = false
+                mueveDer = false
+                //movbver arriba
+                self.cambiarSprite("ene_caminaIzq1.png", "ene_caminaIzq2.png")
+                
+            }
         }
-        if(posicionNueva.first()>self.position().x()){
-            mueveArriba=true
-            mueveAbajo = false
-            mueveIzq = false
-            mueveDer = false
-            //movbver arriba
-        }
+        
         if(posicionNueva.first()==self.position().x()){
             if(posicionNueva.last()<self.position().y()){
                 mueveIzq=true
                 mueveArriba=false
                 mueveAbajo = false
                 mueveDer = false
-                self.cambiarSprite("ene_caminaAtras1.png", "ene_caminaAtras2.png")
+                self.cambiarSprite("ene_caminaDelante1.png", "ene_caminaDelante1.png")
             }else{
                 mueveDer=true
                 mueveIzq=false
                 mueveArriba=false
                 mueveAbajo = false
+                self.cambiarSprite("ene_caminaAtras1.png", "ene_caminaAtras2.png")
             }
         }
         /*if(mueveArriba) self.position(self.position().up(velocidad))
         if(mueveAbajo) self.position(self.position().down(velocidad))
         if(mueveIzq) self.position(self.position().left(velocidad))
         if(mueveDer) self.position(self.position().right(velocidad))*/
+        self.position(game.at(posicionNueva.first(),posicionNueva.last())) //actualizamos su posicon para que se mueva
+        //reinicio valores para que no afecte posteriores direcciones
+        mueveArriba = false
+        mueveAbajo = false
+        mueveIzq = false
+        mueveDer = false
     }
 
     method cambiarSprite(imagen1,imagen2){
-        if (estado) {
-			imagen = imagen1 //cambiar img
-			estado = !estado
-		} else {
-			imagen = imagen2
-			estado = !estado
-		}
+        if (self.estado()==1) {
+			self.image(imagen1) //cambiar img
+            estado = 2
+		} else{
+			self.image(imagen2) //cambiar img
+			estado = 1
+		}	
+        
+    }
+
+    method efectoBala(arma){
 
     }
+    
 }
 
+/*object armaSimple{
+    const property efecto=1
+}*/
