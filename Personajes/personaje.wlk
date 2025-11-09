@@ -24,30 +24,30 @@ object personaje {
         // Arriba (W)
         
         keyboard.w().onPressDo({
-            mueveArriba = true
-            imagen = "astronauta_detras.png"
-            orientacion = 1
+            self.mueveArriba(true)
+            self.imagen("astronauta_detras.png")
+            self.orientacion(1) 
         })
 
         // Abajo (S)
         keyboard.s().onPressDo({
-            mueveAbajo = true
-            imagen = "astronauta_frente.png"
-            orientacion = 2
+            self.mueveAbajo (true)
+            self.imagen ("astronauta_frente.png")
+            self.orientacion(2) 
         })
 
         // Izquierda (A)
         keyboard.a().onPressDo({
-            mueveIzq = true
-            imagen = "astronauta_izquierda.png"
-            orientacion = 3
+            self.mueveIzq (true)
+            self.imagen ("astronauta_izquierda.png")
+            self.orientacion(3) 
         })
 
         // Derecha (D)
         keyboard.d().onPressDo({
-            mueveDer = true
-            imagen = "astronauta_derecha.png"
-            orientacion = 4
+            self.mueveDer (true)
+            self.imagen ("astronauta_derecha.png")
+            self.orientacion(4) 
         })
     }
  
@@ -58,10 +58,10 @@ object personaje {
         if(mueveIzq) self.position(self.position().left(velocidad))
         if(mueveDer) self.position(self.position().right(velocidad))
 
-        mueveArriba = false
-        mueveAbajo = false
-        mueveDer = false
-        mueveIzq = false
+        self.mueveArriba (false)
+        self.mueveAbajo (false)
+        self.mueveDer (false)
+        self.mueveIzq (false)
 
         self.position(posiciones.limitarDentroDe(self.position()))
     }
@@ -83,24 +83,24 @@ object personaje {
         })
 	}
 
-	method estados() {
-		if (orientacion == 1) 		// arriba
-			self.CambioDeSprite("astronauta_detras.png", "astronauta_detras.png")
-		else if (orientacion == 2) 	// abajo
-			self.CambioDeSprite("astronauta_frente.png", "astronauta_frente.png")
-		else if (orientacion == 3) 	// izquierda
-			self.CambioDeSprite("astronauta_izquierda.png", "astronauta_izquierda.png")
-		else if (orientacion == 4) 	// derecha
-			self.CambioDeSprite("astronauta_derecha.png", "astronauta_derecha.png")
+	method estados() {//cambiar todos los atributos modificados a self.atributo() para evitar errores en ejeucución
+		if (self.orientacion() == 1) 		// arriba
+			self.cambioDeSprite("astronauta_detras.png", "astronauta_detras.png")
+		else if (self.orientacion() == 2) 	// abajo
+			self.cambioDeSprite("astronauta_frente.png", "astronauta_frente.png")
+		else if (self.orientacion() == 3) 	// izquierda
+			self.cambioDeSprite("astronauta_izquierda.png", "astronauta_izquierda.png")
+		else if (self.orientacion() == 4) 	// derecha
+			self.cambioDeSprite("astronauta_derecha.png", "astronauta_derecha.png")
 	}
 
-	method CambioDeSprite(imagen1, imagen2) {
-	  	if (estado) {
-			imagen = imagen1
-			estado = !estado
+	method cambioDeSprite(imagen1, imagen2) {
+	  	if (self.estado()) {
+			self.imagen(imagen1) 
+			self.estado(!estado) 
 		} else {
-			imagen = imagen2
-			estado = !estado
+			self.imagen(imagen2) 
+			self.estado(!estado)
 		}
 	}
 }
