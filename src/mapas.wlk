@@ -24,8 +24,8 @@ object mapa1{//abajo mapa2 arriba mapá
         const puerta3 = new Puerta()
         const puerta4 = new Puerta()
         personaje.cambioposicion(
-            -((personaje.position().x())+10)*0.9,
-            -((personaje.position().y())+10)*0.9
+            (-(personaje.position().x())+10),
+            (-(personaje.position().y())+10)
         )
         game.addVisual(personaje)
         game.addVisual(enemigo_)
@@ -53,8 +53,8 @@ object mapa1{//abajo mapa2 arriba mapá
         const puerta3 = new Puerta()
         const puerta4 = new Puerta()
         personaje.cambioposicion(
-            -((personaje.position().x())+10)*0.9,
-            -((personaje.position().y())+10)*0.9
+            (-(personaje.position().x())+10)*0.9,
+            (-(personaje.position().y())+10)*0.9
         )
         game.addVisual(personaje)
         game.addVisual(enemigo_)
@@ -81,8 +81,8 @@ object mapa2{
         //game.allVisuals().clear()
         game.addVisual(image)
         personaje.cambioposicion(
-            -((personaje.position().x())+10)*0.9,
-            -((personaje.position().y())+10)*0.9
+            (-(personaje.position().x())+10)*0.9,
+            (-(personaje.position().y())+10)*0.9
         )
         game.addVisual(personaje)
         puerta1.cambioposicion(5,0)
@@ -99,8 +99,8 @@ object mapa3{
         //game.allVisuals().clear()
         game.addVisual(image)
         personaje.cambioposicion(
-            -((personaje.position().x())+10)*0.9,
-            -((personaje.position().y())+10)*0.9
+            (-(personaje.position().x())+10)*0.9,
+            (-(personaje.position().y())+10)*0.9
         )
         game.addVisual(personaje)
         puerta1.cambioposicion(5,0)
@@ -116,8 +116,8 @@ object mapa4{
         //game.allVisuals().clear()
         game.addVisual(image)
         personaje.cambioposicion(
-            -((personaje.position().x())+10)*0.9,
-            -((personaje.position().y())+10)*0.9
+            (-(personaje.position().x())+10)*0.9,
+            (-(personaje.position().y())+10)*0.9
         )
         game.addVisual(personaje)
         puerta1.cambioposicion(5,0)
@@ -134,8 +134,8 @@ object mapa5{
         //game.allVisuals().clear()
         game.addVisual(image)
         personaje.cambioposicion(
-            -((personaje.position().x())+10)*0.9,
-            -((personaje.position().y())+10)*0.9
+            (-(personaje.position().x())+10)*0.9,
+            (-(personaje.position().y())+10)*0.9
         )
         game.addVisual(personaje)
         puerta1.cambioposicion(5,0)
