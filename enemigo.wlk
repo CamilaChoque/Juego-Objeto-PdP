@@ -87,8 +87,16 @@ class Enemigo{
         
     }
 
-    method efectoBala(arma){
+    method efectoBala(arma){ //afecta la vida segun arma
+        if(self.vida()>0){
+            vida=self.vida()-arma.potencia()
+        }else{
+            self.desaparecer()
+        }
+    }
 
+    method desaparecer(){
+        game.removeVisual(self) //sacarlo del tablero
     }
 
     method cambiarSprite(posicionNueva) //metodo abstracto
