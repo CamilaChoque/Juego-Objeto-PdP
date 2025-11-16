@@ -10,7 +10,7 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         game.addVisual(enemigo_)
         game.addVisual(personaje)
 
-        //personaje.configTeclas()
+        personaje.configTeclas()
         personaje.moverContinuo()
         personaje.animacion()
 

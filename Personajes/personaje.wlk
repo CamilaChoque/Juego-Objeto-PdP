@@ -6,7 +6,7 @@ object personaje {
     var property position = game.center()
     const property velocidad = 1
     var property orientacion = 1        // 1: Arriba, 2: Abajo, 3: Izq, 4:Der
-    var property estado = 1             // Para el cambio de sprite
+    var property estado = true             // Para el cambio de sprite
 
     var property imagen = "astronauta_frente.png"
     method image() = imagen
@@ -70,7 +70,6 @@ object personaje {
         
         game.onTick(40, "movilidadPersonaje", { => 
             self.mover()
-            self.configTeclas()
         })
             
     }
@@ -97,10 +96,10 @@ object personaje {
 	method cambioDeSprite(imagen1, imagen2) {
 	  	if (self.estado()) {
 			self.imagen(imagen1) 
-			self.estado(!estado) 
+			self.estado(!self.estado()) 
 		} else {
 			self.imagen(imagen2) 
-			self.estado(!estado)
+			self.estado(!self.estado())
 		}
 	}
 }
