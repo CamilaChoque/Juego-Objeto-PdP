@@ -1,6 +1,8 @@
+import wollok.game.*
 import Personajes.personaje.*
 import elementos.*
 import enemigo.*
+import colisiones.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
     const enemigo_ = new enemigo()
@@ -23,15 +25,16 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         obstaculoB_.position(game.at(elemento, 9))
 
         //game.addVisual(obstaculoA_)
-        game.addVisual(obstaculoB_)})
+        game.addVisual(obstaculoB_)
+        colisiones.agregar(obstaculoB_)
+        })
         
         [2,3,4,5].forEach({ elemento=>
         const obstaculov_ = new Obstaculo()
         obstaculov_.position(game.at(9, elemento))
-        
-        
-        game.addVisual(obstaculov_)})
-        
+        game.addVisual(obstaculov_)
+        colisiones.agregar(obstaculov_)
+        })
         
         game.onTick(1000, "seguimiento", {invisibleEnemigo.perseguir(caja)}) //esto actualizar recorrerATomar
         
@@ -48,7 +51,7 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
     }*/
 
     method estaAlLimite(posX,posY)=game.width()<posX || game.height()<posY || posX<0 || posY<0 //si se pasa del tablero tanto negativo o fuera del rango
-
+    
 }
 
     
