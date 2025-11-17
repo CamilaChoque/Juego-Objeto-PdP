@@ -4,7 +4,7 @@ import enemigo.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
     //const enemigo_ = new Enemigo()
-    const enemigoC1 = new EnemigoCorredor()
+    const enemigoC1 = new EnemigoCorredor(vida=3,velocidad=50)
     /*const enemigoGrande=new Enemigo(vida=14)
     const enemigoPequenio=new Enemigo(vida=3)
     const enemigoMediano=new Enemigo(vida=7)*/

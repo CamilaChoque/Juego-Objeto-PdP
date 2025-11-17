@@ -8,8 +8,8 @@ class Enemigo{
     var property objetivo = caja
     var property image = "invi.png" //pra modificarlo
     var property distanciaControl=8
-    var property vida
-    var property velocidad
+    var property vida=0
+    var property velocidad=0
 //    var property image = "ene_caminaDelante1.png" //pra modificarlo
 
   
@@ -87,13 +87,13 @@ class Enemigo{
         
     }
 
-    method efectoBala(arma){ //afecta la vida segun arma
+    /*method efectoBala(arma){ //afecta la vida segun arma
         if(self.vida()>0){
             vida=self.vida()-arma.potencia()
         }else{
             self.desaparecer()
         }
-    }
+    }*/
 
     method desaparecer(){
         game.removeVisual(self) //sacarlo del tablero
