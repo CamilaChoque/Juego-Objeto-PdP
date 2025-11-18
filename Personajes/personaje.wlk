@@ -60,28 +60,28 @@ object personaje {
 
         if(mueveArriba){
             const destinoY = y - velocidad
-            if(!colisiones.hayObstaculoEn(x, destinoY)){
+            /*if(!colisiones.hayObstaculoEn(x, destinoY)){
                 self.position(self.position().up(velocidad))
-            }
+            }*/
         }
         if(mueveAbajo){
             const destinoY = y + velocidad
-            if(!colisiones.hayObstaculoEn(x, destinoY)){
+            /*if(!colisiones.hayObstaculoEn(x, destinoY)){
                 self.position(self.position().down(velocidad))
-            }
+            }*/
         }
 
         if(mueveIzq){
-            const destinoX = x - velocidad
+            /*const destinoX = x - velocidad
             if(!colisiones.hayObstaculoEn(destinoX, y)){
                 self.position(self.position().left(velocidad))    
-            }
+            }*/
         }
         if(mueveDer){
-            const destinoX = x + velocidad
+            /*const destinoX = x + velocidad
             if(!colisiones.hayObstaculoEn(destinoX, y)){
                 self.position(self.position().right(velocidad))
-            }
+            }*/
         }
         
         self.mueveArriba (false)

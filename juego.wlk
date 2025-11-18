@@ -1,22 +1,21 @@
 import wollok.game.*
 import Personajes.personaje.*
-import elementos.*
-import enemigo.*
+
+
 import colisiones.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
-    const enemigo_ = new enemigo()
-    const invisibleEnemigo = new HitboxEnemigo()
+   
     method iniciar(){
-        game.addVisualCharacter(caja)
-        game.addVisual(enemigo_)
+    
+       
         game.addVisual(personaje)
 
         personaje.configTeclas()
         personaje.moverContinuo()
         personaje.animacion()
 
-
+/*
 
         [9,10,11,12,13,14,15].forEach({ elemento=>
         //const obstaculoA_ = new Obstaculo()
@@ -27,8 +26,8 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         //game.addVisual(obstaculoA_)
         game.addVisual(obstaculoB_)
         colisiones.agregar(obstaculoB_)
-        })
-        
+        })*/
+        /*
         [2,3,4,5].forEach({ elemento=>
         const obstaculov_ = new Obstaculo()
         obstaculov_.position(game.at(9, elemento))
@@ -37,7 +36,7 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         })
         
         game.onTick(1000, "seguimiento", {invisibleEnemigo.perseguir(caja)}) //esto actualizar recorrerATomar
-        
+        */
         
         //game.onTick(1000, "seguimiento", {enemigo_.perseguir(caja)})
     
