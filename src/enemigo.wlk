@@ -1,8 +1,6 @@
 import elementos.*
-    
 
-
-class enemigo{
+class Enemigo{
     var property position=game.at(4,4)
     //var position = game.at(30,30)
     //var posicion = game.at(0,0)

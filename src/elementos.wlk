@@ -1,6 +1,5 @@
-import personaje.personaje
-import mapas.mapa2
 
+import personaje.personaje
 object inicio{
   var property position = game.at(0,0)
   var property image = "intro.png"
@@ -12,7 +11,7 @@ object caja{
 }
 
 class Obstaculo{
-    var property position=game.at(6, 2)
+    var property position = game.at(6, 2)
     method cambioposicion(x,y){
       position = game.at(x,y)
     }
@@ -25,8 +24,10 @@ class Puerta inherits Obstaculo{
       if(game.getObjectsIn(position).contains(personaje)){
         game.removeTickEvent("ch")
         habitacionx.cargar()
-        
         }
+    }
+    method cambioHabitacion2(habitacionx) {
+      game.onCollideDo(personaje, habitacionx.cargar())
     }
 }
 

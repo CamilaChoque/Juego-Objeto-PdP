@@ -1,5 +1,4 @@
 import elementos.*
-import mapas.mapa2
 object personaje inherits Obstaculo {
    var property image = "personaje.png"
    	method configurarTeclas() { 
