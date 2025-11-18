@@ -3,52 +3,29 @@ import elementos.*
 import enemigo.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
-    //const enemigo_ = new Enemigo()
     const enemigoC1 = new EnemigoCorredor(vida=3,velocidad=50)
-    /*const enemigoGrande=new Enemigo(vida=14)
-    const enemigoPequenio=new Enemigo(vida=3)
-    const enemigoMediano=new Enemigo(vida=7)*/
-    //const perimetro_=new Perimetro(position=game.at(enemigo_.position().x()+2,enemigo_.position().y()+2))
     method iniciar(){
+        //seccion camila
         game.addVisualCharacter(caja)
-        
         game.addVisual(enemigoC1)
-        
         [9,10,11,12,13,14,15].forEach({ elemento=>
         //const obstaculoA_ = new Obstaculo()
         const obstaculoB_ = new Obstaculo()
         //obstaculoA_.position(game.at(elemento, 3))
         obstaculoB_.position(game.at(elemento, 9))
-
-        //game.addVisual(obstaculoA_)
         game.addVisual(obstaculoB_)})
         
         [2,3,4,5].forEach({ elemento=>
         const obstaculov_ = new Obstaculo()
         obstaculov_.position(game.at(7, elemento))
-        
-        
         game.addVisual(obstaculov_)})
         
         
         game.onTick(enemigoC1.velocidad(), "seguimiento", {enemigoC1.perseguir()})
         
         
-        //game.schedule(100, {invisibleEnemigo.perseguir()}) //esto actualizar recorrerATomar
-
-        //enemigo_.perseguir()
-        //game.onTick(1000, "seguimiento", {enemigo_.perseguir()})
-        
-        //agregar ontick para el enemigo
-        
-        
-        //game.onTick(1000, "seguimiento", {enemigo_.perseguir(caja)})
     }
 
-    /*method evitar(){
-        game.allVisuals().image()=="obstaculo1.png"
-        //todos los visuales con esa img vamos a evitarlas ó nos interesará su posición
-    }*/
 
     method estaAlLimite(posX,posY)=game.width()<posX || game.height()<posY|| posX<0 || posY<0 //si se pasa del tablero tanto negativo o fuera del rango
 }
