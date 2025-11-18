@@ -73,7 +73,7 @@ object buscadorRutas{
         if(self.celdaLibre(posVecinoX,posVecinoY)) {
             openSet.add([posVecinoX,posVecinoY])
         }else{
-            console.println("No elegido: "+[posVecinoX, posVecinoY])
+            //console.println("No elegido: "+[posVecinoX, posVecinoY])
         }
         
 

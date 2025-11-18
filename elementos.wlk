@@ -9,7 +9,7 @@ class Obstaculo{
     //var serie=
     method estaPresente(posVecinoX,posVecinoY){
         const obstaculos = game.allVisuals().filter({visual=>visual.image()=="obstaculo1.png"})
-         return obstaculos.any({obstaculo=>obstaculo.position().x()==posVecinoX&&obstaculo.position().x()==posVecinoY})
+         return obstaculos.any({obstaculo=>obstaculo.position().x()==posVecinoX&&obstaculo.position().y()==posVecinoY})
 
     }
   

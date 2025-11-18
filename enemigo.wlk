@@ -69,7 +69,7 @@ class Enemigo{
         (4,5)  (4,6)   (4,7)
              (5,6)*/
 
-        self.cambiarSprite(posicionNueva)
+        //self.cambiarSprite(posicionNueva)
         
         self.position(posicionNueva) //actualizamos su posicon para que se mueva
         
