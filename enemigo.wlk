@@ -5,7 +5,7 @@ class Enemigo{
     //const caminataAtras=["ene_caminaAtras1.png","ene_caminaAtras2.png"]
     var property capacidad = buscadorRutas  //te da todos los vecinos , mide dist euclideana
     var property position=game.center() //posicion inicial
-    var property objetivo = caja
+    var property objetivo
     var property image = "invi.png" //pra modificarlo
     var property distanciaControl=8
     var property vida=0

@@ -14,6 +14,4 @@ object posiciones {
 
     return game.at(x, y)
   }
-
- 
 }

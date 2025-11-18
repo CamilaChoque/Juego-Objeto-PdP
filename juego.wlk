@@ -1,13 +1,25 @@
 
+
 import elementos.*
 import enemigo.*
+import wollok.game.*
+import Personajes.personaje.*
+
+
+import colisiones.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
-    const enemigoC1 = new EnemigoCorredor(vida=3,velocidad=50)
+    const enemigoC1 = new EnemigoCorredor(vida=3,velocidad=50,objetivo=personaje)
     method iniciar(){
-        //seccion camila
-        game.addVisualCharacter(caja)
-        game.addVisual(enemigoC1)
+        //game.addVisualCharacter(caja)
+        game.addVisual(enemigoC1)   
+       
+        game.addVisual(personaje)
+
+        personaje.configTeclas()
+        personaje.moverContinuo()
+        personaje.animacion()
+
         [9,10,11,12,13,14,15].forEach({ elemento=>
         //const obstaculoA_ = new Obstaculo()
         const obstaculoB_ = new Obstaculo()
@@ -31,7 +43,6 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
 }
 
 object buscadorRutas{
-    
     var property openSet = [] //celdas a analizar: mis vecinos/celdas donde de todas ellas tomaremos el mejor
     var property closeSet =[] //celdas que hemos revisado
     //var posicionAnt=objetivo.position() //debe ser propio del personaje, cambiar despues
@@ -49,13 +60,13 @@ object buscadorRutas{
         return (abscisa**2+coordenada**2)**0.5
         
     }
-    method obstaculoPresente(posVecinoX,posVecinoY){
-        const obstaculos = game.allVisuals().filter({visual=>visual.image()=="obstaculo1.png"})
-         return obstaculos.any({obstaculo=>obstaculo.position().x()==posVecinoX&&obstaculo.position().x()==posVecinoY})
+    
 
+    method celdaLibre(posVecinoX,posVecinoY){
+        const obstaculo=new Obstaculo()
+        return !self.closeSet().contains([posVecinoX,posVecinoY]) && !obstaculo.estaPresente(posVecinoX,posVecinoY) && !juego.estaAlLimite(posVecinoX,posVecinoY) //celda libre significa que no fue revisado, que no esta al limite y que no tiene obstaculo
     }
-
-    method celdaLibre(posVecinoX,posVecinoY)=!self.closeSet().contains([posVecinoX,posVecinoY]) && !self.obstaculoPresente(posVecinoX,posVecinoY) && !juego.estaAlLimite(posVecinoX,posVecinoY) //celda libre significa que no fue revisado, que no esta al limite y que no tiene obstaculo
+    
     
     method agregarVecino(posVecinoX,posVecinoY){
         
@@ -140,4 +151,3 @@ object buscadorRutas{
         
     }
 }
-
