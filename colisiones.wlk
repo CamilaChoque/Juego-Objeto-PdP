@@ -1,5 +1,5 @@
 import wollok.game.*
-import elementos.Obstaculo
+import elementos.*
 
 object colisiones{
     var property obstaculos = [] 
