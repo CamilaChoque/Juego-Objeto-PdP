@@ -1,5 +1,5 @@
 
-
+import mapas.*
 import elementos.*
 import enemigo.*
 import wollok.game.*
@@ -9,8 +9,8 @@ import Personajes.personaje.*
 import colisiones.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
-    const enemigoC1 = new EnemigoCorredor(vida=3,velocidad=50,objetivo=personaje)
-    method iniciar(){
+    //const enemigoC1 = new EnemigoCorredor(vida=3,velocidad=50,objetivo=personaje)
+    /*method iniciar(){
         //game.addVisualCharacter(caja)
         game.addVisual(enemigoC1)   
        
@@ -37,7 +37,12 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         
         
     }
-
+*/
+method iniciar(){
+      var activo = true 
+      game.addVisual(inicio)
+      keyboard.space().onPressDo{if(activo==true){mapa1.cargainicial() activo=false}} 
+      }
 
     method estaAlLimite(posX,posY)=game.width()<posX || game.height()<posY|| posX<0 || posY<0 //si se pasa del tablero tanto negativo o fuera del rango
 }

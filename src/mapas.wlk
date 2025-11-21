@@ -1,8 +1,8 @@
 import wollok.game.*
 import elementos.*
-import personaje.*
+import Personajes.personaje.*
 import enemigo.*
-import iniciojuego.*
+import juego.*
 
 class Mapa{//acá queda pendiente generalizar los métodos de carga de mapas 
 
@@ -26,13 +26,12 @@ class Mapa{//acá queda pendiente generalizar los métodos de carga de mapas
     }
 } 
 object mapa1 inherits Mapa{
-    
    // var posiciones = [[5,0],[10,5],[5,10],[0,5]]
     method cargainicial() {
         //borrar mapa anterior
         game.allVisuals().forEach({a=>game.removeVisual(a)})
         //objetos
-        const enemigo_ = new Enemigo()
+        const enemigo_ = new EnemigoCorredor(vida=3,velocidad=50,objetivo=personaje)
         const puerta1 = new Puerta() 
         const puerta2 = new Puerta()
         const puerta3 = new Puerta()
@@ -47,8 +46,12 @@ object mapa1 inherits Mapa{
             (-(personaje.position().y())+10)
         )
         //funciones
-        game.onTick(400, "seguimiento", {enemigo_.perseguir(personaje)})
-        personaje.configurarTeclas()
+
+        game.onTick(enemigo_.velocidad(), "seguimiento", {enemigo_.perseguir()})
+        personaje.configTeclas()
+        personaje.moverContinuo()
+        personaje.animacion()
+
         game.onTick(100,"ch",{puerta1.cambiohabitacion(mapa2)})
         game.onTick(100,"ch",{puerta2.cambiohabitacion(mapa3)})
         game.onTick(100,"ch",{puerta3.cambiohabitacion(mapa4)})
@@ -65,7 +68,7 @@ object mapa1 inherits Mapa{
     }
    method cargar() {
      game.allVisuals().forEach({a=>game.removeVisual(a)})
-        const enemigo_ = new Enemigo()
+        const enemigo_ = new EnemigoCorredor(vida=3,velocidad=50,objetivo=personaje)
         const puerta1 = new Puerta() 
         const puerta2 = new Puerta()
         const puerta3 = new Puerta()
@@ -84,7 +87,7 @@ object mapa1 inherits Mapa{
         game.addVisual(puerta2)
         game.addVisual(puerta3)
         game.addVisual(puerta4)
-        game.onTick(400, "seguimiento", {enemigo_.perseguir(personaje)})
+        game.onTick(enemigo_.velocidad(), "seguimiento", {enemigo_.perseguir()})
         game.onTick(100,"ch",{puerta1.cambiohabitacion(mapa2)})
         game.onTick(100,"ch",{puerta2.cambiohabitacion(mapa3)})
         game.onTick(100,"ch",{puerta3.cambiohabitacion(mapa4)})

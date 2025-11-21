@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 
-import personaje.personaje
+import Personajes.personaje.personaje
 object inicio{
   var property position = game.at(0,0)
   var property image = "intro.png"
@@ -16,7 +15,10 @@ class Obstaculo{
     method cambioposicion(x,y){
       position = game.at(x,y)
     }
-    
+    method estaPresente(posVecinoX,posVecinoY){
+        const obstaculos = game.allVisuals().filter({visual=>visual.image()=="obstaculo1.png"})
+        return obstaculos.any({obstaculo=>obstaculo.position().x()==posVecinoX&&obstaculo.position().y()==posVecinoY})
+    }
 }
 class Puerta inherits Obstaculo{
     var property image = "puerta.png"
@@ -50,24 +52,5 @@ object imagenComedor {
 object imagenPlantacion {
   var property position = game.at(0,0)
   var property image = "habitacionesmejoradasplantacion.png"//el nmbre esta mal puesto
-=======
-object caja{ //Usado de testeo, no pertenece al juego
-    var property position = game.origin()
-    method image() = "caja1.png"
 }
 
-class Obstaculo{
-    var property position=game.at(6, 2)
-    method image() = "obstaculo1.png"
-    //var serie=
-    method estaPresente(posVecinoX,posVecinoY){
-        const obstaculos = game.allVisuals().filter({visual=>visual.image()=="obstaculo1.png"})
-         return obstaculos.any({obstaculo=>obstaculo.position().x()==posVecinoX&&obstaculo.position().y()==posVecinoY})
-
-    }
-  
-        
-    
-    
->>>>>>> origin/main
-}

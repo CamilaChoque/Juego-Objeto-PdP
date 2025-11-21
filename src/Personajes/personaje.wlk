@@ -1,10 +1,11 @@
+import src.elementos.*
 import wollok.game.*
 import Personajes.posiciones.*
 import colisiones.*
 
-object personaje {
+object personaje inherits Obstaculo{
 
-    var property position = game.origin() //recomendado para que funcion el perseguir() del enemigo
+    //var property position = game.origin() //recomendado para que funcion el perseguir() del enemigo
     //var property position = game.center()
     const property velocidad = 1
     var property orientacion = 1        // 1: Arriba, 2: Abajo, 3: Izq, 4:Der

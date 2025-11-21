@@ -1,34 +1,15 @@
 import wollok.game.*
-<<<<<<< HEAD
 import elementos.caja
-import personaje.personaje
-import enemigo.Enemigo
-import iniciojuego.juego
-=======
-
-import elementos.caja
+import Personajes.personaje.personaje
 import enemigo.Enemigo
 import juego.juego
->>>>>>> origin/main
 
 
 
 program alienGame {
 	game.title("Alien-Protocol")
-<<<<<<< HEAD
 	game.height(11)
 	game.width(11)
-=======
-	game.height(10)
-	game.width(18)
-  // game.boardGround("fondo2.jpg")
-
-	//
-	game.ground("celda.png")
-
-	//game.showAttributes(pepita) //Debug
-
->>>>>>> origin/main
 	juego.iniciar()
 	game.start()
 }
