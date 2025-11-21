@@ -1,8 +1,8 @@
 import wollok.game.*
 import elementos.caja
-import personaje.personaje
+import Personajes.personaje.personaje
 import enemigo.Enemigo
-import iniciojuego.juego
+import juego.juego
 
 
 

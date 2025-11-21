@@ -1,12 +1,16 @@
+import src.elementos.*
 import wollok.game.*
 import Personajes.posiciones.*
+import colisiones.*
 
-object personaje {
+object personaje inherits Obstaculo{
 
-    var property position = game.center()
+    //var property position = game.origin() //recomendado para que funcion el perseguir() del enemigo
+    //var property position = game.center()
     const property velocidad = 1
     var property orientacion = 1        // 1: Arriba, 2: Abajo, 3: Izq, 4:Der
     var property estado = true             // Para el cambio de sprite
+
 
     var property imagen = "astronauta_frente.png"
     method image() = imagen
@@ -53,11 +57,35 @@ object personaje {
  
  
     method mover(){
-        if(mueveArriba) self.position(self.position().up(velocidad))
-        if(mueveAbajo) self.position(self.position().down(velocidad))
-        if(mueveIzq) self.position(self.position().left(velocidad))
-        if(mueveDer) self.position(self.position().right(velocidad))
+        var x = self.position().x()
+        var y = self.position().y()
 
+        if(mueveArriba){
+            const destinoY = y - velocidad
+            if(!colisiones.hayObstaculoEn(x, destinoY)){
+                self.position(self.position().up(velocidad))
+            }
+        }
+        if(mueveAbajo){
+            const destinoY = y + velocidad
+            if(!colisiones.hayObstaculoEn(x, destinoY)){
+                self.position(self.position().down(velocidad))
+            }
+        }
+
+        if(mueveIzq){
+            const destinoX = x - velocidad
+            if(!colisiones.hayObstaculoEn(destinoX, y)){
+                self.position(self.position().left(velocidad))    
+            }
+        }
+        if(mueveDer){
+            const destinoX = x + velocidad
+            if(!colisiones.hayObstaculoEn(destinoX, y)){
+                self.position(self.position().right(velocidad))
+            }
+        }
+        
         self.mueveArriba (false)
         self.mueveAbajo (false)
         self.mueveDer (false)
