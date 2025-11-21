@@ -1,5 +1,5 @@
 
-
+import mapas.*
 import elementos.*
 import enemigo.*
 import wollok.game.*
@@ -10,27 +10,33 @@ import colisiones.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
     const enemigoC1 = new EnemigoCorredor(vida=3,objetivo=caja)
+    
     method iniciar(){
-        game.addVisualCharacter(caja)
+        //game.addVisualCharacter(caja)
         game.addVisual(enemigoC1)   
        
-        //game.addVisual(personaje)
+        game.addVisual(personaje)
 
         personaje.configTeclas()
         personaje.moverContinuo()
         personaje.animacion()
 
-        self.generarObstaculos()
+        //self.generarObstaculos()
         
         
-        
-        game.onTick(enemigoC1.velocidad(), "seguimiento", {enemigoC1.perseguir()})
-        
+        var activo = true 
+        game.addVisual(inicio)
+        keyboard.space().onPressDo{if(activo==true){sector1.cargainicial() activo=false}} 
         
     }
 
+    
+
+
+
+    method estaAlLimite(posX,posY)=game.width()<posX || game.height()<posY|| posX<0 || posY<0 //si se pasa del tablero tanto negativo o fuera del rango
     method generarObstaculos(){
-        [9,10,11,12,13,14,15].forEach({ elemento=>
+        /*[9,10,11,12,13,14,15].forEach({ elemento=>
         //const obstaculoA_ = new Obstaculo()
         const obstaculoB_ = new Obstaculo()
         //obstaculoA_.position(game.at(elemento, 3))
@@ -40,11 +46,10 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         [2,3,4,5].forEach({ elemento=>
         const obstaculov_ = new Obstaculo()
         obstaculov_.position(game.at(7, elemento))
-        game.addVisual(obstaculov_)})
+        game.addVisual(obstaculov_)})*/
     }
-
-    method estaAlLimite(posX,posY)=game.width()<posX || game.height()<posY|| posX<0 || posY<0 //si se pasa del tablero tanto negativo o fuera del rango
 }
+
 
 object buscadorRutas{
     var property openSet = [] //celdas a analizar: mis vecinos/celdas donde de todas ellas tomaremos el mejor
@@ -60,7 +65,7 @@ object buscadorRutas{
         const abscisa=destino.x()-llegada.x()
         const coordenada=destino.y()-llegada.y()
         //calculo del modulo de ambos vector
-        console.println("De"+destino+" es : "+(abscisa**2+coordenada**2)**0.5)
+        //console.println("De"+destino+" es : "+(abscisa**2+coordenada**2)**0.5)
         return (abscisa**2+coordenada**2)**0.5
         
     }
@@ -135,9 +140,9 @@ object buscadorRutas{
                             elMenor=f
                             posicionDelMenor=game.at(posicion.first(),posicion.last())
                         }
-                        console.println("-ganador: "+posicionDelMenor)
+                        /*console.println("-ganador: "+posicionDelMenor)
                         console.println("-objetivo: "+posicionObjetivo)
-                        console.println("-enemigo: "+ posicionEnemigo)
+                        console.println("-enemigo: "+ posicionEnemigo)*/
                     } 
                     
                 })

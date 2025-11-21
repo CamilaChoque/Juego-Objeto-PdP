@@ -3,11 +3,12 @@ import elementos.*
 
 class Enemigo{
     //const caminataAtras=["ene_caminaAtras1.png","ene_caminaAtras2.png"]
+    var property esObstaculo=false
     var property capacidad = buscadorRutas  //te da todos los vecinos , mide dist euclideana
     var property position=game.center() //posicion inicial
     var property objetivo
     var property image = "invi.png" //pra modificarlo
-    var property distanciaControl=8
+    var property distanciaControl=4
     var property vida=0
     var property velocidad=0
     var property referenciaDeCaminata=self.position()
@@ -22,8 +23,9 @@ class Enemigo{
 
      
     method perseguir(){ //evaluar camino
+    console.println("persiguiendo")
         //podemos contemplar un SET y no una lista para que no haya celdas repetidas asi aca llamo o inicio a closeSet con posicion del enemigo
-        console.println("ahora es velocidad: "+self.velocidad())
+        //console.println("ahora es velocidad: "+self.velocidad())
         const posicionObjetivo=objetivo.position()
 
         if(self.perseguible(posicionObjetivo)){
@@ -35,14 +37,14 @@ class Enemigo{
                     self.cambiarDireccion(posicionDelMenor)
                 }else{
                     //recorre
-                    console.println("llegate al objetivo")
+                    //console.println("llegate al objetivo")
                     posicionAnt=objetivo.position()
                     self.referenciaDeCaminata(self.position())
                     capacidad.reiniciarAnalisis()
                     
                 }
             }else{
-                console.println("se movio")
+                //console.println("se movio")
                 posicionAnt=objetivo.position()
                 capacidad.reiniciarAnalisis()
                 
@@ -54,7 +56,7 @@ class Enemigo{
             self.caminar()
             
             
-            console.println("no seguir xq no esta en el rango")
+            //console.println("no seguir xq no esta en el rango")
         }
         
             
@@ -66,18 +68,18 @@ class Enemigo{
          //funcion propia del prota no del enemigo
     
     method caminar(){
-        if(indice==40){ //40 porque 40*50=2000ms
+        if(indice==30){ //40 porque 40*50=2000ms
             capacidad.openSet(self.position().x(), self.position().y())
 
             const elegido=capacidad.openSet().anyOne() //para que me traiga uno random
             const posicionPropuesta=game.at(elegido.first(),elegido.last())
-            console.println("posicion referencia: "+self.referenciaDeCaminata())
+            //console.println("posicion referencia: "+self.referenciaDeCaminata())
             if(capacidad.calcularDistanciaEuclidiana(self.referenciaDeCaminata(), posicionPropuesta)<=self.distanciaControl()){
                 self.cambiarDireccion(posicionPropuesta)
                 capacidad.reiniciarAnalisis()
                 
             }else{
-                console.println("NO PODES PASAR MAS")
+                //console.println("NO PODES PASAR MAS")
                 
             }
             indice=0
