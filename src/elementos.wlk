@@ -1,6 +1,7 @@
 
 import Personajes.personaje.personaje
 object inicio{
+  var property esObstaculo=false
   var property position = game.at(0,0)
   var property image = "intro.png"
 }
@@ -12,16 +13,18 @@ object caja{
 
 class Obstaculo{
     var property position = game.at(6, 2)
-    method cambioposicion(x,y){
+    var property image=""
+    var property esObstaculo=true
+    /*method cambioposicion(x,y){
       position = game.at(x,y)
-    }
+    }*/
     method estaPresente(posVecinoX,posVecinoY){
-        const obstaculos = game.allVisuals().filter({visual=>visual.image()=="obstaculo1.png"})
-        return obstaculos.any({obstaculo=>obstaculo.position().x()==posVecinoX&&obstaculo.position().y()==posVecinoY})
-    }
+        const obstaculos = game.allVisuals().filter({visual=>visual.esObstaculo()})
+        return obstaculos.any({obstaculo=>obstaculo.position().x()==posVecinoX&&obstaculo.position().y()==posVecinoY}) //eavluaci+on necesaria para ver si es una celda sin nada o si es de un obstaculo
+  }
 }
 class Puerta inherits Obstaculo{
-    var property image = "puerta.png"
+    override method image() = "puerta.png"
     
     method cambiohabitacion(habitacionx) {
       if(game.getObjectsIn(position).contains(personaje)){
@@ -35,22 +38,22 @@ class Puerta inherits Obstaculo{
 }
 
 
-object imagenHabitacion {
-  var property position = game.at(0,0)
-  var property image = "habitacionesmejoradascomedor.png"//el nmbre esta mal puesto
+object imagenHabitacion inherits Obstaculo{ 
+  override method position() = game.at(0,0)
+  override method image() = "habitacionesmejoradascomedor.png"//el nmbre esta mal puesto
 }
 
-object imagenSalaSegura {
-  var property position = game.at(0,0)
-  var property image = "habitacionesmejoradassalasegura.png"//el nmbre esta mal puesto
+object imagenSalaSegura inherits Obstaculo{
+  override method position()=game.at(0,0)
+  override method image() = "habitacionesmejoradassalasegura.png"//el nmbre esta mal puesto
 }
 
-object imagenComedor {
-  var property position = game.at(0,0)
-  var property image = "habitacionesmejoradascuarto.png"//el nmbre esta mal puesto
+object imagenComedor inherits Obstaculo{
+  override method position() = game.at(0,0)
+  override method image() = "habitacionesmejoradascuarto.png"//el nmbre esta mal puesto
 }
-object imagenPlantacion {
-  var property position = game.at(0,0)
-  var property image = "habitacionesmejoradasplantacion.png"//el nmbre esta mal puesto
+object imagenPlantacion inherits Obstaculo{
+  override method position() = game.at(0,0)
+  override method image() = "habitacionesmejoradasplantacion.png"//el nmbre esta mal puesto
 }
 

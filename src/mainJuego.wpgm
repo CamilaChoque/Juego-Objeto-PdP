@@ -10,6 +10,12 @@ program alienGame {
 	game.title("Alien-Protocol")
 	game.height(11)
 	game.width(11)
+  // game.boardGround("fondo2.jpg")
+	//game.ground("celda2.png")
+
+	//game.showAttributes(pepita) //Debug
+	/*game.height(10)
+	game.width(18)*/
 	juego.iniciar()
 	game.start()
 }

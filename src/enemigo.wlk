@@ -3,13 +3,17 @@ import elementos.*
 
 class Enemigo{
     //const caminataAtras=["ene_caminaAtras1.png","ene_caminaAtras2.png"]
+    var property esObstaculo=false
     var property capacidad = buscadorRutas  //te da todos los vecinos , mide dist euclideana
     var property position=game.center() //posicion inicial
     var property objetivo
     var property image = "invi.png" //pra modificarlo
-    var property distanciaControl=8
+    var property distanciaControl=4
     var property vida=0
     var property velocidad=0
+    var property referenciaDeCaminata=self.position()
+    var indice=0 //luego chequear como hacerlo mejor
+    var property limiteCantidad=[] //lista usada en clase MAPAS pasa saber cuantos puedo instanciar segun tipo enemigo
 //    var property image = "ene_caminaDelante1.png" //pra modificarlo
 
   
@@ -19,34 +23,40 @@ class Enemigo{
 
      
     method perseguir(){ //evaluar camino
+    console.println("persiguiendo")
         //podemos contemplar un SET y no una lista para que no haya celdas repetidas asi aca llamo o inicio a closeSet con posicion del enemigo
-        
+        //console.println("ahora es velocidad: "+self.velocidad())
         const posicionObjetivo=objetivo.position()
 
         if(self.perseguible(posicionObjetivo)){
             if(posicionAnt==posicionObjetivo){ //esto para tomar en cuenta q no se haya movido, si lo hizo refrescamos todo y volvemos a analizar: evaluar si realmente funciona
                 if(self.position()!=objetivo.position()){ 
+                    self.velocidad(50)
                     const posicionDelMenor=capacidad.tomarLaMejorCelda(self.position(),posicionObjetivo) //si esto funciona entonces BUSCADORRUTAS debe tener por dentro todos los vecinos no debe llamarlo enemigo
                     
                     self.cambiarDireccion(posicionDelMenor)
                 }else{
                     //recorre
-                    console.println("llegate al objetivo")
+                    //console.println("llegate al objetivo")
                     posicionAnt=objetivo.position()
-
-                    capacidad.reiniciarAnalisis(self.position())
+                    self.referenciaDeCaminata(self.position())
+                    capacidad.reiniciarAnalisis()
                     
                 }
             }else{
-                console.println("se movio")
+                //console.println("se movio")
                 posicionAnt=objetivo.position()
-                capacidad.reiniciarAnalisis(self.position())
+                capacidad.reiniciarAnalisis()
                 
             }
             
             posicionAnt=objetivo.position()
         }else{
-            console.println("no seguir xq no esta en el rango")
+            
+            self.caminar()
+            
+            
+            //console.println("no seguir xq no esta en el rango")
         }
         
             
@@ -56,7 +66,27 @@ class Enemigo{
     
     method perseguible(posicionObjetivo)=capacidad.calcularDistanciaEuclidiana(posicionObjetivo, self.position())<=self.distanciaControl()
          //funcion propia del prota no del enemigo
-        
+    
+    method caminar(){
+        if(indice==30){ //40 porque 40*50=2000ms
+            capacidad.openSet(self.position().x(), self.position().y())
+
+            const elegido=capacidad.openSet().anyOne() //para que me traiga uno random
+            const posicionPropuesta=game.at(elegido.first(),elegido.last())
+            //console.println("posicion referencia: "+self.referenciaDeCaminata())
+            if(capacidad.calcularDistanciaEuclidiana(self.referenciaDeCaminata(), posicionPropuesta)<=self.distanciaControl()){
+                self.cambiarDireccion(posicionPropuesta)
+                capacidad.reiniciarAnalisis()
+                
+            }else{
+                //console.println("NO PODES PASAR MAS")
+                
+            }
+            indice=0
+        }
+         indice+=1 
+
+    }
 
 
     
@@ -69,7 +99,7 @@ class Enemigo{
         (4,5)  (4,6)   (4,7)
              (5,6)*/
 
-        //self.cambiarSprite(posicionNueva) POR AHORA luego activarlo
+        //self.cambiarSprite(posicionNueva) POR AHORA luego activarlo - NO BORRAR
         
         self.position(posicionNueva) //actualizamos su posicon para que se mueva
         
@@ -106,6 +136,7 @@ class Enemigo{
 class EnemigoCorredor inherits Enemigo{
     override method vida()=3
     override method velocidad()=50
+    override method limiteCantidad()=[3,4,5]
     override method cambiarSprite(posicionNueva){
         if(posicionNueva.y()==self.position().y()){
             if(posicionNueva.x()>self.position().x()){
@@ -127,6 +158,10 @@ class EnemigoCorredor inherits Enemigo{
                 self.animarMovimiento("ene_caminaAtras1.png", "ene_caminaAtras2.png")
             }
         }
+    }
+
+    method atacar(){
+        
     }
 
     
@@ -152,4 +187,21 @@ class EnemigoHibrido inherits EnemigoGuerrero{ //mescla de guerrero y pretoriano
     
     //override method cambiarSprite(posicionNueva)
     method llamarManada() //"llama" detras de la logica genera zanganos
+
+    
 }
+
+/*
+crear  en mapas
+
+generarEnemigos
+limkiteCantidad=[3..5]
+tope=enemigo.limiteCantidad().anyOne
+
+[1..tope].forEach({=>
+    new EnemigoCorredor(vida=3,objetivo=caja)
+        
+})
+
+
+*/
