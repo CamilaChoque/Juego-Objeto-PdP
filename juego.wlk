@@ -9,17 +9,27 @@ import Personajes.personaje.*
 import colisiones.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
-    const enemigoC1 = new EnemigoCorredor(vida=3,velocidad=50,objetivo=personaje)
+    const enemigoC1 = new EnemigoCorredor(vida=3,objetivo=caja)
     method iniciar(){
-        //game.addVisualCharacter(caja)
+        game.addVisualCharacter(caja)
         game.addVisual(enemigoC1)   
        
-        game.addVisual(personaje)
+        //game.addVisual(personaje)
 
         personaje.configTeclas()
         personaje.moverContinuo()
         personaje.animacion()
 
+        self.generarObstaculos()
+        
+        
+        
+        game.onTick(enemigoC1.velocidad(), "seguimiento", {enemigoC1.perseguir()})
+        
+        
+    }
+
+    method generarObstaculos(){
         [9,10,11,12,13,14,15].forEach({ elemento=>
         //const obstaculoA_ = new Obstaculo()
         const obstaculoB_ = new Obstaculo()
@@ -31,13 +41,7 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         const obstaculov_ = new Obstaculo()
         obstaculov_.position(game.at(7, elemento))
         game.addVisual(obstaculov_)})
-        
-        
-        game.onTick(enemigoC1.velocidad(), "seguimiento", {enemigoC1.perseguir()})
-        
-        
     }
-
 
     method estaAlLimite(posX,posY)=game.width()<posX || game.height()<posY|| posX<0 || posY<0 //si se pasa del tablero tanto negativo o fuera del rango
 }
@@ -144,10 +148,11 @@ object buscadorRutas{
                 return posicionDelMenor           
     }
 
-    method reiniciarAnalisis(posicionEnemigo){
+    method reiniciarAnalisis(){
         self.closeSet().clear()
         self.openSet().clear()
         //posicionDelMenor=[self.position().x(),self.position().y()]
         
     }
+
 }

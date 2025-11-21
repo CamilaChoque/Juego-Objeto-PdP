@@ -13,7 +13,7 @@ program alienGame {
   // game.boardGround("fondo2.jpg")
 
 	//
-	game.ground("celda.png")
+	game.ground("celda2.png")
 
 	//game.showAttributes(pepita) //Debug
 
