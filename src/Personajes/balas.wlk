@@ -6,16 +6,17 @@ class Proyectil{
    
     var property image
     var property position
-    var property direccionActual     
-    const damage 
-    const velocidadViaje
+    var property direccionActual  
 
-    method mover(direccion){
-        position = direccion.siguientePosicion(position)
+    const property damage 
+    const property velocidadViaje
+
+    method mover(){
+        position = direccionActual.siguientePosicion(position)
     }
 
     method evento(){
-        return "evento" + self.identity()
+        return "eventoBala" + self.identity()
     }
 
     method impacto(){
@@ -28,36 +29,52 @@ class Proyectil{
 
         game.onCollideDo(self, {obj => self.resolverColision(obj)})
         game.onTick(velocidadViaje, self.evento(),
-        {self.mover(direccionActual)})
+        {self.mover()})
     }
 
     method resolverColision(obj){
         if(obj.className("Enemigo")){
             obj.recibirDanio(damage)
-            self.impacto()
-        } else{
-            self.impacto()
         }
+        self.impacto()
     }
 }
 
-class BalaPistola inherits Proyectil(damage = 1, velocidadViaje = 100){
-    override method impacto(){
-        self.image("balaPistola.png")
-        super()
-    }
-}
+// ----------------- TIPOS DE BALA -----------------
 
+class BalaPistola inherits Proyectil(damage = 1, velocidadViaje = 80){
+    init{ image = "balaPistola.png"}
+    }       
+}
 class BalaEscopeta inherits Proyectil(damage = 3, velocidadViaje = 150){
-    override method impacto(){
-        self.image("balaEscopeta.png")
-        super()
+    init{ image = "balaEscopeta.png"}
+}
+class BalaAmetralladora inherits Proyectil(damage = 2, velocidadViaje = 75){
+    init{ image = "balaAmetralladora.png"}
+}
+
+// ----------------- FABRICAS DE BALAS -----------------
+
+object fabricaBalaPistola {
+    method nuevaBala(posicion, direccion) {
+        const bala = new BalaPistola()
+        bala.position(posicion)
+        return bala
     }
 }
 
-class BalaAmetralladora inherits Proyectil(damage = 2, velocidadViaje = 75){
-    override method impacto(){
-        self.image("balaAmetralladora.png")
-        super()
+object fabricaBalaEscopeta {
+    method nuevaBala(posicion, direccion) {
+        const bala = new BalaEscopeta()
+        bala.position(posicion)
+        return bala
+    }
+}
+
+object fabricaBalaAmetralladora {
+    method nuevaBala(posicion, direccion) {
+        const bala = new BalaAmetralladora()
+        bala.position(posicion)
+        return bala
     }
 }

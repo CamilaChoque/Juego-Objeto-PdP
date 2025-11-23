@@ -1,79 +1,91 @@
 import wollok.game.*
+import balas.*
 import posiciones.*
-import enemigo.*
-import personaje.*
-import .*
 
 class Arma{
-    var property municion      // -1 para infinita
-    const cadencia             // milisegundos entre disparos
-    const nombre
-    const tipoProyectil
-    var property puedeDisparar = true 
+    var property nombre
+    var property image
+    var property municion               // -1 para infinita
+    const property cadencia             // milisegundos entre disparos
+    const property fabricaBalas
+    
 
-    method disparar(desde, direccion){
-        if(!puedeDisparar){
-            //
-        } else{
-            if(municion == 0){
+    method tieneMunicion() = municion == -1 or municion > 0
 
-            } else{
+    method puedeDispara() = selft.tieneMunicion()
 
-                // Dispara y se activa el Cooldown
-                self.puedeDisparar(false)
-                game.schedule(cadencia, 
-                {self.puedeDisparar(true)})
+    method dispararDesde(posicion, direccion){
+        if(not tieneMunicion()) return
 
-                if(municion > 0){
-                    self.municion(self.municion() - 1)
-                }
+        if(municion > 0){
+            municion = municion - 1
+        }
 
-                // Crear el proyectil
-                var proyectil = tipoProyectil.new()
-                proyectil.position(desde)
-                game.addVisual(proyectil)
-                proyectil.nuevoViaje(direccion)
-
-                if(municion() == 0 and nombre != "Pistola"){
-                    personaje.volverAPistola()
-                }
-            }
-        }     
+        const bala = fabricaBalas.nuevaBala(posicion, direccion)
+        game.addVisual(bala)
+        bala.nuevoViaje(direccion)
     }
+
+    method esPistola() = false
 }
 
-class pistola inherits Arma(
+class Pistola inherits Arma(
         self.nombre("Pistola")
         self.municion(-1)
         self.cadencia(500)
-        self.tipoProyectil(BalaPistola)   
-)
+        self.fabricaBalas(fabricaBalaPistola)   
+        image = "pistola.png"
+){
+    override method esPistola() = true
+}
 
 
 class Escopeta inherits Arma (
     self.nombre("Escopeta")
     self.municion(6)
     self.cadencia(800)
-    self.tipoProyectil(BalaEscopeta)
-)
+    self.fabricaBalas(fabricaBalaEscopeta) 
+    image = "escopeta.png"
+){}
 
 class Ametralladora inherits Arma (
         self.nombre("Ametralladora")
         self.municion(20)
         self.cadencia(200)
-        self.tipoProyectil(BalaAmetralladora)
-)
+        self.fabricaBalas(fabricaBalaAmetralladora) 
+        image = "ametralladora.png"
+){}
 
 class ArmaEnSuelo{
     var property position
     var property image
-    const tipoArma
-
-    method agarrar(){
-        personaje.tomarArma(tipoArma)
-        game.removeVisual(self)
-    }
+    var property arma           // Arma real (Escopeta o Ametralladora)
 }
 
 
+// ----------------- REGISTRO GLOBAL ARMAS EN EL PISO -----------------
 
+object armasMundo{
+
+    var property armasSuelo = []
+
+    method dejarArma(posicion, arma) {
+        const armaSuelo = new ArmaEnSuelo(arma = arma)
+        armaSuelo.position(posicion)
+        armaSuelo.image(arma.image())
+        armasSuelo.add(armaSuelo)
+        game.addVisual(armaSuelo)
+    }
+
+    method eliminar(armaSuelo) {
+        armasSuelo.remove(armaSuelo)
+        game.removeVisual(armaSuelo)
+    }
+
+    method armaEn(posicion) {
+        return armasSuelo.find({ arma =>
+            arma.position().x() == posicion.x()
+            && arma.position().y() == posicion.y()
+        })
+    }
+}

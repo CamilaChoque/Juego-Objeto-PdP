@@ -4,6 +4,7 @@ import Personajes.posiciones.*
 import colisiones.*
 import armas.*
 
+
 object personaje{
 
     //var property position = game.origin() //recomendado para que funcion el perseguir() del enemigo
@@ -11,106 +12,131 @@ object personaje{
     var property esObstaculo=false //NUEVO - camila211125
     var property position=game.at(11,11) //NUEVO - camila211125
     const property velocidad = 1
-    var property orientacion = 1        // 1: Arriba, 2: Abajo, 3: Izq, 4:Der
+    var property orientacion = 2        // 1: Arriba, 2: Abajo, 3: Izq, 4:Der
     var property estado = true           
      // Para el cambio de sprite
 
     var property imagen = "astronauta_frente.png"
     method image() = imagen
 
-    // Arma predefinida, la pistola
+    // Estado del arma actual
     var property armaActual = new Pistola()
-    
-    //Variables para movimiento
-    var property mueveArriba = false
-    var property mueveAbajo = false
-    var property mueveIzq = false
-    var property mueveDer = false
+    var property puedeDisparar = true
+
+    // ----------------- MOVIMIENTO -----------------
+    method moverArriba(){
+        orientacion = 1
+        imagen = "astronauta_detras.png"
+        position = posiciones.limitarDentroDe(position.up(velocidad))
+    }
+
+    method moverAbajo(){
+        orientacion = 2
+        imagen = "astronauta_frente.png"
+        position = posiciones.limitarDentroDe(position.down(velocidad))
+    }
+
+    method moverIzquierda(){
+        orientacion = 3
+        imagen = "astronauta_izquierda.png"
+        position = posiciones.limitarDentroDe(position.left(velocidad))
+    }
+
+    method moverDerecha(){
+        orientacion = 4
+        imagen = "astronauta_derecha.png"
+        position = posiciones.limitarDentroDe(position.right(velocidad))
+    }
+
+    // ----------------- DISPARO -----------------
+
+    method intentarDisparar(direccion){
+        if(not puedeDisparar) return
+        if(not armaActual.puedeDisparar()) return
+        
+        armaActual.dispararDesde(position, direccion)
+
+        // Cooldown del arma
+        puedeDisparar = false
+        game.schedule(armaActual.cadencia(),{self.habilitarDisparo()})
+    }
+
+    method habilitarDisparo(){
+        puedeDisparar = true
+    }
+
+    method dispararArriba(){
+        orientacion = 1
+        imagen = "astronauta_detras.png"
+        intentarDisparar(direccionArriba)
+    }
+
+    method dispararAbajo() {
+        orientacion = 2
+        imagen = "astronauta_frente.png"
+        intentarDisparar(direccionAbajo)
+    }
+
+    method dispararIzquierda() {
+        orientacion = 3
+        imagen = "astronauta_izquierda.png"
+        intentarDisparar(direccionIzquierda)
+    }
+
+    method dispararDerecha() {
+        orientacion = 4
+        imagen = "astronauta_derecha.png"
+        intentarDisparar(direccionDerecha)
+    }
+
+    // ----------------- ARMAS -----------------
+    // Q -> Suelta el arma en el suelo, vuelve a la pistola
+    method dejarArma(){
+        if(armaActual.esPistola()){
+            // No se puede tirar la pistola
+            return
+        }
+
+        armasMundo.dejarArma(position, armaActual)
+        armaActual = new Pistola()
+    }
+
+    // E -> Recoje/Intercambia arma con la del piso
+    method intentarTomarArma(){
+        const armaSuelo = armasMundo.armaEn(position)
+        if (armaSuelo == null) return
+
+        const armaDeSuelo = armaSuelo.arma()
+
+        // Si el arma que tengo no es la pistola, la dejo en el piso
+        if(not armaActual.esPistola()){
+            armasMundo.dejarArmaEn(position, armaActual)
+        }
+
+        armaActual = armaDeSuelo
+        armasMundo.eliminar(armaSuelo)
+    }
+
 
     method configTeclas(){
 
-        // Teclas WASD
-        //------- PRESIONO TECLA -------
-        // Arriba (W)
-        
-        keyboard.w().onPressDo({
-            self.mueveArriba(true)
-            self.imagen("astronauta_detras.png")
-            self.orientacion(1) 
-        })
+        //------- MOVIMIENTO CON WASD -------
+        keyboard.w().onPressDo({ self.moverArriba()})
+        keyboard.s().onPressDo({ self.moverAbajo()})
+        keyboard.a().onPressDo({ self.moverIzquierda()})
+        keyboard.d().onPressDo({ self.moverDerecha()})
 
-        // Abajo (S)
-        keyboard.s().onPressDo({
-            self.mueveAbajo (true)
-            self.imagen ("astronauta_frente.png")
-            self.orientacion(2) 
-        })
+        //------- DISPARO CON FLECHAS -------
+        keyboard.up().onPressDo({ self.dispararArriba()})
+        keyboard.down().onPressDo({ self.dispararAbajo()})
+        keyboard.left().onPressDo({ self.dispararIzquierda()})
+        keyboard.right().onPressDo({ self.dispararDerecha()})
 
-        // Izquierda (A)
-        keyboard.a().onPressDo({
-            self.mueveIzq (true)
-            self.imagen ("astronauta_izquierda.png")
-            self.orientacion(3) 
-        })
-
-        // Derecha (D)
-        keyboard.d().onPressDo({
-            self.mueveDer (true)
-            self.imagen ("astronauta_derecha.png")
-            self.orientacion(4) 
-        })
+        //------- MANEJO DE ARMAS Q/E -------
+        keyboard.q().onPressDo({ self.dejarArma()})
+        keyboard.e().onPressDo({ self.intentarTomarArma()})
     }
  
- 
-    method mover(){
-        var x = self.position().x()
-        var y = self.position().y()
-
-        if(mueveArriba){
-            const destinoY = y - velocidad
-            self.position(self.position().up(velocidad))
-            /*if(!colisiones.hayObstaculoEn(x, destinoY)){
-                self.position(self.position().up(velocidad))
-            }*/
-        }
-        if(mueveAbajo){
-            const destinoY = y + velocidad
-            self.position(self.position().down(velocidad))
-            /*if(!colisiones.hayObstaculoEn(x, destinoY)){
-                self.position(self.position().down(velocidad))
-            }*/
-        }
-
-        if(mueveIzq){
-            const destinoX = x - velocidad
-            self.position(self.position().left(velocidad))   
-            /*if(!colisiones.hayObstaculoEn(destinoX, y)){
-                self.position(self.position().left(velocidad))    
-            }*/
-        }
-        if(mueveDer){
-            const destinoX = x + velocidad
-            self.position(self.position().right(velocidad))
-            /*if(!colisiones.hayObstaculoEn(destinoX, y)){
-                self.position(self.position().right(velocidad))
-            }*/
-        }
-        
-        self.mueveArriba (false)
-        self.mueveAbajo (false)
-        self.mueveDer (false)
-        self.mueveIzq (false)
-
-        self.position(posiciones.limitarDentroDe(self.position()))
-    }
-
-    method moverContinuo(){
-        
-        game.onTick(40, "movilidadPersonaje", { => 
-            self.mover()
-        })
-            
-    }
 
     method animacion() {
 	  	game.onTick(400, "animacion", { => 

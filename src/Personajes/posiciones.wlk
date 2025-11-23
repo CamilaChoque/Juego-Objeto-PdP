@@ -17,22 +17,21 @@ object posiciones {
 }
 
 
-object arriba {
-  method siguientePosicion(pos) =
-    posiciones.limitarDentroDe(game.at(pos.x(), pos.y() - 1))
+
+// ------------- DIRECCIONES Y ORIENTACION -------------
+
+object direccionArriba {
+    method siguientePosicion(pos) = pos.up(1)
 }
 
-object abajo {
-  method siguientePosicion(pos) =
-    posiciones.limitarDentroDe(game.at(pos.x(), pos.y() + 1))
+object direccionAbajo {
+    method siguientePosicion(pos) = pos.down(1)
 }
 
-object izquierda {
-  method siguientePosicion(pos) =
-    posiciones.limitarDentroDe(game.at(pos.x() - 1, pos.y()))
+object direccionIzquierda {
+    method siguientePosicion(pos) = pos.left(1)
 }
 
-object derecha {
-  method siguientePosicion(pos) =
-    posiciones.limitarDentroDe(game.at(pos.x() + 1, pos.y()))
+object direccionDerecha {
+    method siguientePosicion(pos) = pos.right(1)
 }
