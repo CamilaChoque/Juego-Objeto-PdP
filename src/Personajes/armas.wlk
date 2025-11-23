@@ -30,30 +30,30 @@ class Arma{
 }
 
 class Pistola inherits Arma(
-        self.nombre("Pistola")
-        self.municion(-1)
-        self.cadencia(500)
-        self.fabricaBalas(fabricaBalaPistola)   
-        image = "pistola.png"
+    nombre = "Pistola",
+    municion = -1,
+    cadencia = 500,
+    fabricaBalas = fabricaBalaPistola,
+    image = "pistola.png"
 ){
     override method esPistola() = true
 }
 
 
 class Escopeta inherits Arma (
-    self.nombre("Escopeta")
-    self.municion(6)
-    self.cadencia(800)
-    self.fabricaBalas(fabricaBalaEscopeta) 
+    nombre = "Escopeta",
+    municion = 6,
+    cadencia = 800,
+    fabricaBalas = fabricaBalaEscopeta,
     image = "escopeta.png"
 ){}
 
 class Ametralladora inherits Arma (
-        self.nombre("Ametralladora")
-        self.municion(20)
-        self.cadencia(200)
-        self.fabricaBalas(fabricaBalaAmetralladora) 
-        image = "ametralladora.png"
+    nombre = "Ametralladora",
+    municion = 20,
+    cadencia = 200,
+    fabricaBalas = fabricaBalaAmetralladora,
+    image = "ametralladora.png"
 ){}
 
 class ArmaEnSuelo{

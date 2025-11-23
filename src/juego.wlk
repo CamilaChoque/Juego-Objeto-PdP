@@ -3,8 +3,8 @@ import mapas.*
 import elementos.*
 import enemigo.*
 import wollok.game.*
-import Personajes.personaje.*
-import armas.*
+import personaje.*
+import Personajes.armas.*
 
 
 import colisiones.*
@@ -19,7 +19,6 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         game.addVisual(personaje)
 
         personaje.configTeclas()
-        personaje.moverContinuo()
         personaje.animacion()
 
         //self.generarObstaculos()

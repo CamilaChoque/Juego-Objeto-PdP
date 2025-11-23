@@ -1,5 +1,5 @@
 
-import Personajes.personaje.personaje
+import Personajes.personaje.*
 object inicio{
   var property esObstaculo=false
   var property position = game.at(0,0)

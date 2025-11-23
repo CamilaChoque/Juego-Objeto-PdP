@@ -43,8 +43,7 @@ class Proyectil{
 // ----------------- TIPOS DE BALA -----------------
 
 class BalaPistola inherits Proyectil(damage = 1, velocidadViaje = 80){
-    init{ image = "balaPistola.png"}
-    }       
+    init{ image = "balaPistola.png"}       
 }
 class BalaEscopeta inherits Proyectil(damage = 3, velocidadViaje = 150){
     init{ image = "balaEscopeta.png"}

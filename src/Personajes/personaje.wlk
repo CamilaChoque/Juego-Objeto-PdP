@@ -58,7 +58,7 @@ object personaje{
 
         // Cooldown del arma
         puedeDisparar = false
-        game.schedule(armaActual.cadencia(),{self.habilitarDisparo()})
+        game.schedule(armaActual.cadencia(),{ => self.habilitarDisparo()})
     }
 
     method habilitarDisparo(){
@@ -71,19 +71,19 @@ object personaje{
         intentarDisparar(direccionArriba)
     }
 
-    method dispararAbajo() {
+    method dispararAbajo(){
         orientacion = 2
         imagen = "astronauta_frente.png"
         intentarDisparar(direccionAbajo)
     }
 
-    method dispararIzquierda() {
+    method dispararIzquierda(){
         orientacion = 3
         imagen = "astronauta_izquierda.png"
         intentarDisparar(direccionIzquierda)
     }
 
-    method dispararDerecha() {
+    method dispararDerecha(){
         orientacion = 4
         imagen = "astronauta_derecha.png"
         intentarDisparar(direccionDerecha)
@@ -110,7 +110,7 @@ object personaje{
 
         // Si el arma que tengo no es la pistola, la dejo en el piso
         if(not armaActual.esPistola()){
-            armasMundo.dejarArmaEn(position, armaActual)
+            armasMundo.dejarArma(position, armaActual)
         }
 
         armaActual = armaDeSuelo
@@ -140,9 +140,7 @@ object personaje{
 
     method animacion() {
 	  	game.onTick(400, "animacion", { => 
-            if(!mueveArriba && !mueveAbajo && !mueveIzq && !mueveDer){
-                self.estados()
-            } 
+            self.estados()
         })
 	}
 
