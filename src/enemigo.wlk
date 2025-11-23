@@ -4,6 +4,7 @@ import elementos.*
 class Enemigo{
     //const caminataAtras=["ene_caminaAtras1.png","ene_caminaAtras2.png"]
     var property esObstaculo=false
+    var property efectoAtaque=0
     var property capacidad = buscadorRutas  //te da todos los vecinos , mide dist euclideana
     var property position=game.center() //posicion inicial
     var property objetivo
@@ -24,6 +25,9 @@ class Enemigo{
      
     method perseguir(){ //evaluar camino
     console.println("persiguiendo")
+        
+        self.verificarAmenaza()
+        
         //podemos contemplar un SET y no una lista para que no haya celdas repetidas asi aca llamo o inicio a closeSet con posicion del enemigo
         //console.println("ahora es velocidad: "+self.velocidad())
         const posicionObjetivo=objetivo.position()
@@ -31,7 +35,7 @@ class Enemigo{
         if(self.perseguible(posicionObjetivo)){
             if(posicionAnt==posicionObjetivo){ //esto para tomar en cuenta q no se haya movido, si lo hizo refrescamos todo y volvemos a analizar: evaluar si realmente funciona
                 if(self.position()!=objetivo.position()){ 
-                    self.velocidad(50)
+                    //self.velocidad(50)
                     const posicionDelMenor=capacidad.tomarLaMejorCelda(self.position(),posicionObjetivo) //si esto funciona entonces BUSCADORRUTAS debe tener por dentro todos los vecinos no debe llamarlo enemigo
                     
                     self.cambiarDireccion(posicionDelMenor)
@@ -68,7 +72,7 @@ class Enemigo{
          //funcion propia del prota no del enemigo
     
     method caminar(){
-        if(indice==30){ //40 porque 40*50=2000ms
+        if(indice==25){ //40 porque 30*50=1500ms
             capacidad.openSet(self.position().x(), self.position().y())
 
             const elegido=capacidad.openSet().anyOne() //para que me traiga uno random
@@ -77,9 +81,6 @@ class Enemigo{
             if(capacidad.calcularDistanciaEuclidiana(self.referenciaDeCaminata(), posicionPropuesta)<=self.distanciaControl()){
                 self.cambiarDireccion(posicionPropuesta)
                 capacidad.reiniciarAnalisis()
-                
-            }else{
-                //console.println("NO PODES PASAR MAS")
                 
             }
             indice=0
@@ -125,6 +126,22 @@ class Enemigo{
         }
     }*/
 
+    method verificarAmenaza(){
+        game.onCollideDo(self, {objeto=>{
+            if(objeto.className()=="Arma"){
+                self.recibirDisparo(objeto)
+            } //adaptarlo al nombre que le ponga bruno
+        }})
+
+        game.onCollideDo(self, {objeto=>{
+            if(objeto.className()=="Arma"){
+                self.recibirDisparo(objeto)
+            } //adaptarlo al nombre que le ponga bruno
+        }})
+    }
+    method recibirDisparo(bala){
+
+    }
     method desaparecer(){
         game.removeVisual(self) //sacarlo del tablero
     }
@@ -134,6 +151,8 @@ class Enemigo{
 }
 
 class EnemigoCorredor inherits Enemigo{
+
+    override method efectoAtaque()=1
     override method vida()=3
     override method velocidad()=50
     override method limiteCantidad()=[3,4,5]
@@ -168,22 +187,24 @@ class EnemigoCorredor inherits Enemigo{
 }
 
 class EnemigoZangano inherits Enemigo{
-    override method vida()=7
-    override method velocidad()=90
+    override method efectoAtaque()=[1,2].anyOne()
+    override method vida()=5
+    override method velocidad()=70
     //override method cambiarSprite(posicionNueva)
     //method disparar()
 }
 
 class EnemigoGuerrero inherits Enemigo{
-    override method vida()=14 //se descuenta cuando les sacas sus capas
-    override method velocidad()=120
+    override method efectoAtaque()= [1,2,3].anyOne()
+    override method vida()=8 //se descuenta cuando les sacas sus capas
+    override method velocidad()=90
     //override method cambiarSprite(posicionNueva)
     var property resistenciaCapas=[2,4,6] //vida de cada capa
     //method devolverAtaque() //cada cierto nro de ataques que recibe (random) devuelve el ataque SI ES QUE TIENE CAPAS, sino no
 }
 
 class EnemigoHibrido inherits EnemigoGuerrero{ //mescla de guerrero y pretoriano
-    override method vida()=24
+    override method vida()=12
     
     //override method cambiarSprite(posicionNueva)
     method llamarManada() //"llama" detras de la logica genera zanganos
