@@ -2,6 +2,7 @@ import src.elementos.*
 import wollok.game.*
 import Personajes.posiciones.*
 import colisiones.*
+import armas.*
 
 object personaje{
 
@@ -14,9 +15,11 @@ object personaje{
     var property estado = true           
      // Para el cambio de sprite
 
-
     var property imagen = "astronauta_frente.png"
     method image() = imagen
+
+    // Arma predefinida, la pistola
+    var property armaActual = new Pistola()
     
     //Variables para movimiento
     var property mueveArriba = false
