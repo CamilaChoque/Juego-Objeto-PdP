@@ -68,25 +68,25 @@ object personaje{
     method dispararArriba(){
         orientacion = 1
         imagen = "astronauta_detras.png"
-        intentarDisparar(direccionArriba)
+        self.intentarDisparar(direccionArriba)
     }
-
+    
     method dispararAbajo(){
         orientacion = 2
         imagen = "astronauta_frente.png"
-        intentarDisparar(direccionAbajo)
+        self.intentarDisparar(direccionAbajo)
     }
 
-    method dispararIzquierda(){
+    method dispararIzquiera(){
         orientacion = 3
         imagen = "astronauta_izquierda.png"
-        intentarDisparar(direccionIzquierda)
+        self.intentarDisparar(direccionIzquierda)
     }
 
     method dispararDerecha(){
         orientacion = 4
         imagen = "astronauta_derecha.png"
-        intentarDisparar(direccionDerecha)
+        self.intentarDisparar(direccionDerecha)
     }
 
     // ----------------- ARMAS -----------------
