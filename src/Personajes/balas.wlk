@@ -1,5 +1,4 @@
 import wollok.game.*
-import posiciones.*
 import enemigo.*
 import personaje.*
 
