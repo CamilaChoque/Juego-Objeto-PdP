@@ -5,7 +5,7 @@ import personaje.*
 import balas.*
 
 class Arma{
-    var property municion       
+    var property municion      // -1 para infinita
     const cadencia             // milisegundos entre disparos
     const nombre
     const tipoProyectil
@@ -14,40 +14,58 @@ class Arma{
     method disparar(desde, direccion){
         if(!puedeDisparar){
             //
-        }else{
-            //Activo Cooldown
-            self.puedeDisparar(false)
-            game.schedule(cadencia, {
-            self.puedeDisparar(true)
-            })
+        }
 
-            if(nombre != "Pistola"){
-                self.municion(self.municion() - 1)
-                if(self.municion() < 0){
-                    self.municion(0)
-                } else{
-                    var proyectil = tipoProyectil.new()
-                    proyectil.position(desde)
-                    game.addVisual(proyectil)
-                    proyectil.nuevoViaje(direccion)
-                }
-            }else{ //Pistola tiene municion infinita
-                var proyectil = tipoProyectil.new()
-                proyectil.position(desde)
-                game.addVisual(proyectil)
-                proyectil.nuevoViaje(direccion)
-            }
-            
-            
-            // Si se queda sin municion, volver a pistola
-            /*if(nombre != "Pistola" && municion <= 0)
-                personaje.volverAPistola()
-            }*/
+        if(municion == 0){
 
-            }
+        }
+
+        // Dispara y se activa el Cooldown
+        self.puedeDisparar(false)
+        game.schedule(cadencia, 
+        {self.puedeDisparar(true)})
+
+        if(municion > 0){
+            self.municion(self.municion() - 1)
+        }
+
+        // Crear el proyectil
+        var proyectil = tipoProyectil.new()
+        proyectil.position(desde)
+        game.addVisual(proyectil)
+        proyectil.nuevoViaje(direccion)
+
+        return proyectil
     }
 }
 
+object pistola inherits Arma{
+    init{
+        self.nombre("Pistola")
+        self.municion(-1)
+        self.cadencia(500)
+        self.tipoProyectil(Bala)
+    }
+}
+
+
+object Escopeta inherits Arma {
+    init {
+        self.nombre("Escopeta")
+        self.municion(6)
+        self.cadencia(800)
+        self.tipoProyectil(Bala)
+    }
+}
+
+object Ametralladora inherits Arma {
+    init {
+        self.nombre("Ametralladora")
+        self.municion(20)
+        self.cadencia(200)
+        self.tipoProyectil(Bala)
+    }
+}
 
 
 
