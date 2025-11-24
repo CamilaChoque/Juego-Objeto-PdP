@@ -4,9 +4,9 @@ import personaje.*
 
 class Proyectil{
    
-    var property image
-    var property position
-    var property direccionActual  
+    var property image = "balaPistola.png"
+    var property position = game.at(0,0)
+    var property direccionActual = null
 
     const property damage 
     const property velocidadViaje
@@ -40,16 +40,17 @@ class Proyectil{
     }
 }
 
+
 // ----------------- TIPOS DE BALA -----------------
 
-class BalaPistola inherits Proyectil(damage = 1, velocidadViaje = 80){
-    init{ image = "balaPistola.png"}       
+class BalaPistola inherits Proyectil(damage = 1, velocidadViaje = 80) {
+    
 }
-class BalaEscopeta inherits Proyectil(damage = 3, velocidadViaje = 150){
-    init{ image = "balaEscopeta.png"}
+class BalaEscopeta inherits Proyectil(damage = 3, velocidadViaje = 150) {
+    override method image() = "balaEscopeta"
 }
-class BalaAmetralladora inherits Proyectil(damage = 2, velocidadViaje = 75){
-    init{ image = "balaAmetralladora.png"}
+class BalaAmetralladora inherits Proyectil(damage = 2, velocidadViaje = 75) {
+    override method image() = "balaAmetralladora"
 }
 
 // ----------------- FABRICAS DE BALAS -----------------

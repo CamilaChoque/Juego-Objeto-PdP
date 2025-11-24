@@ -61,7 +61,6 @@ object sector1 inherits Sector{
         
         
         personaje.configTeclas()
-        personaje.moverContinuo()
         personaje.animacion()
 
         game.onTick(100,"ch",{puerta1.cambiohabitacion(sector2)})

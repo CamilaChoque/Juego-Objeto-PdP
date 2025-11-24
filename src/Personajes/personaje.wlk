@@ -51,14 +51,16 @@ object personaje{
     // ----------------- DISPARO -----------------
 
     method intentarDisparar(direccion){
-        if(not puedeDisparar) return
-        if(not armaActual.puedeDisparar()) return
+        if(not puedeDisparar) return null
+        if(not armaActual.puedeDisparar()) return null
         
         armaActual.dispararDesde(position, direccion)
 
         // Cooldown del arma
         puedeDisparar = false
         game.schedule(armaActual.cadencia(),{ => self.habilitarDisparo()})
+
+        return true
     }
 
     method habilitarDisparo(){
@@ -77,7 +79,7 @@ object personaje{
         self.intentarDisparar(direccionAbajo)
     }
 
-    method dispararIzquiera(){
+    method dispararIzquierda(){
         orientacion = 3
         imagen = "astronauta_izquierda.png"
         self.intentarDisparar(direccionIzquierda)
@@ -94,27 +96,30 @@ object personaje{
     method dejarArma(){
         if(armaActual.esPistola()){
             // No se puede tirar la pistola
-            return
+            return false
+            
         }
 
         armasMundo.dejarArma(position, armaActual)
         armaActual = new Pistola()
+        return true
     }
 
     // E -> Recoje/Intercambia arma con la del piso
     method intentarTomarArma(){
         const armaSuelo = armasMundo.armaEn(position)
-        if (armaSuelo == null) return
+        if (armaSuelo == null) return null
 
-        const armaDeSuelo = armaSuelo.arma()
+        var armaDeSuelo = armaSuelo.arma()
 
         // Si el arma que tengo no es la pistola, la dejo en el piso
         if(not armaActual.esPistola()){
             armasMundo.dejarArma(position, armaActual)
         }
 
-        armaActual = armaDeSuelo
+        self.armaActual(armaDeSuelo)
         armasMundo.eliminar(armaSuelo)
+        return true
     }
 
 

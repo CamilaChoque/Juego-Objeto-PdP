@@ -2,9 +2,10 @@ import wollok.game.*
 import elementos.caja
 import Personajes.personaje.*
 import enemigo.Enemigo
-import Personaje.balas.*
+import Personajes.balas.*
 import Personajes.armas.*
 import Personajes.posiciones.*
+import mapas.*
 import juego.*
 
 

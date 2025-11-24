@@ -3,7 +3,7 @@ import mapas.*
 import elementos.*
 import enemigo.*
 import wollok.game.*
-import personaje.*
+import Personajes.personaje.*
 import Personajes.armas.*
 
 

@@ -12,18 +12,20 @@ class Arma{
 
     method tieneMunicion() = municion == -1 or municion > 0
 
-    method puedeDispara() = selft.tieneMunicion()
+    method puedeDisparar() = self.tieneMunicion()
 
     method dispararDesde(posicion, direccion){
-        if(not tieneMunicion()) return
+        if(not self.tieneMunicion()) return false
 
-        if(municion > 0){
-            municion = municion - 1
+        if(self.municion() > 0){
+            self.municion(self.municion()-1)
         }
 
         const bala = fabricaBalas.nuevaBala(posicion, direccion)
         game.addVisual(bala)
         bala.nuevoViaje(direccion)
+
+        return true
     }
 
     method esPistola() = false
@@ -70,9 +72,11 @@ object armasMundo{
     var property armasSuelo = []
 
     method dejarArma(posicion, arma) {
-        const armaSuelo = new ArmaEnSuelo(arma = arma)
-        armaSuelo.position(posicion)
-        armaSuelo.image(arma.image())
+        const armaSuelo = new ArmaEnSuelo(
+        position = posicion,
+        image = arma.image(),
+        arma = arma
+        )
         armasSuelo.add(armaSuelo)
         game.addVisual(armaSuelo)
     }
