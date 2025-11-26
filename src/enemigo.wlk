@@ -21,6 +21,7 @@ class Enemigo{
     
      var property estado=1
 
+    method estaEnCelda(posX, posY) = self.position().x() == posX and self.position().y() == posY
      
     method perseguir(){ //evaluar camino
     console.println("persiguiendo")

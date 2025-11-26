@@ -8,6 +8,7 @@ class Arma{
     var property municion               // -1 para infinita
     const property cadencia             // milisegundos entre disparos
     const property fabricaBalas
+    const property esObstaculo = false
     
 
     method tieneMunicion() = municion == -1 or municion > 0

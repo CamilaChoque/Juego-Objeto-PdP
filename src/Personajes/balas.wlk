@@ -1,20 +1,44 @@
+import src.colisiones.*
 import wollok.game.*
 import enemigo.*
-import personaje.*
+import Personajes.personaje.*
+import Personajes.posiciones.*
+import Personajes.armas.*
 
 class Proyectil{
    
     var property image = "balaPistola.png"
     var property position = game.at(0,0)
     var property direccionActual = null
+    const property esObstaculo = false
 
     const property damage 
     const property velocidadViaje
 
     method mover(){
-        position = direccionActual.siguientePosicion(position)
-    }
+        var nuevaPos = direccionActual.siguientePosicion(position)
 
+        var x = nuevaPos.x()
+        var y = nuevaPos.y()
+
+        if(posiciones.fueraDelMapa(nuevaPos)){
+            self.impacto()
+        }
+
+        if(colisiones.hayObstaculoEn(x, y)){
+            self.impacto()
+        }
+
+        if(colisiones.hayEnemigoEn(x, y)){
+            var enemigo = colisiones.enemigos.find({ene => ene.estaEnCelda(x, y)})
+            enemigo.recibirDanio(damage)
+            self.impacto()
+        }
+        
+        // Si no hay nada -> Se mueve
+        position = nuevaPos
+    }
+    
     method evento(){
         return "eventoBala" + self.identity()
     }
@@ -27,29 +51,21 @@ class Proyectil{
     method nuevoViaje(direccion){
         direccionActual = direccion
 
-        game.onCollideDo(self, {obj => self.resolverColision(obj)})
         game.onTick(velocidadViaje, self.evento(),
         {self.mover()})
-    }
-
-    method resolverColision(obj){
-        if(obj.className("Enemigo")){
-            obj.recibirDanio(damage)
-        }
-        self.impacto()
     }
 }
 
 
 // ----------------- TIPOS DE BALA -----------------
 
-class BalaPistola inherits Proyectil(damage = 1, velocidadViaje = 80) {
+class BalaPistola inherits Proyectil(damage = 1, velocidadViaje = 30){
     
 }
-class BalaEscopeta inherits Proyectil(damage = 3, velocidadViaje = 150) {
+class BalaEscopeta inherits Proyectil(damage = 3, velocidadViaje = 60) {
     override method image() = "balaEscopeta"
 }
-class BalaAmetralladora inherits Proyectil(damage = 2, velocidadViaje = 75) {
+class BalaAmetralladora inherits Proyectil(damage = 2, velocidadViaje = 10) {
     override method image() = "balaAmetralladora"
 }
 

@@ -14,7 +14,16 @@ object posiciones {
 
     return game.at(x, y)
   }
+
+  method fueraDelMapa(posicion){
+    return posicion.x() < 0 or
+           posicion.y() < 0 or 
+           posicion.x() >= game.width()
+           posicion.y() >= game.height()
+  }
 }
+
+
 
 
 
