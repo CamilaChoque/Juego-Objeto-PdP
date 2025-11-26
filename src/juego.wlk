@@ -54,7 +54,12 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
     }
 }
 
+/*
+capacidades
 
+object identificadroColision -> EN REVISION
+object generador: sobreiviente y enemigos
+*/
 object buscadorRutas{
     var property openSet = [] //celdas a analizar: mis vecinos/celdas donde de todas ellas tomaremos el mejor
     var property closeSet =[] //celdas que hemos revisado
