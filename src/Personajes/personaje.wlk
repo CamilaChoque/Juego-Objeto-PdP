@@ -92,6 +92,9 @@ object personaje{
     }
 
     // ----------------- ARMAS -----------------
+    method aplicarMejoraDeArma(){
+        armaActual.mejorar()
+    }
     // Q -> Suelta el arma en el suelo, vuelve a la pistola
     method dejarArma(){
         if(armaActual.esPistola()){
@@ -121,7 +124,6 @@ object personaje{
         armasMundo.eliminar(armaSuelo)
         return true
     }
-
 
     method configTeclas(){
 

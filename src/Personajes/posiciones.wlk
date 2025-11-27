@@ -24,9 +24,6 @@ object posiciones {
 }
 
 
-
-
-
 // ------------- DIRECCIONES Y ORIENTACION -------------
 
 object direccionArriba {

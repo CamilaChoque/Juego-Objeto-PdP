@@ -6,14 +6,27 @@ class Arma{
     var property nombre
     var property image
     var property municion               // -1 para infinita
+    var property mejorada = false
     const property cadencia             // milisegundos entre disparos
     const property fabricaBalas
     const property esObstaculo = false
+    const property danioBase 
     
-
     method tieneMunicion() = municion == -1 or municion > 0
 
     method puedeDisparar() = self.tieneMunicion()
+
+    method danio(){
+        if(mejorada){
+            return danioBase * 2
+        } else {
+            return danioBase
+        }
+    }
+
+    method mejorar(){
+        mejorada = true
+    }
 
     method dispararDesde(posicion, direccion){
         if(not self.tieneMunicion()) return false
@@ -23,6 +36,7 @@ class Arma{
         }
 
         const bala = fabricaBalas.nuevaBala(posicion, direccion)
+        bala.arma(self)
         game.addVisual(bala)
         bala.nuevoViaje(direccion)
 
@@ -36,6 +50,7 @@ class Pistola inherits Arma(
     nombre = "Pistola",
     municion = -1,
     cadencia = 500,
+    danioBase = 1,
     fabricaBalas = fabricaBalaPistola,
     image = "pistola.png"
 ){
@@ -47,6 +62,7 @@ class Escopeta inherits Arma (
     nombre = "Escopeta",
     municion = 6,
     cadencia = 800,
+    danioBase = 3,
     fabricaBalas = fabricaBalaEscopeta,
     image = "escopeta.png"
 ){}
@@ -55,6 +71,7 @@ class Ametralladora inherits Arma (
     nombre = "Ametralladora",
     municion = 20,
     cadencia = 200,
+    danioBase = 2,
     fabricaBalas = fabricaBalaAmetralladora,
     image = "ametralladora.png"
 ){}

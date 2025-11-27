@@ -12,7 +12,7 @@ class Proyectil{
     var property direccionActual = null
     const property esObstaculo = false
 
-    const property damage 
+    var property arma = null
     const property velocidadViaje
 
     method mover(){
@@ -31,7 +31,7 @@ class Proyectil{
 
         if(colisiones.hayEnemigoEn(x, y)){
             var enemigo = colisiones.enemigos.find({ene => ene.estaEnCelda(x, y)})
-            enemigo.recibirDanio(damage)
+            enemigo.recibirDanio(arma.danio())
             self.impacto()
         }
         
@@ -59,13 +59,13 @@ class Proyectil{
 
 // ----------------- TIPOS DE BALA -----------------
 
-class BalaPistola inherits Proyectil(damage = 1, velocidadViaje = 30){
+class BalaPistola inherits Proyectil(velocidadViaje = 30){
     
 }
-class BalaEscopeta inherits Proyectil(damage = 3, velocidadViaje = 60) {
+class BalaEscopeta inherits Proyectil(velocidadViaje = 60) {
     override method image() = "balaEscopeta"
 }
-class BalaAmetralladora inherits Proyectil(damage = 2, velocidadViaje = 10) {
+class BalaAmetralladora inherits Proyectil(velocidadViaje = 10) {
     override method image() = "balaAmetralladora"
 }
 
