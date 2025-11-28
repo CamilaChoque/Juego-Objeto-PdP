@@ -25,10 +25,10 @@ class Obstaculo{
 }
 class Puerta inherits Obstaculo{
     override method image() = "puerta.png"
-    
+    var property sectorSiguiente
     method cambiohabitacion(habitacionx) {
       if(game.getObjectsIn(position).contains(personaje)){
-        game.removeTickEvent("ch")
+        
         habitacionx.cargar()
         }
     }
@@ -37,6 +37,27 @@ class Puerta inherits Obstaculo{
     }
 }
 
+class Puertabloqueada inherits Puerta{}
+
+class Superviviente{
+  var property esObstaculo = false
+  var property imagen = "amogus.png"
+  method image() = imagen
+  method position()= game.at(8, 8)
+  method rescate(visualsuperviviente) {
+    
+  if(self.position().distance(personaje.position())<2){
+    imagen="amogusE.png"
+    keyboard.e().onPressDo{
+      game.schedule(100000, game.removeVisual(visualsuperviviente))
+      game.removeTickEvent("rescate")
+    }
+    
+    
+  }
+    else imagen = "amogus.png"
+}
+}
 
 object imagenHabitacion inherits Obstaculo{ 
   override method position() = game.at(0,0)

@@ -1,11 +1,8 @@
-
-import mapas.*
 import elementos.*
 import enemigo.*
 import wollok.game.*
 import Personajes.personaje.*
-
-
+import mapas.*
 import colisiones.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
@@ -13,21 +10,11 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
     
     method iniciar(){
         //game.addVisualCharacter(caja)
-        game.addVisual(enemigoC1)   
-       
-        game.addVisual(personaje)
-
-        personaje.configTeclas()
-        personaje.moverContinuo()
-        personaje.animacion()
-
-        //self.generarObstaculos()
-        
-        
+    
         var activo = true 
         game.addVisual(inicio)
         keyboard.space().onPressDo{if(activo==true){sector1.cargainicial() activo=false}} 
-        
+       
     }
 
     

@@ -7,13 +7,14 @@ object personaje{
 
     //var property position = game.origin() //recomendado para que funcion el perseguir() del enemigo
     //var property position = game.center()
+    var property sectorActual = ""
     var property esObstaculo=false //NUEVO - camila211125
     var property position=game.at(11,11) //NUEVO - camila211125
     const property velocidad = 1
     var property orientacion = 1        // 1: Arriba, 2: Abajo, 3: Izq, 4:Der
     var property estado = true           
      // Para el cambio de sprite
-
+    var property llave = false
 
     var property imagen = "astronauta_frente.png"
     method image() = imagen
