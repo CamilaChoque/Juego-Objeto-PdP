@@ -70,6 +70,7 @@ object imgSalida{
 }
 
 class Salida inherits Obstaculo{
+  var property esSalida=true
   var property lado=null
   var property imgs=[]
   var property destino=null

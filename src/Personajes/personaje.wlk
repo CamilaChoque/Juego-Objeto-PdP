@@ -4,7 +4,6 @@ import wollok.game.*
 import Personajes.posiciones.*
 import colisiones.*
 import armas.*
-import hud.*
 
 
 
@@ -28,28 +27,47 @@ object personaje{
 
     // ----------------- MOVIMIENTO -----------------
     method moverArriba(){
+        var nueva = position.up(velocidad)
+
+        if(not colisiones.hayObstaculoEn(nueva.x(), nueva.y())){
+            position = posiciones.limitarDentroDe(nueva)
+        }
+
         orientacion = 1
-        position = posiciones.limitarDentroDe(position.up(velocidad))
         self.actualizarSprite()
     }
-
     method moverAbajo(){
+        var nueva = position.down(velocidad)
+
+        if(not colisiones.hayObstaculoEn(nueva.x(), nueva.y())){
+            position = posiciones.limitarDentroDe(nueva)
+        }
+
         orientacion = 2
-        position = posiciones.limitarDentroDe(position.down(velocidad))
         self.actualizarSprite()
     }
 
     method moverIzquierda(){
+        var nueva = position.left(velocidad)
+
+        if(not colisiones.hayObstaculoEn(nueva.x(), nueva.y())){
+            position = posiciones.limitarDentroDe(nueva)
+        }
+
         orientacion = 3
-        position = posiciones.limitarDentroDe(position.left(velocidad))
+        self.actualizarSprite()
+    }
+    method moverDerecha(){
+        var nueva = position.right(velocidad)
+
+        if(not colisiones.hayObstaculoEn(nueva.x(), nueva.y())){
+            position = posiciones.limitarDentroDe(nueva)
+        }
+
+        orientacion = 4
         self.actualizarSprite()
     }
 
-    method moverDerecha(){
-        orientacion = 4
-        position = posiciones.limitarDentroDe(position.right(velocidad))
-        self.actualizarSprite()
-    }
 
     // ----------------- DISPARO -----------------
 
@@ -59,7 +77,8 @@ object personaje{
         
         armaActual.dispararDesde(position, direccion)
 
-        hudMunicion.actualizarContadorMunicion(armaActual)
+        hudMunicion.actualizar(armaActual)
+        hudMejora.actualizar(armaActual)
 
         // Cooldown del arma
         puedeDisparar = false
@@ -108,7 +127,8 @@ object personaje{
         }
         armasMundo.dejarArma(position, armaActual)
         armaActual = new Pistola()
-        hudMunicion.actualizarContadorMunicion(armaActual)
+        hudMunicion.actualizar(armaActual)
+        hudMejora.actualizar(armaActual)
         self.actualizarSprite()
         return true
     }
@@ -124,16 +144,17 @@ object personaje{
 
         self.armaActual(armaAgarrada)
         armasMundo.eliminar(armaSuelo)
-        hudMunicion.actualizarContadorMunicion(armaActual)
+        hudMunicion.actualizar(armaActual)
+        hudMejora.actualizar(armaActual)
         self.actualizarSprite()
         return true
     }
 
     // ----------------- DAÑO -----------------
+
     method recibirDanio(danio){
         vidas = vidas - danio
-        hudVidas.actualizarImagen(vidas)
-
+        hudVidas.actualizar(vidas)
         if(vidas <= 0){
             game.removeVisual(self)
         }

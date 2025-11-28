@@ -11,6 +11,7 @@ object caja{
 }
 
 class Obstaculo{
+  var property esSalida=false
     var property position = game.at(0,0)
     var property image=""
     var property esObstaculo=true

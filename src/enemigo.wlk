@@ -139,7 +139,8 @@ class Enemigo{
     
     method recibirDanio(arma){
         if(self.vida()>0){
-            self.vida()-arma.danioBase()
+            self.vida()-arma.danio()
+            console.println(self.vida())
         }else{
             self.desaparecer()
         }

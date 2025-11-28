@@ -8,7 +8,7 @@ object hudVidas{
     method image() = imagenVida
     method position() = game.at(1,1)
 
-    method actualizarImagen(vidas){
+    method actualizar(vidas){
         if(vidas == 3) imagenVida = "vida3.png"
         if(vidas == 2) imagenVida = "vida2.png"
         if(vidas == 1) imagenVida = "vida1.png"
@@ -23,11 +23,27 @@ object hudMunicion{
     method image() = imagenMunicion
     method position() = game.at(1,2)
 
-    method actualizarContadorMunicion(arma){
+    method actualizar(arma){
         if(arma.esPistola()){
             imagenMunicion = "infinito.png"
         }else{
             imagenMunicion = arma.municion().toString()+".png"
+        }
+    }
+}
+
+object hudMejora{
+    var property imagenMejora = null
+    const property esObstaculo = false
+
+    method image() = imagenMejora
+    method position() = game.at(2,2)
+
+    method actualizar(arma){
+        if (arma.mejorada()){
+            imagenMejora = "mejora.png"
+        } else{
+            imagenMejora = null
         }
     }
 }
