@@ -78,17 +78,10 @@ class Salida inherits Obstaculo{
   method renderizar(productor){
     lado.renderizar(productor)
   }
-  //method cambiarHabitacion(habitacionx) {
-    //console.println("accediendo sector2")
-    /*if(game.getObjectsIn(position).contains(personaje)){
-      game.removeTickEvent("ch")
-      habitacionx.cargar()
-    }*/
-  //}
   method cambiarHabitacion(){
     //console.println("accediendo sector2")
     if(destino!=null){
-      console.println(destino)
+      //console.println(destino)
       destino.cargar()
       personaje.position(ubicacion)
     }
