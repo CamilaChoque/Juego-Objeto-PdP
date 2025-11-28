@@ -10,6 +10,7 @@ class Nivel{
 
 }
 class Sector{
+    var property duenio = enemigoHibrido
     var property esObstaculo=false //NUEVO - camila211125
     method generaritems(obj){
              
@@ -41,6 +42,7 @@ class Sector{
    method cargar(){
         self.limpiarSector()
         self.cargarEscena() 
+        duenio.generarManadas(self) //esperar BRUNP
          personaje.configTeclas()
         personaje.animacion()
         
@@ -59,6 +61,7 @@ object sector1 inherits Sector{
         personaje.animacion()
         game.addVisual(personaje)
         game.addVisual(enemigo_)
+        game.onTick(enemigo_.velocidad(), "seguimiento", {enemigo_.perseguir()}) //NUEVO - camila211125
         
         
     }
