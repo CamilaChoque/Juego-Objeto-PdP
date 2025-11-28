@@ -25,7 +25,7 @@ class Arma{
         const bala = fabricaBalas.nuevaBala(posicion, direccion)
         game.addVisual(bala)
         bala.nuevoViaje(direccion)
-
+        game.sound("pistola.mp3").play()
         return true
     }
 

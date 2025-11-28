@@ -1,4 +1,4 @@
-
+import mapas.sector1
 import Personajes.personaje.*
 object inicio{
   var property esObstaculo=false
@@ -21,6 +21,29 @@ class Obstaculo{
     method estaPresente(posVecinoX,posVecinoY){
         const obstaculos = game.allVisuals().filter({visual=>visual.esObstaculo()})
         return obstaculos.any({obstaculo=>obstaculo.position().x()==posVecinoX&&obstaculo.position().y()==posVecinoY}) //eavluaci+on necesaria para ver si es una celda sin nada o si es de un obstaculo
+  }
+}
+
+class Superviviente{
+  var property esObstaculo = false
+  var property imagen = "amogus.png"
+  method image() = imagen
+  method position()= game.at(8, 8)
+  method rescate(visualsuperviviente) {
+    if(self.position().distance(personaje.position())<2){
+      imagen="amogusE.png"
+      var enabler = true
+      keyboard.e().onPressDo{if(enabler){
+        game.say(visualsuperviviente, "gracias!")
+        game.removeVisual(visualsuperviviente)
+        game.removeTickEvent("rescate")
+        personaje.sectorActual().crearSobreviviente(false)
+        sector1.nivel1.supervivientesRescatados(sector1.nivel1.supervivientesRescatados()+1)
+        enabler = false
+      }}
+    } else {
+      imagen = "amogus.png"
+    }
   }
 }
 

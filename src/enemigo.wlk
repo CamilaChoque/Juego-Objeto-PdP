@@ -20,7 +20,7 @@ class Enemigo{
   
     var posicionAnt=objetivo.position() //debe ser propio del personaje, cambiar despues
     
-     var property estado=1
+    var property estado=1
 
     method estaEnCelda(posX, posY) = self.position().x() == posX and self.position().y() == posY
      

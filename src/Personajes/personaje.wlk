@@ -6,7 +6,7 @@ import armas.*
 
 
 object personaje{
-
+    var property sectorActual = null
     //var property position = game.origin() //recomendado para que funcion el perseguir() del enemigo
     //var property position = game.center()
     var property esObstaculo=false //NUEVO - camila211125

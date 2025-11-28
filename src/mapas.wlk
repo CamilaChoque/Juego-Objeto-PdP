@@ -7,9 +7,24 @@ import escenografia.*
 import salida.*
 
 class Nivel{
-
+    var property supervivientesRescatados = 0
+    var property sectoresSobrevivientes = [sector5, sector6, sector7, sector8, sector9, sector10]
+    method sectoresElegidos() {
+      var contador = 0
+      var aux
+      if(contador < 4 && sectoresSobrevivientes.size() > 0) {
+        aux = 0.randomUpTo(sectoresSobrevivientes.size() - 1)
+        sectoresSobrevivientes.get(aux).crearSobreviviente(true)
+        sectoresSobrevivientes.remove(sectoresSobrevivientes.get(aux))
+        contador = contador + 1
+        console.println("mapas elegidos")
+        self.sectoresElegidos()
+      } 
+    }
+    
 }
 class Sector{//acá queda pendiente generalizar los métodos de carga de mapas 
+    var property crearSobreviviente = false
     var property objetos=[]
     var property esObstaculo=false //NUEVO - camila211125
     //var property position  //NUEVO - camila211125
@@ -31,6 +46,12 @@ class Sector{//acá queda pendiente generalizar los métodos de carga de mapas
         
         objetos.forEach{a=>game.addVisual(a)}
     }*/
+    method cargarsobreviviente() {
+      if(crearSobreviviente){
+        const sobreviviente = new Superviviente()
+         game.onTick(100, "rescate",{sobreviviente.rescate(sobreviviente)}) game.addVisual(sobreviviente)}
+      
+    }
    method cargarEscena(){
 
     productorDeEscenas.renderizarEsquinas()
@@ -54,13 +75,15 @@ class Sector{//acá queda pendiente generalizar los métodos de carga de mapas
    }
 } 
 object sector1 inherits Sector{
-    
+    const nivel1 = new Nivel()
    // var posiciones = [[5,0],[10,5],[5,10],[0,5]]
     method cargainicial() {
-        
+
+        personaje.sectorActual(self)
+
         //borrar mapa anterior
         self.limpiarSector()
-        
+        nivel1.sectoresElegidos()
         self.cargarEscena() //nuevo camila 26/11
         //objetos
         const enemigo_ = new EnemigoCorredor(vida=3,velocidad=50,objetivo=personaje)
@@ -73,12 +96,16 @@ object sector1 inherits Sector{
         personaje.animacion()
         game.addVisual(personaje)
         game.addVisual(enemigo_)
+
+        const sobreviviente = new Superviviente() 
+        game.addVisual(sobreviviente)
+        game.onTick(100, "rescate", {sobreviviente.rescate(sobreviviente)}) 
         
         //game.onTick(enemigo_.velocidad(), "seguimiento", {enemigo_.perseguir()}) //NUEVO - camila211125
     }
-   override method cargar() {
-        
+   override method cargar() { 
      //game.allVisuals().forEach({a=>game.removeVisual(a)})
+        personaje.sectorActual(self)
         const enemigo_ = new EnemigoCorredor(vida=3,velocidad=50,objetivo=personaje)
         objetos.add(enemigo_)
         /*const nuevaPos=game.at((-(personaje.position().x())+10),(-(personaje.position().y())+10))
@@ -101,11 +128,13 @@ object sector1 inherits Sector{
    
 }
 object sector2 inherits Sector{
+    
     //const property image = imagenComedor
     //const puerta1 = new Puerta() 
     //const puerta1 = new Puerta(position=game.at(5,0)) //NUEVO - camila211125: agregado directo de posiciones
     
     override method cargarEscena(){
+    personaje.sectorActual(self)
     super()
     productorDeEscenas.renderizarCon(imgSalida.deComun(),ladoDerecho,sector8,self,game.at(1,5))
 	productorDeEscenas.renderizarCon(imgSalida.deComun(),ladoIzquierdo,sector3,self,game.at(10,5))
@@ -114,7 +143,9 @@ object sector2 inherits Sector{
    }
 }
 object sector3 inherits Sector{
+    
     override method cargarEscena(){
+    personaje.sectorActual(self)
     super()
     productorDeEscenas.renderizarCon(imgSalida.deComun(),ladoDerecho,sector2,self,game.at(1,5))
 	productorDeEscenas.renderizarCon(imgSalida.deComun(),ladoIzquierdo,sector5,self,game.at(10,5))
@@ -130,73 +161,79 @@ object sector4 inherits Sector{
         productorDeEscenas.renderizarCon(imgSalida.deComun(),ladoIzquierdo,sector6,self,game.at(10,5))
         productorDeEscenas.renderizarCon(imgSalida.deFinal(),ladoAbajo,sector7,self,game.at(5,10))
         productorDeEscenas.renderizarHorizontal(11, paredSuperior,(1..10),self)
-	
+        personaje.sectorActual(self)
    }
 }
 
 object sector5 inherits Sector{
     override method cargarEscena(){
+        self.cargarsobreviviente()
         super()
         productorDeEscenas.renderizarCon(imgSalida.deComun(),ladoDerecho,sector3,self,game.at(1,5))
         productorDeEscenas.renderizarHorizontal(11, paredSuperior,(1..10),self)
         productorDeEscenas.renderizarHorizontal(0, paredInferior,(1..10),self)
         productorDeEscenas.renderizarVertical(11, paredIzq,(1..10),self)
-	
+         personaje.sectorActual(self)
    }
 }
 
 object sector6 inherits Sector{
     override method cargarEscena(){
+        self.cargarsobreviviente()
         super()
         productorDeEscenas.renderizarCon(imgSalida.deComun(),ladoDerecho,sector4,self,game.at(1,5))
         productorDeEscenas.renderizarHorizontal(11, paredSuperior,(1..10),self)
         productorDeEscenas.renderizarHorizontal(0, paredInferior,(1..10),self)
         productorDeEscenas.renderizarVertical(0, paredIzq,(1..10),self)
-	
+        personaje.sectorActual(self)
    }
 }
        
 object sector7 inherits Sector{
     override method cargarEscena(){
+        self.cargarsobreviviente()
         super()
         productorDeEscenas.renderizarCon(imgSalida.deComun(),ladoArriba,sector4,self,game.at(5,1))
         productorDeEscenas.renderizarHorizontal(0, paredInferior,(1..10),self)
         productorDeEscenas.renderizarVertical(11, paredDer,(1..10),self)
         productorDeEscenas.renderizarVertical(0, paredIzq,(1..10),self)
-	
+        personaje.sectorActual(self)
    }
 }
 
 object sector8 inherits Sector{
     override method cargarEscena(){
+        self.cargarsobreviviente()
         super()
         productorDeEscenas.renderizarCon(imgSalida.deComun(),ladoIzquierdo,sector2,self,game.at(10,5))
         productorDeEscenas.renderizarHorizontal(0, paredInferior,(1..10),self)
         productorDeEscenas.renderizarHorizontal(11, paredSuperior,(1..10),self)
         productorDeEscenas.renderizarVertical(11, paredDer,(1..10),self)
-	
+        personaje.sectorActual(self)
    }
 }
 object sector9 inherits Sector{
     override method cargarEscena(){
+        self.cargarsobreviviente()
         super()
         productorDeEscenas.renderizarVertical(11,paredDer,(1..10),self)
         productorDeEscenas.renderizarCon(imgSalida.deComun(),ladoIzquierdo,sector1,self,game.at(10,5))
         productorDeEscenas.renderizarHorizontal(0, paredInferior,(1..10),self)
         productorDeEscenas.renderizarHorizontal(11, paredSuperior,(1..10),self)
-	
+        personaje.sectorActual(self)
    }
 }
 
 
 object sector10 inherits Sector{
     override method cargarEscena(){
+        self.cargarsobreviviente()
         super()
         productorDeEscenas.renderizarCon(imgSalida.deFinal(),ladoAbajo,sector2,self,game.at(5,10))
         productorDeEscenas.renderizarHorizontal(11, paredSuperior,(1..10),self)
         productorDeEscenas.renderizarVertical(0, paredIzq,(1..10),self)
         productorDeEscenas.renderizarVertical(11, paredDer,(1..10),self)
-        
+        personaje.sectorActual(self)  
 	
    }
 }

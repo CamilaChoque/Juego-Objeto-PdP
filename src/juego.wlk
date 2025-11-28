@@ -10,23 +10,12 @@ import Personajes.armas.*
 import colisiones.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
-    const enemigoC1 = new EnemigoCorredor(vida=3,objetivo=caja)
     
     method iniciar(){
-        //game.addVisualCharacter(caja)
-        game.addVisual(enemigoC1)   
-       
-        game.addVisual(personaje)
-
-        personaje.configTeclas()
-        personaje.animacion()
-
-        //self.generarObstaculos()
-        
-        
         var activo = true 
         game.addVisual(inicio)
-        keyboard.space().onPressDo{if(activo==true){sector1.cargainicial() activo=false}} 
+        game.sound("menu.mp3").play()
+        keyboard.space().onPressDo{if(activo){sector1.cargainicial() activo=false}} 
         
 
         // Dejo algunas armas en el mapa de ejemplo
