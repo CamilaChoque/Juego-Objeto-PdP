@@ -14,15 +14,14 @@ object productorDeEscenas{
   }
 
 
-  method renderizarVertical(posX,pared,rango,sector){ //izq o der
+  method renderizarVertical(posX,pared,rango){ //izq o der
       rango.forEach({posY=>
           const pared_nuevo=pared.generar()
           pared_nuevo.position(game.at(posX,posY))
           game.addVisual(pared_nuevo)
-          sector.objetos().add(pared_nuevo)
       })
   }
-  method renderizarHorizontal(posY,pared,rango,sector){ //up o down
+  method renderizarHorizontal(posY,pared,rango){ //up o down
       rango.forEach({posX=>
         const pared_nuevo=pared.generar()
         pared_nuevo.position(game.at(posX,posY))
@@ -31,7 +30,7 @@ object productorDeEscenas{
   }
 
   
-  method renderizarCon(salida,lado,destino_,sector,ubicacionPersonaje){ //emergencia/final/comun - izqDerSupInf - renderiza salida y el costado
+  method renderizarCon(salida,lado,destino_,ubicacionPersonaje){ //emergencia/final/comun - izqDerSupInf - renderiza salida y el costado
     const imgs=salida.get(lado)
     const posiciones=lado.posiciones()
     const s1 = new Salida(image=imgs.first(),position=posiciones.first(),destino=destino_,ubicacion=ubicacionPersonaje)
@@ -43,9 +42,7 @@ object productorDeEscenas{
 
     s1.analizarCambioSector()
     s2.analizarCambioSector()
-    sector.objetos().add(s1)
-    sector.objetos().add(s2)
-    lado.renderizar(self,sector)
+    lado.renderizar(self)
 
   }
  

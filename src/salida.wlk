@@ -9,8 +9,8 @@ class Lado{
 object ladoIzquierdo inherits Lado{
   override method posiciones() = [game.at(0,6),game.at(0,5)]
   //var property imgs=[]
-  method renderizar(productor,sector){
-    productor.renderizarVertical(0,paredIzq,self.rango(),sector) //se renderiza paredes que ya pertenecen a una
+  method renderizar(productor){
+    productor.renderizarVertical(0,paredIzq,self.rango()) //se renderiza paredes que ya pertenecen a una
   }
   
 }
@@ -18,24 +18,24 @@ object ladoIzquierdo inherits Lado{
 object ladoDerecho inherits Lado{
   override method posiciones() = [game.at(11,6), game.at(11,5)]
   //var property imgs=[]
-  method renderizar(productor,sector){
-    productor.renderizarVertical(11,paredDer,self.rango(),sector)
+  method renderizar(productor){
+    productor.renderizarVertical(11,paredDer,self.rango())
   }
 }
 
 object ladoArriba inherits Lado{
   //var property imgs=[]
   override method posiciones() = [game.at(5,11), game.at(6,11)]
-  method renderizar(productor,sector){
-    productor.renderizarHorizontal(11,paredSuperior,self.rango(),sector)
+  method renderizar(productor){
+    productor.renderizarHorizontal(11,paredSuperior,self.rango())
   }
 }
 
 object ladoAbajo inherits Lado{
   //var property imgs=[]
   override method posiciones() = [game.at(5,0), game.at(6,0)]
-  method renderizar(productor,sector){
-    productor.renderizarHorizontal(0,paredInferior,self.rango(),sector)
+  method renderizar(productor){
+    productor.renderizarHorizontal(0,paredInferior,self.rango())
   }
 }
 
