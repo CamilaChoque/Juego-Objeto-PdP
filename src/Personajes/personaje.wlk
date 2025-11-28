@@ -28,28 +28,47 @@ object personaje{
 
     // ----------------- MOVIMIENTO -----------------
     method moverArriba(){
+        var nueva = position.up(velocidad)
+
+        if(not colisiones.hayObstaculoEn(nueva.x(), nueva.y())){
+            position = posiciones.limitarDentroDe(nueva)
+        }
+
         orientacion = 1
-        position = posiciones.limitarDentroDe(position.up(velocidad))
         self.actualizarSprite()
     }
-
     method moverAbajo(){
+        var nueva = position.down(velocidad)
+
+        if(not colisiones.hayObstaculoEn(nueva.x(), nueva.y())){
+            position = posiciones.limitarDentroDe(nueva)
+        }
+
         orientacion = 2
-        position = posiciones.limitarDentroDe(position.down(velocidad))
         self.actualizarSprite()
     }
 
     method moverIzquierda(){
+        var nueva = position.left(velocidad)
+
+        if(not colisiones.hayObstaculoEn(nueva.x(), nueva.y())){
+            position = posiciones.limitarDentroDe(nueva)
+        }
+
         orientacion = 3
-        position = posiciones.limitarDentroDe(position.left(velocidad))
+        self.actualizarSprite()
+    }
+    method moverDerecha(){
+        var nueva = position.right(velocidad)
+
+        if(not colisiones.hayObstaculoEn(nueva.x(), nueva.y())){
+            position = posiciones.limitarDentroDe(nueva)
+        }
+
+        orientacion = 4
         self.actualizarSprite()
     }
 
-    method moverDerecha(){
-        orientacion = 4
-        position = posiciones.limitarDentroDe(position.right(velocidad))
-        self.actualizarSprite()
-    }
 
     // ----------------- DISPARO -----------------
 
