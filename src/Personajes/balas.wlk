@@ -31,7 +31,7 @@ class Proyectil{
 
         if(colisiones.hayEnemigoEn(x, y)){
             var enemigo = colisiones.enemigos.find({ene => ene.estaEnCelda(x, y)})
-            enemigo.recibirDanio(arma.danio())
+            enemigo.recibirDanio(arma)
             self.impacto()
         }
         

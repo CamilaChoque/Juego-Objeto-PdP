@@ -1,3 +1,4 @@
+import src.hud.*
 
 import mapas.*
 import elementos.*
@@ -5,8 +6,6 @@ import enemigo.*
 import wollok.game.*
 import Personajes.personaje.*
 import Personajes.armas.*
-
-
 import colisiones.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
@@ -14,9 +13,14 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
     
     method iniciar(){
         //game.addVisualCharacter(caja)
+<<<<<<< HEAD
        // game.addVisual(enemigoC1)   
        
         //game.addVisual(personaje)
+=======
+        game.addVisual(enemigoC1)   
+        game.addVisual(personaje)
+>>>>>>> main
 
         //personaje.configTeclas()
        // personaje.animacion()
@@ -33,10 +37,6 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         //armasMundo.dejarArmaEn(game.at(5, 5), new Escopeta())
         //armasMundo.dejarArmaEn(game.at(8, 8), new Ametralladora())
     }
-
-    
-
-
 
     method estaAlLimite(posX,posY)=game.width()<posX || game.height()<posY|| posX<0 || posY<0 //si se pasa del tablero tanto negativo o fuera del rango
     method generarObstaculos(){

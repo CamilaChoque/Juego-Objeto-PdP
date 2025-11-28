@@ -19,7 +19,7 @@ program alienGame {
 
   // game.boardGround("fondo2.jpg")
 	//game.ground("celda2.png")
-
+	
 	juego.iniciar()
 	game.start()
 }

@@ -225,13 +225,13 @@ class EnemigoZangano inherits Enemigo{
 
     override method recibirDanio(arma){
         if(arma.esComun()){
-               // self.devolverDisparo(arma.danioBase())
+            self.devolverDisparo(arma.danio())
         }else{
-                super()
+                super(arma)
         }
     }
-    /*method devolverDisparo(danio){
-        objetivo.recibirDanio(danio)
-    }*/
+    method devolverDisparo(danio_){
+        objetivo.recibirDanio(danio_)
+    }
 }
 

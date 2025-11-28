@@ -1,22 +1,25 @@
+import src.hud.*
 import src.elementos.*
 import wollok.game.*
 import Personajes.posiciones.*
 import colisiones.*
 import armas.*
+import hud.*
+
 
 
 object personaje{
 
     //var property position = game.origin() //recomendado para que funcion el perseguir() del enemigo
     //var property position = game.center()
-    var property esObstaculo=false //NUEVO - camila211125
-    var property position=game.at(6,6) //NUEVO - camila211125
+    var property vidas = 3
+    var property position=game.at(5,2) 
     const property velocidad = 1
     var property orientacion = 2        // 1: Arriba, 2: Abajo, 3: Izq, 4:Der
-    var property estado = true           
-     // Para el cambio de sprite
-
-    var property imagen = "astronauta_frente.png"
+    var property esObstaculo=false           
+    
+    
+    var property imagen = "astronauta_derecha_pistola.png"
     method image() = imagen
 
     // Estado del arma actual
@@ -55,6 +58,8 @@ object personaje{
         if(not armaActual.puedeDisparar()) return null
         
         armaActual.dispararDesde(position, direccion)
+
+        hudMunicion.actualizarContadorMunicion(armaActual)
 
         // Cooldown del arma
         puedeDisparar = false
@@ -99,32 +104,39 @@ object personaje{
     method dejarArma(){
         if(armaActual.esPistola()){
             // No se puede tirar la pistola
-            return false
-            
+            return false   
         }
-
         armasMundo.dejarArma(position, armaActual)
         armaActual = new Pistola()
+        hudMunicion.actualizarContadorMunicion(armaActual)
         self.actualizarSprite()
         return true
     }
 
     // E -> Recoje/Intercambia arma con la del piso
-    method intentarTomarArma(){
-        const armaSuelo = armasMundo.armaEn(position)
-        if (armaSuelo == null) return null
-
-        var armaDeSuelo = armaSuelo.arma()
+    method intentarTomarArma(armaSuelo){
+        var armaAgarrada = armaSuelo.arma()
 
         // Si el arma que tengo no es la pistola, la dejo en el piso
         if(not armaActual.esPistola()){
             armasMundo.dejarArma(position, armaActual)
         }
 
-        self.armaActual(armaDeSuelo)
+        self.armaActual(armaAgarrada)
         armasMundo.eliminar(armaSuelo)
+        hudMunicion.actualizarContadorMunicion(armaActual)
         self.actualizarSprite()
         return true
+    }
+
+    // ----------------- DAÑO -----------------
+    method recibirDanio(){
+        vidas = vidas - 1
+        hudVidas.actualizarImagen(vidas)
+
+        if(vidas <= 0){
+            //gameOver
+        }
     }
 
     method configTeclas(){
@@ -143,7 +155,13 @@ object personaje{
 
         //------- MANEJO DE ARMAS Q/E -------
         keyboard.q().onPressDo({ self.dejarArma()})
-        keyboard.e().onPressDo({ self.intentarTomarArma()})
+        keyboard.e().onPressDo({
+            var armaSuelo = armasMundo.armaEn(position)
+
+            if(armaSuelo != null){
+                self.intentarTomarArma(armaSuelo)
+            }
+        })
     }
  
     method spriteOrientacion(){
