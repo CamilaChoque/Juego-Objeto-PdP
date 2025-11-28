@@ -64,3 +64,19 @@ object paredIzq inherits Obstaculo{
     return new Obstaculo(image="paredIzq.png",position=game.at(0,1))
   }
 }
+class Superviviente{
+  var property esObstaculo = false
+  var property imagen = "amogus.png"
+  method image() = imagen
+  method position()= game.at(8, 8)
+  method rescate(visualsuperviviente) {
+    
+    if(self.position().distance(personaje.position())<2){
+      imagen="amogusE.png"
+      keyboard.e().onPressDo{
+        game.schedule(100000, game.removeVisual(visualsuperviviente))
+        game.removeTickEvent("rescate")
+      }
+    }else imagen = "amogus.png"
+  }
+}
