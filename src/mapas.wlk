@@ -84,6 +84,7 @@ class Sector{
    method limpiarSector(){
         game.clear()
         game.addVisual(hudVidas)
+        game.addVisual(hudMunicion)
    }
 
    method cargar(){

@@ -4,6 +4,8 @@ import wollok.game.*
 import Personajes.posiciones.*
 import colisiones.*
 import armas.*
+import hud.*
+
 
 
 object personaje{
@@ -57,6 +59,8 @@ object personaje{
         
         armaActual.dispararDesde(position, direccion)
 
+        hudMunicion.actualizarContadorMunicion(armaActual)
+
         // Cooldown del arma
         puedeDisparar = false
         game.schedule(armaActual.cadencia(),{ => self.habilitarDisparo()})
@@ -100,12 +104,11 @@ object personaje{
     method dejarArma(){
         if(armaActual.esPistola()){
             // No se puede tirar la pistola
-            return false
-            
+            return false   
         }
-
         armasMundo.dejarArma(position, armaActual)
         armaActual = new Pistola()
+        hudMunicion.actualizarContadorMunicion(armaActual)
         self.actualizarSprite()
         return true
     }
@@ -121,6 +124,7 @@ object personaje{
 
         self.armaActual(armaAgarrada)
         armasMundo.eliminar(armaSuelo)
+        hudMunicion.actualizarContadorMunicion(armaActual)
         self.actualizarSprite()
         return true
     }
