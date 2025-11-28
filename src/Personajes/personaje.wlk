@@ -110,18 +110,15 @@ object personaje{
     }
 
     // E -> Recoje/Intercambia arma con la del piso
-    method intentarTomarArma(){
-        const armaSuelo = armasMundo.armaEn(position)
-        if (armaSuelo == null) return null
-
-        var armaDeSuelo = armaSuelo.arma()
+    method intentarTomarArma(armaSuelo){
+        var armaAgarrada = armaSuelo.arma()
 
         // Si el arma que tengo no es la pistola, la dejo en el piso
         if(not armaActual.esPistola()){
             armasMundo.dejarArma(position, armaActual)
         }
 
-        self.armaActual(armaDeSuelo)
+        self.armaActual(armaAgarrada)
         armasMundo.eliminar(armaSuelo)
         self.actualizarSprite()
         return true
@@ -143,7 +140,13 @@ object personaje{
 
         //------- MANEJO DE ARMAS Q/E -------
         keyboard.q().onPressDo({ self.dejarArma()})
-        keyboard.e().onPressDo({ self.intentarTomarArma()})
+        keyboard.e().onPressDo({
+            var armaSuelo = armasMundo.armaEn(position)
+
+            if(armaSuelo != null){
+                self.intentarTomarArma(armaSuelo)
+            }
+        })
     }
  
     method spriteOrientacion(){

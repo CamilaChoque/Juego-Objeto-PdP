@@ -34,10 +34,6 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         //armasMundo.dejarArmaEn(game.at(8, 8), new Ametralladora())
     }
 
-    
-
-
-
     method estaAlLimite(posX,posY)=game.width()<posX || game.height()<posY|| posX<0 || posY<0 //si se pasa del tablero tanto negativo o fuera del rango
     method generarObstaculos(){
         /*[9,10,11,12,13,14,15].forEach({ elemento=>
