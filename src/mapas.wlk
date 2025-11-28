@@ -48,7 +48,6 @@ class Sector{//acá queda pendiente generalizar los métodos de carga de mapas
         self.limpiarSector()
         self.cargarEscena() //nuevo camila 26/11
          personaje.configTeclas()
-        personaje.moverContinuo()
         personaje.animacion()
         
         game.addVisual(personaje)
@@ -71,7 +70,6 @@ object sector1 inherits Sector{
         personaje.position(nuevaPos)*/
         
         personaje.configTeclas()
-        personaje.moverContinuo()
         personaje.animacion()
         game.addVisual(personaje)
         game.addVisual(enemigo_)

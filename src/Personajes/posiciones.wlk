@@ -14,4 +14,33 @@ object posiciones {
 
     return game.at(x, y)
   }
+
+  method fueraDelMapa(posicion){
+    return posicion.x() < 0 or
+           posicion.y() < 0 or 
+           posicion.x() >= game.width()
+           posicion.y() >= game.height()
+  }
+}
+
+
+
+
+
+// ------------- DIRECCIONES Y ORIENTACION -------------
+
+object direccionArriba {
+    method siguientePosicion(pos) = pos.up(1)
+}
+
+object direccionAbajo {
+    method siguientePosicion(pos) = pos.down(1)
+}
+
+object direccionIzquierda {
+    method siguientePosicion(pos) = pos.left(1)
+}
+
+object direccionDerecha {
+    method siguientePosicion(pos) = pos.right(1)
 }

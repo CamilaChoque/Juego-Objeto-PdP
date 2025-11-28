@@ -3,9 +3,16 @@ import wollok.game.*
 
 object colisiones{
     var property obstaculos = [] 
-    method agregar(obstaculo) = obstaculos.add(obstaculo)
+    var property enemigos = []
+
+    method agregarObstaculo(obstaculo) = obstaculos.add(obstaculo)
+    method agregarEnemigo(enemigo) = enemigos.add(enemigo)
 
    method hayObstaculoEn(posX, posY){
         return obstaculos.any({obstaculo => obstaculo.estaEnCelda(posX, posY) })
+    }
+
+    method hayEnemigoEn(posX, posY){
+        return enemigos.any({enemigo => enemigo.estaEnCelda(posX, posY)})
     }
 }

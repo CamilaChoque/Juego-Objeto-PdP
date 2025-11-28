@@ -4,6 +4,7 @@ import elementos.*
 import enemigo.*
 import wollok.game.*
 import Personajes.personaje.*
+import Personajes.armas.*
 
 
 import colisiones.*
@@ -18,7 +19,6 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         game.addVisual(personaje)
 
         personaje.configTeclas()
-        personaje.moverContinuo()
         personaje.animacion()
 
         //self.generarObstaculos()
@@ -28,6 +28,10 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         game.addVisual(inicio)
         keyboard.space().onPressDo{if(activo==true){sector1.cargainicial() activo=false}} 
         
+
+        // Dejo algunas armas en el mapa de ejemplo
+        //armasMundo.dejarArmaEn(game.at(5, 5), new Escopeta())
+        //armasMundo.dejarArmaEn(game.at(8, 8), new Ametralladora())
     }
 
     
