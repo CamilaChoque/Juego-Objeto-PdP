@@ -1,3 +1,4 @@
+import src.hud.*
 
 import mapas.*
 import elementos.*
@@ -5,6 +6,7 @@ import enemigo.*
 import wollok.game.*
 import Personajes.personaje.*
 import Personajes.armas.*
+import hud.*
 
 
 import colisiones.*
@@ -17,6 +19,7 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
         game.addVisual(enemigoC1)   
        
         game.addVisual(personaje)
+        game.addVisual(hudVidas)
 
         personaje.configTeclas()
        // personaje.animacion()

@@ -1,0 +1,17 @@
+import wollok.game.*
+import Personajes.personaje.*
+
+object hudVidas{
+    var property imagenVida = "vida3.png"
+    const property esObstaculo = false
+
+    method image() = imagenVida
+    method position() = game.at(0,0)
+
+    method actualizarImagen(vidas){
+        if(vidas == 3) imagenVida = "vida3.png"
+        if(vidas == 2) imagenVida = "vida2.png"
+        if(vidas == 1) imagenVida = "vida1.png"
+        if(vidas == 0) imagenVida = "vida0.png"
+    }  
+}
