@@ -7,7 +7,7 @@ import Personajes.armas.*
 
 class Proyectil{
    
-    var property image = "balaPistola.png"
+    var property image = "bala.png"
     var property position = game.at(0,0)
     var property direccionActual = null
     const property esObstaculo = false
@@ -63,10 +63,8 @@ class BalaPistola inherits Proyectil(velocidadViaje = 30){
     
 }
 class BalaEscopeta inherits Proyectil(velocidadViaje = 60) {
-    override method image() = "balaEscopeta"
 }
 class BalaAmetralladora inherits Proyectil(velocidadViaje = 10) {
-    override method image() = "balaAmetralladora"
 }
 
 // ----------------- FABRICAS DE BALAS -----------------

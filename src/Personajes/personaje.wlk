@@ -26,26 +26,26 @@ object personaje{
     // ----------------- MOVIMIENTO -----------------
     method moverArriba(){
         orientacion = 1
-        imagen = "astronauta_detras.png"
         position = posiciones.limitarDentroDe(position.up(velocidad))
+        self.actualizarSprite()
     }
 
     method moverAbajo(){
         orientacion = 2
-        imagen = "astronauta_frente.png"
         position = posiciones.limitarDentroDe(position.down(velocidad))
+        self.actualizarSprite()
     }
 
     method moverIzquierda(){
         orientacion = 3
-        imagen = "astronauta_izquierda.png"
         position = posiciones.limitarDentroDe(position.left(velocidad))
+        self.actualizarSprite()
     }
 
     method moverDerecha(){
         orientacion = 4
-        imagen = "astronauta_derecha.png"
         position = posiciones.limitarDentroDe(position.right(velocidad))
+        self.actualizarSprite()
     }
 
     // ----------------- DISPARO -----------------
@@ -69,26 +69,26 @@ object personaje{
 
     method dispararArriba(){
         orientacion = 1
-        imagen = "astronauta_detras.png"
         self.intentarDisparar(direccionArriba)
+        self.actualizarSprite()
     }
     
     method dispararAbajo(){
         orientacion = 2
-        imagen = "astronauta_frente.png"
         self.intentarDisparar(direccionAbajo)
+        self.actualizarSprite()
     }
 
     method dispararIzquierda(){
         orientacion = 3
-        imagen = "astronauta_izquierda.png"
         self.intentarDisparar(direccionIzquierda)
+        self.actualizarSprite()
     }
 
     method dispararDerecha(){
         orientacion = 4
-        imagen = "astronauta_derecha.png"
         self.intentarDisparar(direccionDerecha)
+        self.actualizarSprite()
     }
 
     // ----------------- ARMAS -----------------
@@ -144,7 +144,20 @@ object personaje{
         keyboard.e().onPressDo({ self.intentarTomarArma()})
     }
  
+    method spriteOrientacion(){
+        if(orientacion == 1) return "arriba"
+                else if(orientacion == 2) return "abajo"
+                else if(orientacion == 3) return "izquierda"
+                else return "derecha"
+    }
 
+    method actualizarSprite(){
+        const orient = self.spriteOrientacion()
+        const nombreArma = armaActual.nombre()
+
+        imagen = "astronauta_" + orient + "_" + nombreArma + ".png"
+    }
+    /*
     method animacion() {
 	  	game.onTick(400, "animacion", { => 
             self.estados()
@@ -170,5 +183,5 @@ object personaje{
 			self.imagen(imagen2) 
 			self.estado(!self.estado())
 		}
-	}
+	}*/
 }

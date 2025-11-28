@@ -11,6 +11,8 @@ class Arma{
     const property fabricaBalas
     const property esObstaculo = false
     const property danioBase 
+
+    method nombre() = nombre
     
     method tieneMunicion() = municion == -1 or municion > 0
 
@@ -47,7 +49,7 @@ class Arma{
 }
 
 class Pistola inherits Arma(
-    nombre = "Pistola",
+    nombre = "pistola",
     municion = -1,
     cadencia = 500,
     danioBase = 1,
@@ -59,7 +61,7 @@ class Pistola inherits Arma(
 
 
 class Escopeta inherits Arma (
-    nombre = "Escopeta",
+    nombre = "escopeta",
     municion = 6,
     cadencia = 800,
     danioBase = 3,
@@ -68,7 +70,7 @@ class Escopeta inherits Arma (
 ){}
 
 class Ametralladora inherits Arma (
-    nombre = "Ametralladora",
+    nombre = "ametralladora",
     municion = 20,
     cadencia = 200,
     danioBase = 2,
