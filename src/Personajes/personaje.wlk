@@ -59,7 +59,8 @@ object personaje{
         
         armaActual.dispararDesde(position, direccion)
 
-        hudMunicion.actualizarContadorMunicion(armaActual)
+        hudMunicion.actualizar(armaActual)
+        hudMejora.actualizar(armaActual)
 
         // Cooldown del arma
         puedeDisparar = false
@@ -108,7 +109,8 @@ object personaje{
         }
         armasMundo.dejarArma(position, armaActual)
         armaActual = new Pistola()
-        hudMunicion.actualizarContadorMunicion(armaActual)
+        hudMunicion.actualizar(armaActual)
+        hudMejora.actualizar(armaActual)
         self.actualizarSprite()
         return true
     }
@@ -124,7 +126,8 @@ object personaje{
 
         self.armaActual(armaAgarrada)
         armasMundo.eliminar(armaSuelo)
-        hudMunicion.actualizarContadorMunicion(armaActual)
+        hudMunicion.actualizar(armaActual)
+        hudMejora.actualizar(armaActual)
         self.actualizarSprite()
         return true
     }
@@ -132,7 +135,7 @@ object personaje{
     // ----------------- DAÑO -----------------
     method recibirDanio(){
         vidas = vidas - 1
-        hudVidas.actualizarImagen(vidas)
+        hudVidas.actualizar(vidas)
 
         if(vidas <= 0){
             //gameOver

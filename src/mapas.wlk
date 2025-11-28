@@ -85,6 +85,7 @@ class Sector{
         game.clear()
         game.addVisual(hudVidas)
         game.addVisual(hudMunicion)
+        game.addVisual(hudMejora)
    }
 
    method cargar(){
