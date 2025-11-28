@@ -88,6 +88,7 @@ class Salida inherits Obstaculo{
   method cambiarHabitacion(){
     //console.println("accediendo sector2")
     if(destino!=null){
+      console.println(destino)
       destino.cargar()
       personaje.position(ubicacion)
     }
