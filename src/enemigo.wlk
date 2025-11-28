@@ -63,11 +63,7 @@ class Enemigo{
         }else{
             
             self.caminar()
-        }
-        
-            
-        
-        
+        }     
     }
     
     method perseguible(posicionObjetivo)=capacidad.calcularDistanciaEuclidiana(posicionObjetivo, self.position())<=self.distanciaControl()
@@ -138,16 +134,15 @@ class Enemigo{
 
     
     method recibirDanio(arma){
-        if(self.vida()>0){
-            self.vida()-arma.danio()
-            console.println(self.vida())
-        }else{
+        const damage = arma.danio()
+        self.vida(self.vida() - damage)
+
+        if(self.vida()<=0){
             self.desaparecer()
         }
-        
-
-            //self.vida()-bala.damage() implemaentar sabiendo danio bala
+        //self.vida()-bala.damage() implemaentar sabiendo danio bala
     }
+
     method desaparecer(){
         game.removeVisual(self) //sacarlo del tablero
     }
@@ -226,8 +221,13 @@ class EnemigoZangano inherits Enemigo{
     override method recibirDanio(arma){
         if(arma.esComun()){
             self.devolverDisparo(arma.danio())
-        }else{
-                super(arma)
+
+            if(self.vida() <= 0){
+                self.desaparecer()
+            }
+
+        } else {
+            super(arma)
         }
     }
     method devolverDisparo(danio_){
