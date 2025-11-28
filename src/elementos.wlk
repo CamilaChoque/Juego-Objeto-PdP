@@ -62,7 +62,6 @@ object paredIzq inherits Obstaculo{
   }
 }
 
-
 //esta puesto en logica SALIDA.wlk - nuevo camila 26/11
 /*class Puerta inherits Obstaculo{
     override method image() = []
@@ -77,7 +76,6 @@ object paredIzq inherits Obstaculo{
       game.onCollideDo(personaje, habitacionx.cargar())
     }
 }*/
-
 
 object imagenHabitacion inherits Obstaculo{ 
   override method position() = game.at(0,0)
