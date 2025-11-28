@@ -83,8 +83,8 @@ class Sector{
    method limpiarSector(){
         //game.allVisuals().forEach({v => game.removeVisual(v)})
         game.clear()
-        colisiones.obstaculos().clear()
-        colisiones.enemigos().clear()
+        
+        colisiones.limpiar()
         game.addVisual(hudVidas)
         game.addVisual(hudMunicion)
         game.addVisual(hudMejora)
