@@ -1,3 +1,4 @@
+import src.Personajes.balas.*
 import src.hud.*
 
 import mapas.*
@@ -8,7 +9,8 @@ import Personajes.personaje.*
 import Personajes.armas.*
 import colisiones.*
 
-object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
+object juego{
+    var property gameOverActivo = false
     const enemigoC1 = new EnemigoCorredor(vida=3,objetivo=caja)
     
     method iniciar(){
@@ -21,7 +23,6 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
 
         //self.generarObstaculos()
         
-        
         var activo = true 
         game.addVisual(inicio)
         keyboard.space().onPressDo{if(activo==true){sector1.cargainicial() activo=false}} 
@@ -33,6 +34,16 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
     }
 
     method estaAlLimite(posX,posY)=game.width()<posX || game.height()<posY|| posX<0 || posY<0 //si se pasa del tablero tanto negativo o fuera del rango
+    
+    method gameOver(){
+        gameOverActivo = true
+
+        game.clear()
+
+        game.addVisual(objetoGameOver)
+    }
+
+
     method generarObstaculos(){
         /*[9,10,11,12,13,14,15].forEach({ elemento=>
         //const obstaculoA_ = new Obstaculo()

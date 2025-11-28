@@ -48,3 +48,11 @@ object hudMejora{
     }
 }
 
+object objetoGameOver{
+    var property image = "gameOver.png" 
+    var property esObstaculo = false
+
+    method position() = game.at(0,0)
+    method isOverlay() = true
+}
+

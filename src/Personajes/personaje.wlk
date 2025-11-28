@@ -1,3 +1,4 @@
+import src.juego.*
 import src.hud.*
 import src.elementos.*
 import wollok.game.*
@@ -157,7 +158,7 @@ object personaje{
         hudVidas.actualizar(vidas)
 
         if(vidas <= 0){
-            //gameOver
+            juego.gameOver()
         }
     }
 
