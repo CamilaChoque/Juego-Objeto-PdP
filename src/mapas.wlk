@@ -1,3 +1,4 @@
+import src.hud.*
 import src.Personajes.posiciones.*
 import wollok.game.*
 import elementos.*
@@ -82,6 +83,7 @@ class Sector{
 
    method limpiarSector(){
         game.clear()
+        game.addVisual(hudVidas)
    }
 
    method cargar(){

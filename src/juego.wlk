@@ -6,9 +6,6 @@ import enemigo.*
 import wollok.game.*
 import Personajes.personaje.*
 import Personajes.armas.*
-import hud.*
-
-
 import colisiones.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
@@ -17,9 +14,7 @@ object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "co
     method iniciar(){
         //game.addVisualCharacter(caja)
         game.addVisual(enemigoC1)   
-       
         game.addVisual(personaje)
-        game.addVisual(hudVidas)
 
         personaje.configTeclas()
        // personaje.animacion()

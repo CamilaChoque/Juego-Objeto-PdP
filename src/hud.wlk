@@ -6,7 +6,7 @@ object hudVidas{
     const property esObstaculo = false
 
     method image() = imagenVida
-    method position() = game.at(0,0)
+    method position() = game.at(1,1)
 
     method actualizarImagen(vidas){
         if(vidas == 3) imagenVida = "vida3.png"
@@ -15,3 +15,4 @@ object hudVidas{
         if(vidas == 0) imagenVida = "vida0.png"
     }  
 }
+

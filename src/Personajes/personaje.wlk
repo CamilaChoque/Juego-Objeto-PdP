@@ -1,3 +1,4 @@
+import src.hud.*
 import src.elementos.*
 import wollok.game.*
 import Personajes.posiciones.*
@@ -127,6 +128,11 @@ object personaje{
     // ----------------- DAÑO -----------------
     method recibirDanio(){
         vidas = vidas - 1
+        hudVidas.actualizarImagen(vidas)
+
+        if(vidas <= 0){
+            //gameOver
+        }
     }
 
     method configTeclas(){
