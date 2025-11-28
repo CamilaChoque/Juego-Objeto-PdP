@@ -203,6 +203,12 @@ object sector5 inherits Sector{
         productorDeEscenas.renderizarVertical(0, paredIzq,(1..10))
 	
    }
+   override method cargar(){
+        super()
+        const superviviente=new Superviviente()
+        game.addVisual(superviviente)
+        colisiones.obstaculos().add(superviviente)
+   }
 }
 
 object sector6 inherits Sector{
@@ -214,6 +220,12 @@ object sector6 inherits Sector{
         productorDeEscenas.renderizarVertical(0, paredIzq,(1..10))
 	
    }
+   override method cargar(){
+        super()
+        const superviviente=new Superviviente()
+        game.addVisual(superviviente)
+        colisiones.obstaculos().add(superviviente)
+   }
 }
        
 object sector7 inherits Sector{
@@ -224,6 +236,12 @@ object sector7 inherits Sector{
         productorDeEscenas.renderizarVertical(11, paredDer,(1..10))
         productorDeEscenas.renderizarVertical(0, paredIzq,(1..10))
 	
+   }
+   override method cargar(){
+        super()
+        const superviviente=new Superviviente()
+        game.addVisual(superviviente)
+        colisiones.obstaculos().add(superviviente)
    }
 }
 
@@ -279,6 +297,12 @@ object sector10 inherits Sector{
         productorDeEscenas.renderizarHorizontal(11, paredSuperior,(1..10))
         productorDeEscenas.renderizarVertical(0, paredIzq,(1..10))
         productorDeEscenas.renderizarVertical(11, paredDer,(1..10))
+   }
+   override method cargar(){
+        super()
+        const superviviente=new Superviviente()
+        game.addVisual(superviviente)
+        colisiones.obstaculos().add(superviviente)
    }
 }
 
