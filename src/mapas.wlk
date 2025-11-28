@@ -1,3 +1,4 @@
+import src.Personajes.posiciones.*
 import wollok.game.*
 import elementos.*
 import Personajes.personaje.*
@@ -5,12 +6,58 @@ import enemigo.*
 import juego.*
 import escenografia.*
 import salida.*
+import Personajes.armas.*
+import colisiones.*
 
 class Nivel{
 
 }
 class Sector{
     var property esObstaculo=false //NUEVO - camila211125
+    
+    method generarPosicionLibreRandom(){
+        var posicionesLibres = []
+
+        var xs = [1,2,3,4,5,6,7,8,9,10]
+        var ys = [1,2,3,4,5,6,7,8,9,10]
+
+        xs.forEach{x =>
+            ys.forEach{y =>
+                const ocupado = game.allVisuals().any({
+                    visual =>
+                        visual.position().x() == x and
+                        visual.position().y() == y
+                })
+                if(not ocupado){
+                    posicionesLibres.add(game.at(x,y))
+                }
+            }
+        }
+        return posicionesLibres.anyOne()
+    }
+
+    method generarArmas(){
+        var cantidadArmas = [0,1,2]
+        var tipoArma = ["escopeta", "ametralladora"]
+
+        var cantArma = cantidadArmas.anyOne()
+
+        cantArma.times({_ =>
+            var tipo = tipoArma.anyOne()
+            var arma = null
+
+            if(tipo == "escopeta"){
+                arma = new Escopeta()
+            } else {
+                arma = new Ametralladora()
+            }
+
+            var pos = self.generarPosicionLibreRandom()
+
+            armasMundo.dejarArma(pos, arma)
+        })
+    }
+    
     method generaritems(obj){
              
         }
@@ -30,7 +77,6 @@ class Sector{
         objetos.forEach{a=>game.addVisual(a)}
     }*/
    method cargarEscena(){
-
     productorDeEscenas.renderizarEsquinas()
    }
 
@@ -41,7 +87,9 @@ class Sector{
    method cargar(){
         self.limpiarSector()
         self.cargarEscena() 
-         personaje.configTeclas()
+        self.generarArmas()
+
+        personaje.configTeclas()
         
         game.addVisual(personaje)
    }
@@ -51,6 +99,7 @@ object sector1 inherits Sector{
         self.limpiarSector()
         
         self.cargarEscena() 
+        self.generarArmas()
         const enemigo_ = new EnemigoCorredor(vida=3,velocidad=50,objetivo=personaje)
         
         
@@ -164,8 +213,6 @@ object sector10 inherits Sector{
         productorDeEscenas.renderizarHorizontal(11, paredSuperior,(1..10))
         productorDeEscenas.renderizarVertical(0, paredIzq,(1..10))
         productorDeEscenas.renderizarVertical(11, paredDer,(1..10))
-        
-	
    }
 }
 

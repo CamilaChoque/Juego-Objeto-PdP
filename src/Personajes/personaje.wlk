@@ -105,6 +105,7 @@ object personaje{
 
         armasMundo.dejarArma(position, armaActual)
         armaActual = new Pistola()
+        self.actualizarSprite()
         return true
     }
 
@@ -122,6 +123,7 @@ object personaje{
 
         self.armaActual(armaDeSuelo)
         armasMundo.eliminar(armaSuelo)
+        self.actualizarSprite()
         return true
     }
 

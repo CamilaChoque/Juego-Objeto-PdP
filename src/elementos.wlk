@@ -17,10 +17,12 @@ class Obstaculo{
     /*method cambioposicion(x,y){
       position = game.at(x,y)
     }*/
-    method estaPresente(posVecinoX,posVecinoY){
+
+    method estaEnCelda(x,y) = position.x() == x and position.y() == y
+    /*method estaPresente(posVecinoX,posVecinoY){
         const obstaculos = game.allVisuals().filter({visual=>visual.esObstaculo()})
         return obstaculos.any({obstaculo=>obstaculo.position().x()==posVecinoX&&obstaculo.position().y()==posVecinoY}) //eavluaci+on necesaria para ver si es una celda sin nada o si es de un obstaculo
-  }
+    }*/
 }
 
 object esquinaInfIzq inherits Obstaculo{
@@ -76,10 +78,11 @@ object paredIzq inherits Obstaculo{
       game.onCollideDo(personaje, habitacionx.cargar())
     }
 }*/
-
+/*
 object imagenHabitacion inherits Obstaculo{ 
   override method position() = game.at(0,0)
   override method image() = "habitacionesmejoradascomedor.png"//el nmbre esta mal puesto
+  overrider method esObstaculo() = false
 }
 
 object imagenSalaSegura inherits Obstaculo{
@@ -95,3 +98,4 @@ object imagenPlantacion inherits Obstaculo{
   override method position() = game.at(0,0)
   override method image() = "habitacionesmejoradasplantacion.png"//el nmbre esta mal puesto
 }
+*/

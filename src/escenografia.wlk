@@ -1,6 +1,6 @@
 import src.elementos.*
 import salida.*
-
+import colisiones.*
 
 
 
@@ -11,6 +11,11 @@ object productorDeEscenas{
     game.addVisual(esquinaInfDer)
     game.addVisual(esquinaSupIzq)
     game.addVisual(esquinaSupDer)
+
+    colisiones.agregarObstaculo(esquinaInfIzq)
+    colisiones.agregarObstaculo(esquinaInfDer)
+    colisiones.agregarObstaculo(esquinaSupIzq)
+    colisiones.agregarObstaculo(esquinaSupDer)
   }
 
 
@@ -19,6 +24,7 @@ object productorDeEscenas{
           const pared_nuevo=pared.generar()
           pared_nuevo.position(game.at(posX,posY))
           game.addVisual(pared_nuevo)
+          colisiones.agregarObstaculo(pared_nuevo)
       })
   }
   method renderizarHorizontal(posY,pared,rango){ //up o down
@@ -26,6 +32,7 @@ object productorDeEscenas{
         const pared_nuevo=pared.generar()
         pared_nuevo.position(game.at(posX,posY))
         game.addVisual(pared_nuevo)
+        colisiones.agregarObstaculo(pared_nuevo)
       })
   }
 
@@ -39,6 +46,9 @@ object productorDeEscenas{
     //const s2 = new Obstaculo(image=imgs.last(),position=posiciones.last())
     game.addVisual(s1)
     game.addVisual(s2)
+    
+    colisiones.agregarObstaculo(s1)
+    colisiones.agregarObstaculo(s2)
 
     s1.analizarCambioSector()
     s2.analizarCambioSector()

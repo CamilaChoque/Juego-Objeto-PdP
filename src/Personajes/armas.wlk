@@ -12,6 +12,7 @@ class Arma{
     const property esObstaculo = false
     const property danioBase 
 
+    method image() = image
     method nombre() = nombre
     
     method tieneMunicion() = municion == -1 or municion > 0
@@ -99,6 +100,7 @@ object armasMundo{
         )
         armasSuelo.add(armaSuelo)
         game.addVisual(armaSuelo)
+        console.println("arma generada en " + posicion.x() + "," + posicion.y())
     }
 
     method eliminar(armaSuelo) {
