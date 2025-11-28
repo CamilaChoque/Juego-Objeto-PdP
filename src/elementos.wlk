@@ -11,7 +11,7 @@ object caja{
 }
 
 class Obstaculo{
-    var property position = game.at(6, 2)
+    var property position = game.at(0,0)
     var property image=""
     var property esObstaculo=true
     /*method cambioposicion(x,y){

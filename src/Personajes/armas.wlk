@@ -100,7 +100,6 @@ object armasMundo{
         )
         armasSuelo.add(armaSuelo)
         game.addVisual(armaSuelo)
-        console.println("arma generada en " + posicion.x() + "," + posicion.y())
     }
 
     method eliminar(armaSuelo) {

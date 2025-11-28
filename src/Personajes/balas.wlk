@@ -59,12 +59,12 @@ class Proyectil{
 
 // ----------------- TIPOS DE BALA -----------------
 
-class BalaPistola inherits Proyectil(velocidadViaje = 30){
+class BalaPistola inherits Proyectil(velocidadViaje = 10){
     
 }
-class BalaEscopeta inherits Proyectil(velocidadViaje = 60) {
+class BalaEscopeta inherits Proyectil(velocidadViaje = 20) {
 }
-class BalaAmetralladora inherits Proyectil(velocidadViaje = 10) {
+class BalaAmetralladora inherits Proyectil(velocidadViaje = 5) {
 }
 
 // ----------------- FABRICAS DE BALAS -----------------
