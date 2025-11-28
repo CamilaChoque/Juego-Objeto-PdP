@@ -124,6 +124,11 @@ object personaje{
         return true
     }
 
+    // ----------------- DAÑO -----------------
+    method recibirDanio(){
+        vidas = vidas - 1
+    }
+
     method configTeclas(){
 
         //------- MOVIMIENTO CON WASD -------

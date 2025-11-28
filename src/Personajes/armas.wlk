@@ -11,6 +11,7 @@ class Arma{
     const property fabricaBalas
     const property esObstaculo = false
     const property danioBase 
+    const property esComun = true
 
     method image() = image
     method nombre() = nombre
@@ -68,7 +69,9 @@ class Escopeta inherits Arma (
     danioBase = 3,
     fabricaBalas = fabricaBalaEscopeta,
     image = "escopeta.png"
-){}
+){
+    override method esComun() = false
+}
 
 class Ametralladora inherits Arma (
     nombre = "ametralladora",
@@ -77,7 +80,9 @@ class Ametralladora inherits Arma (
     danioBase = 2,
     fabricaBalas = fabricaBalaAmetralladora,
     image = "ametralladora.png"
-){}
+){
+    override method esComun() = false
+}
 
 class ArmaEnSuelo{
     var property position
