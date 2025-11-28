@@ -70,6 +70,7 @@ object imgSalida{
 }
 
 class Salida inherits Obstaculo{
+  override method esSalida() = true
   var property lado=null
   var property imgs=[]
   var property destino=null

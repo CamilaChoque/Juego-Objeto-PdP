@@ -47,11 +47,11 @@ object productorDeEscenas{
     game.addVisual(s1)
     game.addVisual(s2)
     
-    colisiones.agregarObstaculo(s1)
-    colisiones.agregarObstaculo(s2)
 
     s1.analizarCambioSector()
     s2.analizarCambioSector()
+    colisiones.obstaculos().add(s1)
+    colisiones.obstaculos().add(s2)
     lado.renderizar(self)
 
   }

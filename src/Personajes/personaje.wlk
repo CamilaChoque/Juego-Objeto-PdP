@@ -5,7 +5,6 @@ import wollok.game.*
 import Personajes.posiciones.*
 import colisiones.*
 import armas.*
-import hud.*
 
 
 
@@ -153,12 +152,16 @@ object personaje{
     }
 
     // ----------------- DAÑO -----------------
-    method recibirDanio(){
-        vidas = vidas - 1
-        hudVidas.actualizar(vidas)
 
+    method recibirDanio(danio){
+        vidas = vidas - danio
+        hudVidas.actualizar(vidas)
         if(vidas <= 0){
+<<<<<<< HEAD
             juego.gameOver()
+=======
+            game.removeVisual(self)
+>>>>>>> main
         }
     }
 

@@ -4,6 +4,7 @@ import wollok.game.*
 object colisiones{
     var property obstaculos = [] 
     var property enemigos = []
+    
 
     method agregarObstaculo(obstaculo) = obstaculos.add(obstaculo)
     method agregarEnemigo(enemigo) = enemigos.add(enemigo)

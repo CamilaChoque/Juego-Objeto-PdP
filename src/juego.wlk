@@ -12,20 +12,12 @@ import colisiones.*
 object juego{
     var property gameOverActivo = false
     const enemigoC1 = new EnemigoCorredor(vida=3,objetivo=caja)
-    
+
     method iniciar(){
-        //game.addVisualCharacter(caja)
-        game.addVisual(enemigoC1)   
-        game.addVisual(personaje)
-
-        personaje.configTeclas()
-       // personaje.animacion()
-
-        //self.generarObstaculos()
         
-        var activo = true 
+        var activo = true
         game.addVisual(inicio)
-        keyboard.space().onPressDo{if(activo==true){sector1.cargainicial() activo=false}} 
+        keyboard.space().onPressDo{if(activo){sector1.cargainicial() activo=false}} 
         
 
         // Dejo algunas armas en el mapa de ejemplo
@@ -87,7 +79,7 @@ object buscadorRutas{
 
     method celdaLibre(posVecinoX,posVecinoY){
         const obstaculo=new Obstaculo()
-        return !self.closeSet().contains([posVecinoX,posVecinoY]) && !obstaculo.estaPresente(posVecinoX,posVecinoY) && !juego.estaAlLimite(posVecinoX,posVecinoY) //celda libre significa que no fue revisado, que no esta al limite y que no tiene obstaculo
+        return !self.closeSet().contains([posVecinoX,posVecinoY]) && !obstaculo.estaEnCelda(posVecinoX,posVecinoY) && !juego.estaAlLimite(posVecinoX,posVecinoY) //celda libre significa que no fue revisado, que no esta al limite y que no tiene obstaculo
     }
     
     

@@ -11,6 +11,7 @@ object caja{
 }
 
 class Obstaculo{
+  var property esSalida=false
     var property position = game.at(0,0)
     var property image=""
     var property esObstaculo=true
@@ -63,39 +64,3 @@ object paredIzq inherits Obstaculo{
     return new Obstaculo(image="paredIzq.png",position=game.at(0,1))
   }
 }
-
-//esta puesto en logica SALIDA.wlk - nuevo camila 26/11
-/*class Puerta inherits Obstaculo{
-    override method image() = []
-    
-    method cambiohabitacion(habitacionx) {
-      if(game.getObjectsIn(position).contains(personaje)){
-        game.removeTickEvent("ch")
-        habitacionx.cargar()
-        }
-    }
-    method cambioHabitacion2(habitacionx) {
-      game.onCollideDo(personaje, habitacionx.cargar())
-    }
-}*/
-/*
-object imagenHabitacion inherits Obstaculo{ 
-  override method position() = game.at(0,0)
-  override method image() = "habitacionesmejoradascomedor.png"//el nmbre esta mal puesto
-  overrider method esObstaculo() = false
-}
-
-object imagenSalaSegura inherits Obstaculo{
-  override method position()=game.at(0,0)
-  override method image() = "habitacionesmejoradassalasegura.png"//el nmbre esta mal puesto
-}
-
-object imagenComedor inherits Obstaculo{
-  override method position() = game.at(0,0)
-  override method image() = "habitacionesmejoradascuarto.png"//el nmbre esta mal puesto
-}
-object imagenPlantacion inherits Obstaculo{
-  override method position() = game.at(0,0)
-  override method image() = "habitacionesmejoradasplantacion.png"//el nmbre esta mal puesto
-}
-*/
