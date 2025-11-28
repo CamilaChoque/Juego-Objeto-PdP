@@ -30,7 +30,7 @@ class Enemigo{
     method perseguir(){ //evaluar camino
     //console.println("persiguiendo")
         
-        //self.verificarAmenaza()
+        
         
         //podemos contemplar un SET y no una lista para que no haya celdas repetidas asi aca llamo o inicio a closeSet con posicion del enemigo
         //console.println("ahora es velocidad: "+self.velocidad())
@@ -152,8 +152,7 @@ class Enemigo{
     }
 
     method atacar(){
-        console.println("danio al personaje")
-        //objetivo.recibirDanio(self.danio())
+        objetivo.recibirDanio(self.danio())
     }
     method cambiarSprite(posicionNueva)
     

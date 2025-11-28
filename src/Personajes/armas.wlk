@@ -1,3 +1,4 @@
+import src.elementos.*
 import src.colisiones.*
 import wollok.game.*
 import balas.*
@@ -85,9 +86,8 @@ class Ametralladora inherits Arma (
     override method esComun() = false
 }
 
-class ArmaEnSuelo{
-    var property position
-    var property image
+class ArmaEnSuelo inherits Obstaculo{
+    
     var property arma           // Arma real (Escopeta o Ametralladora)
 }
 

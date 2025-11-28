@@ -130,12 +130,12 @@ object personaje{
     }
 
     // ----------------- DAÑO -----------------
-    method recibirDanio(){
-        vidas = vidas - 1
+    method recibirDanio(danio){
+        vidas = vidas - danio
         hudVidas.actualizarImagen(vidas)
 
         if(vidas <= 0){
-            //gameOver
+            game.removeVisual(self)
         }
     }
 
