@@ -157,11 +157,8 @@ object personaje{
         vidas = vidas - danio
         hudVidas.actualizar(vidas)
         if(vidas <= 0){
-<<<<<<< HEAD
-            juego.gameOver()
-=======
             game.removeVisual(self)
->>>>>>> main
+            juego.gameOver()
         }
     }
 
