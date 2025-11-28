@@ -106,7 +106,7 @@ object armasMundo{
         )
         armasSuelo.add(armaSuelo)
         game.addVisual(armaSuelo)
-        colisiones.obstaculos().add(armaSuelo)
+        //colisiones.obstaculos().add(armaSuelo)
     }
 
     method eliminar(armaSuelo) {
