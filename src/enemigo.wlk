@@ -1,6 +1,7 @@
 import juego.*
 import elementos.*
 import Personajes.personaje.*
+import colisiones.*
 class Enemigo{
     //const caminataAtras=["ene_caminaAtras1.png","ene_caminaAtras2.png"]
     var property esObstaculo=false
@@ -136,8 +137,14 @@ class Enemigo{
     }*/
 
     
-    method recibirDanio(bala){
-        self.vida()-1
+    method recibirDanio(arma){
+        if(self.vida()>0){
+            self.vida()-arma.danioBase()
+        }else{
+            self.desaparecer()
+        }
+        
+
             //self.vida()-bala.damage() implemaentar sabiendo danio bala
     }
     method desaparecer(){
@@ -216,53 +223,15 @@ class EnemigoZangano inherits Enemigo{
         }
     }
 
-    override method recibirDanio(bala){
-        if(bala.esComun()){
-                self.devolverDisparo(bala)
+    override method recibirDanio(arma){
+        if(arma.esComun()){
+               // self.devolverDisparo(arma.danioBase())
         }else{
-                self.recibirDanio(bala)
+                super()
         }
     }
-    method devolverDisparo(bala){
-        objetivo.recibirDanio(bala)
-    }
-}
-
-
-object enemigoHibrido inherits Enemigo{ //mescla de guerrero y pretoriano
-    //override method danio()= [1,2,3].anyOne()
-    var property manada=[] //ES TEMPORAL , como no se implemento en el nivel 1, hay que analizar su importante en ser LISTA
-    //override method vida()=0
-    //override method velocidad()=0
-    //no tiene cantManada xq solo es 1
-
-    //override method cantidadManada()=[]
-    //override method cambiarSprite(posicionNueva)
-    //game.at(1,2).isEmpty()
-    
-    method generarManadas(lugar){
-        manada.clear()
-        const enemigos=[1,2]
-        //const tipoEnemigo = self.crearEnemigoTipo(id)
-        self.generarTipoManada(enemigos.anyOne(),lugar) 
-    }
-    method generarTipoManada(id,lugar){ 
-        const tope = self.cantidadManada()
-        tope.times{
-            
-            //manada.add(self.crearEnemigoTipo(id))
-            //self.position(lugar.generarPosicionLibreRandom()) //ESPERAR QUE BRUNO
-            game.addVisual(self.crearEnemigoTipo(id))
-        }
-    } 
-    method crearEnemigoTipo(tipoEnemigo){
-        if(tipoEnemigo==1){
-            return new EnemigoCorredor()
-        }else{
-            return new EnemigoZangano()
-        }
-    }
-    override method cambiarSprite(posicionNueva){}
-    
+    /*method devolverDisparo(danio){
+        objetivo.recibirDanio(danio)
+    }*/
 }
 

@@ -10,23 +10,23 @@ import Personajes.armas.*
 import colisiones.*
 
 object juego{ //si es muy pequeño añadir acá los menus pasando a llamarse "configuración"
-    const enemigoC1 = new EnemigoCorredor(vida=3,objetivo=caja)
+    //const enemigoC1 = new EnemigoCorredor(vida=3,objetivo=caja)
     
     method iniciar(){
         //game.addVisualCharacter(caja)
-        game.addVisual(enemigoC1)   
+       // game.addVisual(enemigoC1)   
        
-        game.addVisual(personaje)
+        //game.addVisual(personaje)
 
-        personaje.configTeclas()
-        personaje.animacion()
+        //personaje.configTeclas()
+       // personaje.animacion()
 
         //self.generarObstaculos()
         
         
-        var activo = true 
+        var activo = true
         game.addVisual(inicio)
-        keyboard.space().onPressDo{if(activo==true){sector1.cargainicial() activo=false}} 
+        keyboard.space().onPressDo{if(activo){sector1.cargainicial() activo=false}} 
         
 
         // Dejo algunas armas en el mapa de ejemplo
@@ -82,7 +82,7 @@ object buscadorRutas{
 
     method celdaLibre(posVecinoX,posVecinoY){
         const obstaculo=new Obstaculo()
-        return !self.closeSet().contains([posVecinoX,posVecinoY]) && !obstaculo.estaPresente(posVecinoX,posVecinoY) && !juego.estaAlLimite(posVecinoX,posVecinoY) //celda libre significa que no fue revisado, que no esta al limite y que no tiene obstaculo
+        return !self.closeSet().contains([posVecinoX,posVecinoY]) && !obstaculo.estaEnCelda(posVecinoX,posVecinoY) && !juego.estaAlLimite(posVecinoX,posVecinoY) //celda libre significa que no fue revisado, que no esta al limite y que no tiene obstaculo
     }
     
     
