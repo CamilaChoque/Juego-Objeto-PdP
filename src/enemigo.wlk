@@ -24,7 +24,7 @@ class Enemigo{
 
      
     method perseguir(){ //evaluar camino
-    console.println("persiguiendo")
+    //console.println("persiguiendo")
         
         self.verificarAmenaza()
         

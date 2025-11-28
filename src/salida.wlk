@@ -4,36 +4,38 @@ import Personajes.personaje.*
 class Lado{
   var property rango = [1,2,3,4,7,8,9,10]
   method posiciones()
+  
 }
 object ladoIzquierdo inherits Lado{
   override method posiciones() = [game.at(0,6),game.at(0,5)]
   //var property imgs=[]
-  method renderizar(productor){
-    productor.renderizarVertical(0,paredIzq,self.rango()) //se renderiza paredes que ya pertenecen a una
+  method renderizar(productor,sector){
+    productor.renderizarVertical(0,paredIzq,self.rango(),sector) //se renderiza paredes que ya pertenecen a una
   }
+  
 }
 
 object ladoDerecho inherits Lado{
   override method posiciones() = [game.at(11,6), game.at(11,5)]
   //var property imgs=[]
-  method renderizar(productor){
-    productor.renderizarVertical(11,paredDer,self.rango())
+  method renderizar(productor,sector){
+    productor.renderizarVertical(11,paredDer,self.rango(),sector)
   }
 }
 
 object ladoArriba inherits Lado{
   //var property imgs=[]
   override method posiciones() = [game.at(5,11), game.at(6,11)]
-  method renderizar(productor){
-    productor.renderizarHorizontal(11,paredSuperior,self.rango())
+  method renderizar(productor,sector){
+    productor.renderizarHorizontal(11,paredSuperior,self.rango(),sector)
   }
 }
 
 object ladoAbajo inherits Lado{
   //var property imgs=[]
   override method posiciones() = [game.at(5,0), game.at(6,0)]
-  method renderizar(productor){
-    productor.renderizarHorizontal(0,paredInferior,self.rango())
+  method renderizar(productor,sector){
+    productor.renderizarHorizontal(0,paredInferior,self.rango(),sector)
   }
 }
 
@@ -71,6 +73,7 @@ class Salida inherits Obstaculo{
   var property lado=null
   var property imgs=[]
   var property destino=null
+  var property ubicacion
 
   method renderizar(productor){
     lado.renderizar(productor)
@@ -83,79 +86,20 @@ class Salida inherits Obstaculo{
     }*/
   //}
   method cambiarHabitacion(){
-    console.println("accediendo sector2")
-    /*if(destino!=null){
+    //console.println("accediendo sector2")
+    if(destino!=null){
       destino.cargar()
-    }*/
+      personaje.position(ubicacion)
+    }
     
   }
   method analizarCambioSector(){
-    game.onCollideDo(personaje,{ =>
+    game.onCollideDo(personaje,{otro=>
+            if(otro==self){
+              self.cambiarHabitacion()
+            }
             
-            self.cambiarHabitacion()
     })
   }
 }
-
-
-/*object comun inherits Obstaculo{
-  
-  method ladoIzquierdo(destino_){
-    self.crearSalida(["salidaIzq1.png","salidaIzq2.png"], ladoIzquierdo, destino_)
-  } 
-  method ladoDerecho(destino_){
-    self.crearSalida(["salidaDer1.png",  "salidaDer2.png"], ladoDerecho, destino_)
-  } 
-  method ladoArriba(destino_){
-    self.crearSalida(["salidaArriba1.png","salidaArriba2.png"], ladoArriba, destino_)
-  }
-  method ladoAbajo(destino_){
-    self.crearSalida(["salidaAbajo1.png", "salidaAbajo2.png"], ladoAbajo, destino_)
-  }
-}*/
-/*object comun inherits Salida{
-  method ladoIzquierdo() = new LadoIzquierdo(imgs=["salidaIzq1.png","salidaIzq2.png"]) 
-  method ladoDerecho()   = new LadoDerecho(imgs=["salidaDer1.png",  "salidaDer2.png"])
-  method ladoArriba()    = new LadoArriba(imgs=["salidaArriba1.png","salidaArriba2.png"])
-  method ladoAbajo()     = new LadoAbajo(imgs=["salidaAbajo1.png", "salidaAbajo2.png"])
-}*/
-/*object emergencia inherits Obstaculo{
-  method crearSalida(imgs_,lado_,destino_){
-    const salida_=new Salida(imgs=imgs_,lado=lado_,destino=destino_)
-    salida_.analizarCambioSector()
-    return salida_
-  }
-  method ladoIzquierdo(destino_){
-    self.crearSalida(["salidaEIzq1.png","salidaEIzq2.png"], ladoIzquierdo, destino_)
-  } 
-  method ladoDerecho(destino_){
-    self.crearSalida(["salidaEDer1.png",  "salidaEDer2.png"], ladoDerecho, destino_)
-  } 
-  method ladoArriba(destino_){
-    self.crearSalida(["salidaEArriba1.png","salidaEArriba2.png"], ladoArriba, destino_)
-  }
-  method ladoAbajo(destino_){
-    self.crearSalida(["salidaEAbajo1.png", "salidaEAbajo2.png"], ladoAbajo, destino_)
-  }
-}*/
-
-/*object final inherits Obstaculo{
-  method crearSalida(imgs_,lado_,destino_){
-    const salida_=new Salida(imgs=imgs_,lado=lado_,destino=destino_)
-    salida_.analizarCambioSector()
-    return salida_
-  }
-  method ladoIzquierdo(destino_){
-    self.crearSalida(["salidaFIzq1.png","salidaFIzq2.png"], ladoIzquierdo, destino_)
-  } 
-  method ladoDerecho(destino_){
-    self.crearSalida(["salidaFDer1.png",  "salidaFDer2.png"], ladoDerecho, destino_)
-  } 
-  method ladoArriba(destino_){
-    self.crearSalida(["salidaFArriba1.png","salidaFArriba2.png"], ladoArriba, destino_)
-  }
-  method ladoAbajo(destino_){
-    self.crearSalida(["salidaFAbajo1.png", "salidaFAbajo2.png"], ladoAbajo, destino_)
-  }
-}*/
 
