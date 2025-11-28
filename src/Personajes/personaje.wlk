@@ -162,6 +162,17 @@ object personaje{
         }
     }
 
+    // ----------------- SUPERVIVIENTES -----------------
+
+    var property supervivientesRescatados = 0
+
+    method rescatar() {
+        supervivientesRescatados += 1
+        if (supervivientesRescatados == 4) {
+            juego.gameOverBueno()
+        }
+    }
+
     method configTeclas(){
 
         //------- MOVIMIENTO CON WASD -------

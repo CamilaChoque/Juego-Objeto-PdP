@@ -40,8 +40,8 @@ object productorDeEscenas{
   method renderizarCon(salida,lado,destino_,ubicacionPersonaje){ //emergencia/final/comun - izqDerSupInf - renderiza salida y el costado
     const imgs=salida.get(lado)
     const posiciones=lado.posiciones()
-    const s1 = new Salida(image=imgs.first(),position=posiciones.first(),destino=destino_,ubicacion=ubicacionPersonaje)
-    const s2 = new Salida(image=imgs.last(),position=posiciones.last(),destino=destino_,ubicacion=ubicacionPersonaje)
+    const s1 = new Salida(image=imgs.first(),position=posiciones.first(),destino=destino_,ubicacion=ubicacionPersonaje, esObstaculo = false)
+    const s2 = new Salida(image=imgs.last(),position=posiciones.last(),destino=destino_,ubicacion=ubicacionPersonaje, esObstaculo = false)
     //new Obstaculo(image=imgs.first(),position=posiciones.first())
     //const s2 = new Obstaculo(image=imgs.last(),position=posiciones.last())
     game.addVisual(s1)
@@ -50,8 +50,6 @@ object productorDeEscenas{
 
     s1.analizarCambioSector()
     s2.analizarCambioSector()
-    colisiones.obstaculos().add(s1)
-    colisiones.obstaculos().add(s2)
     lado.renderizar(self)
 
   }

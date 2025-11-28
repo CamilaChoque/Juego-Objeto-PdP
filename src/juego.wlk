@@ -35,6 +35,16 @@ object juego{
         game.addVisual(objetoGameOver)
     }
 
+    method gameOverBueno() {
+        gameOverActivo = true
+        
+        game.clear()               // limpia la pantalla
+
+        game.addVisual(finBueno)        
+
+    }
+
+
 
     method generarObstaculos(){
         /*[9,10,11,12,13,14,15].forEach({ elemento=>

@@ -46,7 +46,7 @@ class Arma{
         game.addVisual(bala)
         bala.nuevoViaje(direccion)
 
-        return true
+        return bala
     }
 
     method esPistola() = false

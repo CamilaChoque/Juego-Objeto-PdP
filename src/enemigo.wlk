@@ -133,18 +133,19 @@ class Enemigo{
     }*/
 
     
-    method recibirDanio(arma){
-        const damage = arma.danio()
+    method recibirDanio(damage){
         self.vida(self.vida() - damage)
 
         if(self.vida()<=0){
             self.desaparecer()
+            
         }
         //self.vida()-bala.damage() implemaentar sabiendo danio bala
     }
 
     method desaparecer(){
         game.removeVisual(self) //sacarlo del tablero
+        colisiones.enemigos().remove(self)
     }
 
     method atacar(){
@@ -217,7 +218,7 @@ class EnemigoZangano inherits Enemigo{
             }
         }
     }
-
+/*
     override method recibirDanio(arma){
         if(arma.esComun()){
             self.devolverDisparo(arma.danio())
@@ -232,6 +233,6 @@ class EnemigoZangano inherits Enemigo{
     }
     method devolverDisparo(danio_){
         objetivo.recibirDanio(danio_)
-    }
+    }*/
 }
 

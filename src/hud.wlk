@@ -56,3 +56,11 @@ object objetoGameOver{
     method isOverlay() = true
 }
 
+object finBueno{
+    var property image = "victoria.png" 
+    var property esObstaculo = false
+
+    method position() = game.at(0,0)
+    method isOverlay() = true
+}
+

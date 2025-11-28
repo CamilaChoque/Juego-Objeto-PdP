@@ -31,7 +31,11 @@ class Proyectil{
 
         if(colisiones.hayEnemigoEn(x, y)){
             var enemigo = colisiones.enemigos.find({ene => ene.estaEnCelda(x, y)})
-            enemigo.recibirDanio(arma)
+
+            if(enemigo != null && self.arma() != null){
+                enemigo.recibirDanio(self.arma().danio())
+            }
+
             self.impacto()
         }
         
@@ -73,6 +77,8 @@ object fabricaBalaPistola {
     method nuevaBala(posicion, direccion) {
         const bala = new BalaPistola()
         bala.position(posicion)
+        bala.arma(self)
+        bala.nuevoViaje(direccion)
         return bala
     }
 }

@@ -76,6 +76,7 @@ class Salida inherits Obstaculo{
   var property imgs=[]
   var property destino=null
   var property ubicacion
+  override method esObstaculo() = false 
 
   method renderizar(productor){
     lado.renderizar(productor)
